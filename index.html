@@ -212,17 +212,8 @@ body.mod-selected .tabbar{display:flex}
 .notas-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:10px;color:var(--t4)}
 .notas-saved{color:var(--green);transition:opacity .5s}
 
-/* ── Correlações view ── */
-.correl-section{padding:18px 24px}
-.correl-back{display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:7px;background:var(--s2);border:1px solid var(--border);color:var(--t2);cursor:pointer;font-size:12px;font-weight:500;margin-bottom:16px;width:fit-content;transition:all .15s}
-.correl-back:hover{color:var(--t1);border-color:var(--border2)}
-.correl-tag-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.correl-tag-item{background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--t2);display:flex;align-items:center;gap:6px}
-.correl-tag-count{font-family:'JetBrains Mono',monospace;font-size:9px;background:rgba(59,111,212,.2);color:var(--blue2);padding:1px 5px;border-radius:8px}
-.correl-mod-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:11.5px}
-.correl-mod-table th{padding:6px 10px;background:var(--s2);border:1px solid var(--border);color:var(--gold2);text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px}
-.correl-mod-table td{padding:6px 10px;border:1px solid var(--border);color:var(--t2);vertical-align:top}
-.tag-chip{display:inline-block;background:rgba(59,111,212,.1);border:1px solid rgba(59,111,212,.2);border-radius:10px;padding:2px 7px;font-size:10px;color:var(--blue2);margin:2px}
+/* ── Conexões (integrado na aba Teoria) ── */
+.conexoes-wrap{margin:0 24px 20px;padding:14px 18px;background:var(--s1);border:1px solid var(--border2);border-radius:var(--r2);border-left:3px solid var(--blue2)}
 
 /* ── Simulado overlay ── */
 .sim-overlay{display:none;position:fixed;inset:0;background:var(--bg);z-index:500;flex-direction:column}
@@ -287,7 +278,8 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
   body.mod-selected .content{padding-bottom:calc(var(--bnav-h) + var(--safe-b))}
   .content{height:calc(100vh - var(--topbar-h))}
   .section{padding:14px 16px 8px}
-  .fc-section,.quiz-section,.alerts-section,.mapa-section,.notas-section,.correl-section{padding:14px 16px}
+  .fc-section,.quiz-section,.alerts-section,.mapa-section,.notas-section{padding:14px 16px}
+  .conexoes-wrap{margin:0 16px 16px;padding:12px 14px}
   .done-bar{padding:9px 16px 16px}
   .fc-grid{grid-template-columns:1fr 1fr;gap:8px}
   .mapa-grid{grid-template-columns:1fr 1fr}
@@ -347,9 +339,6 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
       <button class="sb-nav-btn" id="btnSimulado" onclick="openSimulado()">
         <span class="sb-nav-icon">🎯</span> Simulado cronometrado
       </button>
-      <button class="sb-nav-btn" id="btnCorrelacoes" onclick="showCorrelacoes()">
-        <span class="sb-nav-icon">🔗</span> Correlação de conteúdos
-      </button>
     </div>
     <div class="sb-stats">
       <div class="sstat"><div class="sstat-n" id="stDone">0</div><div class="sstat-l">Feitos</div></div>
@@ -385,7 +374,7 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
         <div class="welcome-wrap">
           <div class="welcome-glyph">CFP</div>
           <div class="welcome-title">Plataforma de Estudos CFP</div>
-          <div class="welcome-sub">Teoria, mapas mentais, flashcards, simulado cronometrado e correlação de conteúdos — tudo a partir do seu material do curso.</div>
+          <div class="welcome-sub">Teoria com conexões entre módulos, mapas mentais, flashcards e simulado cronometrado — tudo a partir do seu material do curso.</div>
           <div class="welcome-cards">
             <div class="wc"><div class="wc-n" id="metaTotal">—</div><div class="wc-l">Módulos</div></div>
             <div class="wc"><div class="wc-n">6</div><div class="wc-l">Seções</div></div>
@@ -401,8 +390,6 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
       <div class="panel" id="panel-perguntas"></div>
       <div class="panel" id="panel-alertas"></div>
       <div class="panel" id="panel-notas"></div>
-      <!-- Global panels -->
-      <div class="panel" id="panel-correlacoes"></div>
     </div>
   </main>
 </div>
@@ -428,7 +415,7 @@ let qstats = JSON.parse(localStorage.getItem('cfp_stats') || '{"c":0,"t":0}');
 let notes = JSON.parse(localStorage.getItem('cfp_notes') || '{}');
 let viewMode = 'welcome'; // 'welcome' | 'module' | 'correlacoes'
 
-const PANELS = ['explicacao','mapa','flashcards','perguntas','alertas','notas','correlacoes'];
+const PANELS = ['explicacao','mapa','flashcards','perguntas','alertas','notas'];
 
 function saveDone(){ localStorage.setItem('cfp_done', JSON.stringify([...done])); }
 function saveStats(){ localStorage.setItem('cfp_stats', JSON.stringify(qstats)); }
@@ -484,9 +471,8 @@ function selectMod(id){
   document.getElementById('tbBadge').textContent = 'MOD-'+m.n;
   document.getElementById('tbBadge').style.display = '';
   document.body.classList.add('mod-selected');
-  document.getElementById('btnCorrelacoes').classList.remove('active-view');
   closeDrawer();
-  switchTab(curTab==='correlacoes'?'explicacao':curTab);
+  switchTab(curTab);
 }
 function selectFirst(){ if(MODS.length>0) selectMod(MODS[0].id); }
 
@@ -498,7 +484,7 @@ function switchTab(name){
   PANELS.forEach(t=>{
     const p = document.getElementById('panel-'+t);
     p.classList.remove('active');
-    if(t!==name && t!=='correlacoes') p.innerHTML='';
+    if(t!==name) p.innerHTML='';
   });
   document.getElementById('panel-welcome').classList.remove('active');
   const p = document.getElementById('panel-'+name);
@@ -506,25 +492,10 @@ function switchTab(name){
   renderTab(name, p);
 }
 
-function showCorrelacoes(){
-  viewMode = 'correlacoes';
-  PANELS.forEach(t=>{ const p=document.getElementById('panel-'+t); p.classList.remove('active'); p.innerHTML=''; });
-  document.getElementById('panel-welcome').classList.remove('active');
-  document.getElementById('btnCorrelacoes').classList.add('active-view');
-  document.getElementById('tbTitle').textContent = 'Correlação de Conteúdos';
-  document.getElementById('tbBadge').style.display = 'none';
-  document.body.classList.add('mod-selected');
-  closeDrawer();
-  curTab = 'correlacoes';
-  const p = document.getElementById('panel-correlacoes');
-  p.classList.add('active');
-  renderCorrelacoes(p);
-}
 
 /* ══ RENDERERS ══════════════════════════════════════════════════ */
 function renderTab(name, p){
   const dat = D[curMod?.id];
-  if(name==='correlacoes'){ renderCorrelacoes(p); return; }
   if(!dat){ p.innerHTML='<div style="padding:30px;text-align:center;opacity:.4;color:var(--t3);font-size:13px">Módulo sem dados ainda.</div>'; return; }
   if(name==='explicacao') renderExp(p,dat);
   else if(name==='mapa') renderMapa(p,dat);
@@ -535,7 +506,10 @@ function renderTab(name, p){
 }
 
 function renderExp(p,dat){
-  p.innerHTML = `<div class="section"><div class="section-title"><span>📖</span> Explicação</div>${dat.exp}</div><div class="done-bar" id="doneBar"></div>`;
+  let html = `<div class="section"><div class="section-title"><span>📖</span> Explicação</div>${dat.exp}</div>`;
+  if(dat.conexoes) html += `<div class="conexoes-wrap"><div class="section-title" style="font-size:13px"><span>🔗</span> Conexões, Sinônimos e Exemplos</div>${dat.conexoes}</div>`;
+  html += `<div class="done-bar" id="doneBar"></div>`;
+  p.innerHTML = html;
   renderDoneBtn();
 }
 
@@ -638,42 +612,6 @@ function autoSaveNote(id){
   },600);
 }
 
-function renderCorrelacoes(p){
-  const allTags = {};
-  MODS.forEach(m=>{
-    const tags = (D[m.id]?.tags)||[];
-    tags.forEach(tag=>{
-      if(!allTags[tag]) allTags[tag]=[];
-      allTags[tag].push(m);
-    });
-  });
-  const sorted = Object.entries(allTags).sort((a,b)=>b[1].length-a[1].length);
-
-  let html = `<div class="correl-section">
-    <button class="correl-back" onclick="selectMod(${curMod?.id||0})">← Voltar ao módulo</button>
-    <div class="section-title"><span>🔗</span> Correlação de Conteúdos</div>
-    <p style="font-size:12px;color:var(--t3);margin-bottom:12px;line-height:1.6">
-      Tópicos presentes nos seus módulos de estudo. À medida que você adicionar mais módulos, conexões entre conteúdos aparecerão aqui.
-    </p>`;
-
-  if(MODS.length>1){
-    html+=`<table class="correl-mod-table"><thead><tr><th>Tópico</th><th>Módulos</th></tr></thead><tbody>`;
-    sorted.forEach(([tag,mods])=>{
-      if(mods.length>1){
-        html+=`<tr><td>${esc(tag)}</td><td>${mods.map(m=>`<span class="tag-chip">${m.n}</span>`).join('')}</td></tr>`;
-      }
-    });
-    html+=`</tbody></table>`;
-  }
-
-  html+=`<div style="margin-top:16px"><div class="section-title" style="font-size:13px"><span>🏷️</span> Todos os tópicos — Módulo 01</div>
-    <div class="correl-tag-grid">`;
-  sorted.forEach(([tag,mods])=>{
-    html+=`<div class="correl-tag-item">${esc(tag)}<span class="correl-tag-count">${mods.length}</span></div>`;
-  });
-  html+=`</div></div></div>`;
-  p.innerHTML=html;
-}
 
 function renderDoneBtn(){
   const bar=document.getElementById('doneBar');

@@ -103,7 +103,12 @@ const D = {
       { t: "O Conselho Monetário Nacional (CMN) é presidido por:", o: ["A) Presidente do BACEN", "B) Ministro da Fazenda", "C) Presidente da República", "D) Presidente da CVM"], c: 1, f: "O Ministro da Fazenda preside o CMN. O BACEN integra o CMN como membro, mas não o preside. Erro clássico na prova." },
       { t: "Uma sociedade corretora de títulos e valores mobiliários (CTVM) é fiscalizada principalmente por:", o: ["A) BACEN", "B) SUSEP", "C) CVM", "D) PREVIC"], c: 2, f: "A CVM regula e fiscaliza o mercado de valores mobiliários, incluindo corretoras (CTVM) e distribuidoras (DTVM)." },
       { t: "Uma seguradora que oferece planos PGBL e VGBL é supervisionada pela:", o: ["A) PREVIC", "B) CVM", "C) CNPC", "D) SUSEP"], c: 3, f: "PGBL e VGBL são produtos de previdência privada ABERTA, regulados pela SUSEP. A PREVIC cuida apenas da previdência FECHADA (fundos de pensão/EFPC)." },
-      { t: "Qual das seguintes instituições NÃO é classificada como instituição financeira bancária?", o: ["A) Banco Comercial", "B) Caixa Econômica Federal", "C) Banco Múltiplo com carteira comercial", "D) Banco de Investimento"], c: 3, f: "O Banco de Investimento NÃO pode captar depósitos à vista, portanto não é bancário. Os demais captam depósitos à vista e criam moeda escritural." }
+      { t: "Qual das seguintes instituições NÃO é classificada como instituição financeira bancária?", o: ["A) Banco Comercial", "B) Caixa Econômica Federal", "C) Banco Múltiplo com carteira comercial", "D) Banco de Investimento"], c: 3, f: "O Banco de Investimento NÃO pode captar depósitos à vista, portanto não é bancário. Os demais captam depósitos à vista e criam moeda escritural." },
+      { t: "O CNPC — Conselho Nacional de Previdência Complementar — é o órgão normativo responsável por regular:", o: ["A) Seguros privados e resseguros no Brasil", "B) A previdência complementar fechada — fundos de pensão (EFPC)", "C) O mercado de valores mobiliários e ações", "D) A previdência privada aberta — PGBL e VGBL"], c: 1, f: "CNPC regula a previdência FECHADA (EFPC — fundos de pensão de empresas como Previ, Petros, Funcef). CNSP regula seguros e previdência ABERTA. CVM regula valores mobiliários. SUSEP fiscaliza PGBL/VGBL. Os nomes similares (CNPC/CNSP) são pegadinha clássica." },
+      { t: "Qual operação está dentro das atribuições típicas de um Banco de Investimento?", o: ["A) Captar depósitos à vista de pessoas físicas e jurídicas", "B) Coordenar a emissão pública de debêntures de uma empresa (underwriting)", "C) Emitir cartões de crédito para clientes do varejo", "D) Administrar conta salário e conta corrente de funcionários"], c: 1, f: "Banco de investimento realiza underwriting (coordenação de emissão de valores mobiliários), M&A e crédito de médio/longo prazo corporativo. NÃO pode captar depósitos à vista — isso é exclusivo de bancos comerciais e múltiplos com carteira comercial." },
+      { t: "O STR — Sistema de Transferência de Reservas — tem como característica principal:", o: ["A) Ser operado pela B3 para liquidar ações negociadas em bolsa", "B) Realizar pagamentos instantâneos de qualquer valor, 24 horas por dia", "C) Liquidar em tempo real transferências interbancárias de grande valor, operado pelo BACEN", "D) Registrar e liquidar títulos privados emitidos por bancos (CDB, LCI, LCA)"], c: 2, f: "O STR liquida em tempo real as transferências interbancárias de grande valor e é operado pelo BACEN. O PIX é para pagamentos cotidianos (qualquer valor, 24h). SELIC liquida títulos públicos. CETIP/B3 registra e liquida títulos privados." },
+      { t: "A Previ (fundo de pensão dos funcionários do Banco do Brasil) é regulada por qual entidade supervisora?", o: ["A) SUSEP", "B) CVM", "C) BACEN", "D) PREVIC"], c: 3, f: "A Previ é uma EFPC (Entidade Fechada de Previdência Complementar) — previdência FECHADA. A PREVIC fiscaliza todas as EFPC. A SUSEP cuida da previdência ABERTA (PGBL/VGBL). Erro clássico na prova: PGBL/VGBL são produtos de bancos, mas são regulados pela SUSEP, não pelo BACEN." },
+      { t: "Sobre o CMN, está correto afirmar que:", o: ["A) Executa operações no Open Market para controlar a liquidez da economia", "B) É composto por 9 membros, incluindo presidentes do BACEN e da CVM", "C) Não realiza operações financeiras — apenas define diretrizes e normas gerais do SFN", "D) Define a SELIC-Meta a cada 45 dias nas reuniões do COPOM"], c: 2, f: "O CMN é órgão NORMATIVO — define regras, NÃO executa operações (quem executa é o BACEN). Composição: apenas 3 membros (Ministro da Fazenda, Ministro do Planejamento, Presidente do BACEN). O COPOM é um órgão interno do BACEN, não do CMN." }
     ],
     al: [
       { t: "danger", tag: "Pegadinha: Presidente do CMN", txt: "O presidente do CMN é o <strong>Ministro da Fazenda</strong>, NÃO o presidente do BACEN. O BACEN integra o CMN como membro, mas não o preside. Erro clássico na prova!" },
@@ -112,7 +117,41 @@ const D = {
       { t: "tip", tag: "Mnemônico: Supervisoras do SFN", txt: "Lembre-se de <strong>B.C.S.P</strong>: <strong>B</strong>ACEN (bancos), <strong>C</strong>VM (capitais), <strong>S</strong>USEP (seguros e prev. aberta), <strong>P</strong>REVIC (pensão fechada)." },
       { t: "warn", tag: "CMN não executa operações", txt: "O CMN é órgão <strong>normativo</strong> — define diretrizes. Quem <strong>executa</strong> é o BACEN. 'Quem executa a política monetária?' → BACEN, não CMN." },
       { t: "info", tag: "Hierarquia completa do SFN", txt: "<strong>CMN</strong> → BACEN / CVM → bancos e corretoras<br><strong>CNSP</strong> → SUSEP → seguradoras e planos abertos<br><strong>CNPC</strong> → PREVIC → fundos de pensão (EFPC)" }
-    ]
+    ],
+    conexoes: `<div class="content-body">
+<h3>Como o SFN se Conecta à Política Macroeconômica</h3>
+<p>O <strong>BACEN</strong> (entidade supervisora do SFN) é quem <em>executa</em> os instrumentos de política monetária — Open Market, Compulsório e Redesconto. O <strong>CMN</strong> define a meta de inflação que o <strong>COPOM</strong> (órgão interno do BACEN) tenta atingir ajustando a SELIC. Entender o SFN é o pré-requisito para entender política monetária.</p>
+<h3>SELIC tem três significados — não confunda</h3>
+<table class="data-table">
+<thead><tr><th>SELIC</th><th>O que é</th></tr></thead>
+<tbody>
+<tr><td><strong>SELIC (sistema)</strong></td><td>Parte do SPB — liquida títulos públicos federais em tempo real entre bancos</td></tr>
+<tr><td><strong>SELIC-Over</strong></td><td>Taxa de juros apurada nesse sistema: média das operações diárias com TPF</td></tr>
+<tr><td><strong>SELIC-Meta</strong></td><td>Meta definida pelo COPOM a cada 45 dias — pode ser diferente da SELIC-Over momentaneamente</td></tr>
+</tbody>
+</table>
+<h3>Sinônimos e Equivalências</h3>
+<table class="data-table">
+<thead><tr><th>Termo técnico</th><th>Sinônimo / Como entender na prática</th></tr></thead>
+<tbody>
+<tr><td><strong>Depósito à vista</strong></td><td>Conta corrente — saque imediato, sem aviso prévio</td></tr>
+<tr><td><strong>Moeda escritural</strong></td><td>Dinheiro "criado" por bancos ao emprestar: não é papel impresso pelo BACEN, é um lançamento contábil</td></tr>
+<tr><td><strong>EFPC</strong></td><td>Fundo de pensão de empresa: Previ (BB), Petros (Petrobras), Funcef (CEF)</td></tr>
+<tr><td><strong>Underwriting</strong></td><td>Banco de investimento coordena lançamento de ações (IPO) ou debêntures</td></tr>
+<tr><td><strong>Valores mobiliários</strong></td><td>Ações, debêntures, cotas de fundos — tudo que a CVM regula; títulos públicos não são valores mobiliários (são do BACEN)</td></tr>
+</tbody>
+</table>
+<h3>Exemplos do Dia a Dia</h3>
+<ul>
+<li><strong>Conta corrente no Itaú:</strong> banco múltiplo com carteira comercial → instituição <em>bancária</em> → regulado pelo <em>BACEN</em></li>
+<li><strong>Compra de ações da Petrobras na B3:</strong> operação regulada pela <em>CVM</em></li>
+<li><strong>PGBL ou VGBL no banco:</strong> previdência privada aberta → regulado pela <em>SUSEP</em></li>
+<li><strong>Fundo de pensão da empresa (ex: Previ do BB):</strong> EFPC → previdência fechada → regulado pela <em>PREVIC</em></li>
+<li><strong>TED acima de R$1.000:</strong> passa pelo <em>STR</em> (parte do SPB, operado pelo BACEN) → liquidado em tempo real</li>
+</ul>
+<h3>Analogia para Fixar</h3>
+<p>O SFN funciona como um <strong>condomínio</strong>: o <em>CMN é a assembleia</em> (define as regras gerais, não executa nada). <em>BACEN, CVM, SUSEP e PREVIC são os síndicos especializados</em> de cada área (bancos, capitais, seguros, fundos de pensão). <em>Bancos, corretoras e seguradoras são os moradores</em> que devem seguir as regras.</p>
+</div>`
   },
 
   2: {
@@ -342,6 +381,48 @@ const D = {
         o: ["A) Depressão econômica", "B) Estagflação", "C) Recessão (Declínio)", "D) Hiperinflação"],
         c: 2,
         f: "Recessão (Declínio) = PIB negativo por 2 ou mais trimestres consecutivos. Depressão é mais grave (queda acentuada ≥10%, longa duração). Estagflação = PIB estagnado + inflação alta. Hiperinflação = inflação >50%/ano."
+      },
+      {
+        t: "A TR (Taxa Referencial) é utilizada na correção de qual conjunto de produtos financeiros?",
+        o: ["A) CDB e LCI emitidos por bancos comerciais", "B) Caderneta de poupança, FGTS e financiamentos pelo SFH", "C) NTN-B e debêntures indexadas ao IPCA", "D) Câmbio comercial e operações de câmbio forward"],
+        c: 1,
+        f: "A TR corrige a caderneta de poupança, o FGTS e os financiamentos habitacionais pelo SFH. NÃO é usada em CDB (que rende % do CDI/SELIC) nem em NTN-B (que usa IPCA). A TR é derivada da TBF (calculada com LTNs) com fator multiplicativo de 0,93."
+      },
+      {
+        t: "A TLP (Taxa de Longo Prazo) é a principal taxa de referência dos financiamentos do:",
+        o: ["A) Banco do Brasil — crédito rural e agronegócio", "B) BNDES — financiamentos de longo prazo para investimento produtivo", "C) Caixa Econômica Federal — habitação popular pelo MCMV", "D) BACEN — empréstimos de redesconto aos bancos comerciais"],
+        c: 1,
+        f: "A TLP é o custo financeiro dos financiamentos do BNDES (Banco Nacional de Desenvolvimento Econômico e Social). Composição: TLP-Pré (juros reais prefixados, divulgados mensalmente pelo BACEN) + variação do IPCA. Substituiu a TJLP em 2018 para reduzir o subsídio implícito nos financiamentos."
+      },
+      {
+        t: "O Brasil envia ao exterior mais remessas de lucros e juros do que recebe. Com isso, a relação entre PIB e PNB brasileiro é:",
+        o: ["A) PNB > PIB, pois exportações superam importações", "B) PNB = PIB, pois as remessas são compensadas pelos recebimentos", "C) PNB < PIB, pois o RLEE positivo é subtraído do PIB na fórmula do PNB", "D) PNB < PIB apenas em anos de crise cambial"],
+        c: 2,
+        f: "PNB = PIB − RLEE (Renda Líquida Enviada ao Exterior). Se o Brasil envia mais ao exterior do que recebe (RLEE positivo), então PNB < PIB. Isso ocorre porque multinacionais instaladas no Brasil remetem lucros, além do pagamento de juros da dívida externa."
+      },
+      {
+        t: "A PTAX é a taxa de câmbio oficial do Brasil, divulgada pelo BACEN. Qual é sua metodologia de cálculo?",
+        o: ["A) Média aritmética de todas as operações cambiais registradas no SISBACEN no dia", "B) Média simples de 4 boletins diários de consulta a dealers, excluindo valores extremos de compra e venda", "C) Último preço de fechamento do dólar negociado na B3", "D) Taxa definida pelo CMN com base no nível das reservas internacionais"],
+        c: 1,
+        f: "A PTAX é calculada como média simples de 4 consultas diárias a dealers do mercado de câmbio, excluindo os 2 maiores e 2 menores de cada ponta (compra e venda). É a taxa de referência oficial para contratos, derivativos cambiais e pagamento de dívidas em moeda estrangeira."
+      },
+      {
+        t: "Um governo registra superávit primário de R$80 bilhões, mas déficit nominal de R$50 bilhões. Quanto esse governo pagou em juros da dívida pública?",
+        o: ["A) R$30 bilhões", "B) R$50 bilhões", "C) R$80 bilhões", "D) R$130 bilhões"],
+        c: 3,
+        f: "Resultado Nominal = Resultado Primário − Juros da dívida. Déficit Nominal = −50 bi; Superávit Primário = +80 bi. Então: −50 = +80 − Juros → Juros = 80 + 50 = R$130 bilhões. O governo foi eficiente operacionalmente (+80 bi), mas pagou R$130 bi em juros (herança de dívidas anteriores), gerando déficit nominal de R$50 bi."
+      },
+      {
+        t: "A deflação persistente é considerada economicamente prejudicial principalmente porque:",
+        o: ["A) Aumenta o poder de compra e pode gerar excesso de demanda acima do PIB potencial", "B) Leva consumidores a postergar compras esperando preços ainda menores, gerando retração e desemprego em espiral", "C) Eleva os juros reais, tornando o crédito mais barato e estimulando o endividamento das famílias", "D) Desvaloriza as reservas internacionais e enfraquece o câmbio"],
+        c: 1,
+        f: "Na deflação, preços caem persistentemente → consumidor adia compras esperando preços menores → empresas vendem menos → reduzem produção → demitem → consumo cai ainda mais. Ciclo vicioso. É diferente de uma queda pontual de preço. O Japão viveu décadas nessa armadilha deflacionária. Cuidado: a alternativa A confunde deflação com aquecimento econômico."
+      },
+      {
+        t: "O Brasil adota qual regime cambial atualmente?",
+        o: ["A) Câmbio fixo — o real é atrelado ao dólar por paridade definida pelo CMN", "B) Câmbio flutuante puro — o BACEN nunca intervém no mercado de câmbio", "C) Flutuação suja (câmbio administrado) — o BACEN pode intervir quando julgar necessário", "D) Câmbio fixo em banda — o real oscila dentro de limites definidos pelo BACEN"],
+        c: 2,
+        f: "O Brasil adota flutuação suja (câmbio administrado): câmbio livre pelo mercado, mas o BACEN intervém (via swap cambial, swap reverso ou compra/venda de reservas) quando os movimentos são excessivos. O câmbio fixo foi abandonado em janeiro de 1999, com a crise do real e adoção do tripé macroeconômico (câmbio flutuante + metas de inflação + responsabilidade fiscal)."
       }
     ],
     al: [
@@ -351,7 +432,38 @@ const D = {
       { t: "tip", tag: "Mnemônico Pol. Monetária Expansionista", txt: "Para injetar dinheiro na economia, o BACEN usa o <strong>'CRR-R'</strong>: <strong>C</strong>ompra títulos (Open Market), <strong>R</strong>eduz juros (Redesconto), <strong>R</strong>eduz compulsório. Tudo isso aumenta a liquidez, o PIB e a inflação." },
       { t: "danger", tag: "Swap Cambial vs Reverso — é o inverso do nome!", txt: "<strong>Swap Cambial</strong>: BACEN 'vende' dólares → barra a ALTA do dólar (contracionista cambial). <strong>Swap Reverso</strong>: BACEN 'compra' dólares → barra a QUEDA do dólar. O 'Reverso' é o inverso em relação ao Swap normal." },
       { t: "warn", tag: "Recessão ≠ Depressão (critério técnico)", txt: "<strong>Recessão</strong>: PIB negativo por 2+ trimestres consecutivos. <strong>Depressão</strong>: queda muito acentuada do PIB (≥10%) por longo período, com alto desemprego e falências em massa. Brasil nos anos 80-90 viveu hiperinflação, não depressão técnica." }
-    ]
+    ],
+    conexoes: `<div class="content-body">
+<h3>A Cadeia de Causalidade do Mercado Financeiro Brasileiro</h3>
+<p>Entenda essa cadeia e você vai acertar muitas questões da prova CFP:</p>
+<p><em>CMN define meta de IPCA → COPOM/BACEN sobe ou reduz SELIC-Meta → SELIC-Over (mercado) converge para a Meta → Taxa DI acompanha a SELIC-Over → CDB, LCI, LCA e fundos DI rendem % do CDI</em></p>
+<p>Cada elo dessa corrente é cobrado separadamente na prova. Conhecê-los em conjunto dá uma vantagem enorme.</p>
+<h3>Sinônimos e Equivalências</h3>
+<table class="data-table">
+<thead><tr><th>Termo técnico</th><th>Sinônimos / Equivalências na prática</th></tr></thead>
+<tbody>
+<tr><td><strong>Taxa DI</strong></td><td>CDI, DI-Over — mesma coisa: taxa dos depósitos interbancários de 1 dia útil entre bancos</td></tr>
+<tr><td><strong>NTN-B</strong></td><td>Tesouro IPCA+ (nomenclatura do Tesouro Direto) — paga IPCA + juros prefixados</td></tr>
+<tr><td><strong>NTN-F</strong></td><td>Tesouro Prefixado com Juros Semestrais (paga cupom a cada 6 meses)</td></tr>
+<tr><td><strong>LTN</strong></td><td>Tesouro Prefixado (sem cupom semestral — zero-coupon)</td></tr>
+<tr><td><strong>Taxa Livre de Risco (TLR)</strong></td><td>SELIC-Over no Brasil (equivale ao T-Bill americano nos EUA)</td></tr>
+<tr><td><strong>Recessão técnica</strong></td><td>Critério formal: PIB real negativo por 2 trimestres consecutivos</td></tr>
+<tr><td><strong>Exportação líquida</strong></td><td>Balança Comercial = X − M (componente do PIB pela ótica do dispêndio)</td></tr>
+<tr><td><strong>TJLP</strong></td><td>Antecessora da TLP no BNDES — substituída em 2018; pode aparecer em questões históricas</td></tr>
+</tbody>
+</table>
+<h3>Exemplos do Dia a Dia</h3>
+<ul>
+<li><strong>CDB que rende 110% do CDI:</strong> CDI = Taxa DI (lastreada em títulos privados, muito próxima da SELIC-Over). O banco que emite o CDB é regulado pelo BACEN</li>
+<li><strong>Financiamento pelo SFH (habitação):</strong> taxa = TR + spread → TR recalculada com base nas LTNs × 0,93. FGTS também é corrigido pela TR</li>
+<li><strong>COPOM sobe a SELIC:</strong> crédito fica mais caro → consumo e investimento caem → inflação desacelera (com defasagem de 6-12 meses) → chamada de política monetária contracionista</li>
+<li><strong>Dólar sobe muito:</strong> BACEN faz Swap Cambial (vende dólar no futuro via derivativo) → segura a alta sem gastar as reservas de imediato</li>
+<li><strong>Governo arrecada mais que gasta (excluindo juros):</strong> superávit primário. Se os juros da dívida pública forem maiores que o superávit → ainda terá déficit nominal</li>
+</ul>
+<h3>Analogias para Fixar</h3>
+<p><strong>SELIC-Meta é o termostato da economia:</strong> inflação subindo = COPOM aumenta a SELIC (resfria: crédito caro, menos consumo). Economia em recessão = COPOM reduz a SELIC (aquece: crédito barato, mais consumo e investimento).</p>
+<p><strong>IGP-M é o termômetro da porteira:</strong> mede o que sai das fazendas e fábricas (60% IPA = atacado) antes de chegar ao consumidor. Por isso oscila mais com câmbio e commodities. <strong>IPCA é o termômetro do supermercado:</strong> mede o que a família de renda média compra no varejo — é o índice que o CMN usa para fixar a meta de inflação.</p>
+</div>`
   }
 };
 
