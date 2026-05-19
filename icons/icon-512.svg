@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4a843"/>
+      <stop offset="100%" stop-color="#f0c866"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="#090d18"/>
+  <rect x="16" y="16" width="480" height="480" rx="80" fill="#0f1520"/>
+  <text x="256" y="298" font-family="Arial Black, Arial, sans-serif" font-size="180" font-weight="900" text-anchor="middle" fill="url(#g)">CFP</text>
+  <text x="256" y="370" font-family="Arial, sans-serif" font-size="36" font-weight="400" text-anchor="middle" fill="#5a6a8a" letter-spacing="14">ESTUDOS</text>
+</svg>
