@@ -1,5 +1,4 @@
 // Gerado por build_pwa.py | Atualizado: 19/05/2026
-// Para regenerar: python scripts/build_pwa.py
 
 const D = {
   1: {
@@ -19,7 +18,6 @@ const D = {
 </table>
 
 <h2>Órgãos Normativos</h2>
-
 <h3>CMN — Conselho Monetário Nacional</h3>
 <p>É o <strong>órgão máximo normativo</strong> do SFN. <em>Não executa operações — apenas define diretrizes.</em> Composição:</p>
 <ul>
@@ -36,7 +34,6 @@ const D = {
 <p>Órgão normativo que regula a <strong>previdência complementar fechada</strong> — os fundos de pensão patrocinados por empresas (EFPC).</p>
 
 <h2>Entidades Supervisoras</h2>
-
 <h3>BACEN — Banco Central do Brasil</h3>
 <p>Autarquia federal. <em>Executa</em> as políticas definidas pelo CMN. Principais funções:</p>
 <ul>
@@ -54,49 +51,86 @@ const D = {
 <li>Ações, debêntures, cotas de fundos de investimento</li>
 <li>Mercado de capitais e bolsa de valores (B3)</li>
 <li>Corretoras, distribuidoras e gestores de recursos</li>
-<li>Emissores de valores mobiliários (abertura de capital)</li>
 </ul>
-<p>Objetivo central: <strong>proteger investidores</strong> e assegurar o funcionamento eficiente do mercado.</p>
 
 <h3>SUSEP — Superintendência de Seguros Privados</h3>
-<p>Controla e fiscaliza:</p>
-<ul>
-<li>Seguros de vida, patrimonial, responsabilidade civil</li>
-<li>Resseguros e IRB</li>
-<li><strong>Previdência privada aberta</strong>: PGBL e VGBL</li>
-<li>Títulos de capitalização</li>
-</ul>
+<p>Controla e fiscaliza seguros, resseguros, <strong>previdência privada aberta</strong> (PGBL e VGBL) e capitalização.</p>
 
 <h3>PREVIC — Superintendência Nacional de Previdência Complementar</h3>
-<p>Fiscaliza as <strong>Entidades Fechadas de Previdência Complementar (EFPC)</strong> — os fundos de pensão de empresas e associações. <em>Não regula PGBL/VGBL</em> — esses são SUSEP.</p>
+<p>Fiscaliza as <strong>Entidades Fechadas de Previdência Complementar (EFPC)</strong> — fundos de pensão. <em>Não regula PGBL/VGBL</em> — esses são SUSEP.</p>
 
 <h2>Tipos de Instituições Financeiras</h2>
 <table class="data-table">
 <thead><tr><th>Tipo</th><th>Característica-chave</th><th>Exemplos</th></tr></thead>
 <tbody>
 <tr><td><strong>Bancárias</strong></td><td>Captam depósitos à vista; criam moeda escritural</td><td>Banco comercial, banco múltiplo com carteira comercial, CEF</td></tr>
-<tr><td><strong>Não Bancárias</strong></td><td>Não captam depósitos à vista; não criam moeda</td><td>Banco de investimento, financeiras, corretoras, distribuidoras, leasing</td></tr>
+<tr><td><strong>Não Bancárias</strong></td><td>Não captam depósitos à vista; não criam moeda</td><td>Banco de investimento, financeiras, corretoras, distribuidoras</td></tr>
 </tbody>
 </table>
 
 <h3>Banco Múltiplo</h3>
-<p>Opera múltiplas carteiras (comercial, investimento, câmbio, crédito imobiliário, etc.). Se tiver <strong>carteira comercial</strong>, é classificado como <em>bancário</em> e pode captar depósitos à vista. Sem carteira comercial, é não-bancário.</p>
+<p>Opera múltiplas carteiras. Se tiver <strong>carteira comercial</strong>, é classificado como <em>bancário</em> e pode captar depósitos à vista.</p>
 
 <h3>Banco de Investimento</h3>
-<p>Foco em crédito de médio/longo prazo para empresas, <em>underwriting</em> (emissão e distribuição de valores mobiliários) e fusões e aquisições. <strong>Não pode</strong> captar depósitos à vista.</p>
-
-<h3>Corretoras e Distribuidoras (CTVM e DTVM)</h3>
-<p>Desde 2009 a CVM equiparou as atribuições de CTVM e DTVM para fins práticos. Atuam como <strong>intermediários</strong> no mercado de capitais, executando ordens de compra/venda de ativos em nome dos clientes. Reguladas pela CVM e, em alguns aspectos operacionais, pelo BACEN.</p>
+<p>Foco em crédito médio/longo prazo, <em>underwriting</em> e M&A. <strong>Não pode</strong> captar depósitos à vista.</p>
 
 <h2>Sistema de Pagamentos Brasileiro (SPB)</h2>
-<p>Conjunto de entidades e sistemas que garantem a <strong>liquidação</strong> das operações financeiras. Principais sistemas:</p>
 <ul>
-<li><strong>SELIC</strong>: liquidação em tempo real de operações com títulos públicos federais</li>
-<li><strong>STR (Sistema de Transferência de Reservas)</strong>: transferências interbancárias de grande valor em tempo real, operado pelo BACEN</li>
-<li><strong>PIX</strong>: transferências instantâneas 24h/7dias, disponível para pessoas físicas e jurídicas</li>
-<li><strong>CETIP/B3</strong>: registro e liquidação de títulos privados (CDB, LCA, LCI, debêntures)</li>
+<li><strong>SELIC</strong>: liquidação em tempo real de títulos públicos federais</li>
+<li><strong>STR</strong>: transferências interbancárias de grande valor (tempo real, BACEN)</li>
+<li><strong>PIX</strong>: transferências instantâneas 24h/7dias</li>
+<li><strong>CETIP/B3</strong>: registro e liquidação de títulos privados</li>
 </ul>
 </div>`,
+    mapa: {
+      root: "Sistema Financeiro Nacional",
+      branches: [
+        {
+          label: "Órgãos Normativos",
+          color: "#d4a843",
+          icon: "⚖️",
+          children: [
+            { label: "CMN", detail: "Máximo do SFN · Ministro Fazenda preside" },
+            { label: "CNSP", detail: "Seguros e previdência aberta" },
+            { label: "CNPC", detail: "Previdência fechada (EFPC)" }
+          ]
+        },
+        {
+          label: "Supervisores",
+          color: "#5b8fee",
+          icon: "🔍",
+          children: [
+            { label: "BACEN", detail: "Bancos e política monetária" },
+            { label: "CVM", detail: "Mercado de capitais e valores mobiliários" },
+            { label: "SUSEP", detail: "Seguros · PGBL · VGBL" },
+            { label: "PREVIC", detail: "Fundos de pensão (EFPC)" }
+          ]
+        },
+        {
+          label: "Instituições",
+          color: "#4dbdaf",
+          icon: "🏦",
+          children: [
+            { label: "Bancárias", detail: "Captam depósito à vista · criam moeda" },
+            { label: "Não Bancárias", detail: "Sem depósito à vista · sem criação de moeda" },
+            { label: "Banco Múltiplo", detail: "Carteira comercial = bancário" },
+            { label: "Banco de Investimento", detail: "Underwriting · M&A · sem depósito à vista" }
+          ]
+        },
+        {
+          label: "SPB",
+          color: "#2ecc71",
+          icon: "💸",
+          children: [
+            { label: "SELIC", detail: "Títulos públicos · tempo real" },
+            { label: "STR", detail: "Grandes transferências · BACEN" },
+            { label: "PIX", detail: "Instantâneo · 24h · 7 dias" },
+            { label: "CETIP/B3", detail: "Títulos privados" }
+          ]
+        }
+      ]
+    },
+    tags: ["SFN", "CMN", "BACEN", "CVM", "SUSEP", "PREVIC", "regulação", "banco comercial", "banco de investimento", "SPB", "PIX", "SELIC", "previdência", "PGBL", "VGBL", "fundo de pensão", "depósito à vista"],
     fc: [
       { q: "Qual a composição do CMN e quem é seu presidente?", a: "3 membros: Ministro da Fazenda (presidente do CMN), Ministro do Planejamento e Orçamento, e Presidente do BACEN. É o órgão máximo normativo do SFN." },
       { q: "Qual a diferença entre órgão normativo e entidade supervisora?", a: "Normativos (CMN, CNSP, CNPC) apenas definem regras — não executam operações. Supervisoras (BACEN, CVM, SUSEP, PREVIC) fiscalizam e regulam o mercado no dia a dia." },
@@ -135,7 +169,7 @@ const D = {
     al: [
       { t: "danger", tag: "Pegadinha: Presidente do CMN", txt: "O presidente do CMN é o <strong>Ministro da Fazenda</strong>, NÃO o presidente do BACEN. O BACEN integra o CMN como membro, mas não o preside. Erro clássico na prova!" },
       { t: "danger", tag: "SUSEP vs PREVIC — erro frequente", txt: "<strong>SUSEP</strong>: previdência aberta (PGBL/VGBL vendidos em bancos). <strong>PREVIC</strong>: previdência fechada (fundos de pensão de empresas). Confundir os dois é uma das armadilhas mais comuns da prova CFP." },
-      { t: "danger", tag: "Banco Múltiplo — quando é bancário?", txt: "O banco múltiplo só é classificado como <strong>bancário</strong> se tiver carteira <strong>comercial</strong>. Ter apenas carteira de investimento não basta para ser bancário. A carteira comercial é o critério definidor." },
+      { t: "danger", tag: "Banco Múltiplo — quando é bancário?", txt: "O banco múltiplo só é classificado como <strong>bancário</strong> se tiver carteira <strong>comercial</strong>. Ter apenas carteira de investimento não basta. A carteira comercial é o critério definidor." },
       { t: "tip", tag: "Mnemônico: Supervisoras do SFN", txt: "Lembre-se de <strong>B.C.S.P</strong>: <strong>B</strong>ACEN (bancos), <strong>C</strong>VM (capitais/valores mobiliários), <strong>S</strong>USEP (seguros e previdência aberta), <strong>P</strong>REVIC (pensão fechada)." },
       { t: "warn", tag: "CMN não executa operações", txt: "O CMN é órgão <strong>normativo</strong> — define diretrizes e políticas. Quem <strong>executa</strong> é o BACEN. Questões costumam pedir 'quem executa a política monetária' — a resposta é o BACEN, não o CMN." },
       { t: "info", tag: "Hierarquia completa do SFN", txt: "<strong>CMN</strong> → BACEN / CVM → bancos e corretoras<br><strong>CNSP</strong> → SUSEP → seguradoras e planos abertos<br><strong>CNPC</strong> → PREVIC → fundos de pensão (EFPC)" }
