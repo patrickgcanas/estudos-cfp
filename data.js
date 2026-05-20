@@ -465,14 +465,221 @@ const D = {
 <p><strong>IGP-M é o termômetro da porteira:</strong> mede o que sai das fazendas e fábricas (60% IPA = atacado) antes de chegar ao consumidor. Por isso oscila mais com câmbio e commodities. <strong>IPCA é o termômetro do supermercado:</strong> mede o que a família de renda média compra no varejo — é o índice que o CMN usa para fixar a meta de inflação.</p>
 </div>`
   }
+,
+
+  3: {
+    titulo: "Fundamentos de Finanças",
+    exp: `<div class="content-body">
+<h2>Matemática Financeira — Conceito</h2>
+<p>A matemática financeira calcula o <strong>valor do dinheiro no tempo</strong> — quanto um valor hoje valerá no futuro, ou quanto um valor futuro vale hoje. Fórmula fundamental:</p>
+<p><em>Valor Futuro (Montante) = Valor Presente (Principal) + Juros</em></p>
+<h3>Variáveis Fundamentais (HP 12C)</h3>
+<table class="data-table">
+<thead><tr><th>Variável</th><th>Nome</th><th>Tecla HP</th><th>Conceito</th></tr></thead>
+<tbody>
+<tr><td><strong>C / PV</strong></td><td>Capital / Valor Presente</td><td>[PV]</td><td>Valor do dinheiro hoje — investimento, dívida ou empréstimo</td></tr>
+<tr><td><strong>J</strong></td><td>Juros</td><td>—</td><td>Remuneração do capital; custo do dinheiro no tempo</td></tr>
+<tr><td><strong>i</strong></td><td>Taxa de Juros</td><td>[i]</td><td>Percentual sobre os fluxos; SEMPRE associada a um prazo</td></tr>
+<tr><td><strong>n</strong></td><td>Prazo</td><td>[n]</td><td>Período do problema; deve estar na MESMA unidade que a taxa</td></tr>
+<tr><td><strong>M / FV</strong></td><td>Montante / Valor Futuro</td><td>[FV]</td><td>Capital inicial mais juros acumulados</td></tr>
+<tr><td><strong>PMT</strong></td><td>Pagamento / Parcela</td><td>[PMT]</td><td>Fluxo periódico; i e n devem sempre estar na base do PMT</td></tr>
+</tbody>
+</table>
+<p><strong>Regra de ouro:</strong> taxa (i) e prazo (n) devem SEMPRE estar na mesma unidade (mês com mês, ano com ano). Erro frequentíssimo na prova!</p>
+
+<h2>Regimes de Capitalização: Juros Simples</h2>
+<p>Os juros incidem <strong>somente sobre o capital inicial</strong> — crescimento <em>linear</em>. Fórmulas:</p>
+<ul>
+<li><strong>J = C × i × n</strong></li>
+<li><strong>FV = C × (1 + i × n)</strong></li>
+</ul>
+<p>Em juros simples usa-se <em>taxa proporcional</em>: dividida diretamente pelo fator de tempo (regra de três). Exemplo: 30% a.a. ÷ 12 = 2,5% a.m.</p>
+
+<h2>Regimes de Capitalização: Juros Compostos</h2>
+<p>Os juros incidem sobre o <strong>capital acrescido dos juros anteriores</strong> — "juros sobre juros" — crescimento <em>exponencial</em>. Fórmula:</p>
+<p><em>FV = PV × (1 + i)^n</em></p>
+<p>Em juros compostos usa-se <em>taxa equivalente</em> — conversão exponencial. Exemplo: 12% a.a. não é 1% a.m. (é 0,9489% a.m.).</p>
+<table class="data-table">
+<thead><tr><th>Regime</th><th>Fórmula</th><th>Tipo de Taxa</th><th>Crescimento</th></tr></thead>
+<tbody>
+<tr><td><strong>Juros Simples</strong></td><td>FV = C × (1 + i × n)</td><td>Proporcional (÷ tempo)</td><td>Linear (reta)</td></tr>
+<tr><td><strong>Juros Compostos</strong></td><td>FV = PV × (1 + i)^n</td><td>Equivalente (exponencial)</td><td>Exponencial (curva)</td></tr>
+</tbody>
+</table>
+<h3>Taxa Equivalente — Regra do QUERO/TENHO</h3>
+<p><em>iQ = [(1 + iT)^(q/t) − 1] × 100</em> — onde q = prazo que quero; t = prazo que tenho.</p>
+<p>Exemplo: taxa mensal equivalente a 12% a.a. = [(1,12)^(1/12) − 1] × 100 = 0,9489% a.m.</p>
+
+<h2>Taxa de Juros Nominal e Taxa Real</h2>
+<p>A <strong>taxa nominal</strong> é a divulgada pelas instituições (ex: fundo rendeu 15% a.a.). A <strong>taxa real</strong> é o ganho efetivo após descontar a inflação — quanto realmente aumentou o poder de compra.</p>
+<h3>Fórmula de Fischer</h3>
+<table class="data-table">
+<thead><tr><th>Objetivo</th><th>Fórmula</th></tr></thead>
+<tbody>
+<tr><td><strong>Calcular a Taxa Real</strong></td><td>Taxa Real = [(1 + Nominal) / (1 + Inflação) − 1] × 100</td></tr>
+<tr><td><strong>Calcular a Taxa Nominal</strong></td><td>Taxa Nominal = [(1 + Real) × (1 + Inflação) − 1] × 100</td></tr>
+</tbody>
+</table>
+<p>Exemplo: fundo rende 15%, inflação 10% → Taxa Real = (1,15/1,10) − 1 = <strong>4,55%</strong> (nunca 5%!).</p>
+<p><strong>Atenção NTN-B:</strong> remunera "4,55% + IPCA" — esse "+" é MULTIPLICAÇÃO de fatores, não soma. 4,55% real + 10% IPCA = 15% nominal (não 14,55%).</p>
+
+<h2>Estrutura a Termo da Taxa de Juros (ETTJ)</h2>
+<p>Também chamada de <strong>curva de juros</strong> — representa a relação entre prazo e retorno esperado nas aplicações de renda fixa.</p>
+<table class="data-table">
+<thead><tr><th>Conceito</th><th>Definição</th></tr></thead>
+<tbody>
+<tr><td><strong>Taxa Spot</strong></td><td>Taxa que INICIA hoje (ex: LTN de 1 ano negociada agora)</td></tr>
+<tr><td><strong>Taxa a Termo</strong></td><td>Taxa de período futuro que NÃO inicia hoje (ex: juros do 2º ao 3º ano)</td></tr>
+<tr><td><strong>Curva Normal (Ascendente)</strong></td><td>Quanto maior o prazo, maior a taxa — situação usual de mercado</td></tr>
+<tr><td><strong>Curva Invertida (Descendente)</strong></td><td>Taxas longas menores que as curtas — indica política monetária expansionista</td></tr>
+<tr><td><strong>Curva Arqueada</strong></td><td>Forma de "montanha" — expectativa de queda de juros no longo prazo</td></tr>
+</tbody>
+</table>
+
+<h2>Desconto Bancário e Comercial (por fora)</h2>
+<p>Modalidade mais utilizada pelas instituições. Baseia-se em <strong>juros simples sobre o valor nominal</strong> (valor futuro). Fórmulas:</p>
+<ul>
+<li><strong>Desconto = Valor Nominal × i × n</strong></li>
+<li><strong>Valor Presente = Valor Nominal − Desconto</strong></li>
+</ul>
+<p>Exemplo: cheque de R$3.000 descontado 6 meses antes a 2% a.m. → Desconto = 3.000 × 0,02 × 6 = R$360 → VP = R$2.640.</p>
+
+<h2>Série de Pagamentos (PMT) e Anuidades</h2>
+<p>Sequências de pagamentos periódicos. Em relação ao vencimento:</p>
+<table class="data-table">
+<thead><tr><th>Tipo</th><th>Quando paga</th><th>HP 12C</th></tr></thead>
+<tbody>
+<tr><td><strong>Postecipada (END)</strong></td><td>Final de cada período — padrão</td><td>[g][8] — sem "BEG" no visor</td></tr>
+<tr><td><strong>Antecipada (BEGIN)</strong></td><td>Início de cada período</td><td>[g][7] — aparece "BEG" no visor</td></tr>
+</tbody>
+</table>
+<h3>Perpetuidade (Série Infinita)</h3>
+<p>Renda sem prazo final — "viver dos juros": <em>PV(per) = PMT / i</em></p>
+<p>Exemplo: renda perpétua de R$5.000/mês a 0,5% a.m. → PV = 5.000 / 0,005 = R$1.000.000.</p>
+
+<h2>Sistemas de Amortização</h2>
+<p>Toda prestação é composta de: <strong>Prestação = Juros + Amortização</strong></p>
+<table class="data-table">
+<thead><tr><th>Sistema</th><th>Prestação</th><th>Amortização</th><th>Juros Totais</th><th>Exemplo prático</th></tr></thead>
+<tbody>
+<tr><td><strong>Price (Francês)</strong></td><td>Constante (igual)</td><td>Crescente</td><td>Médios</td><td>CDC, financiamento de veículo</td></tr>
+<tr><td><strong>SAC (Constante)</strong></td><td>Decrescente</td><td>Constante (D ÷ n)</td><td>Menores</td><td>SFH habitação (Caixa)</td></tr>
+<tr><td><strong>SAA (Americano)</strong></td><td>Só juros periódicos</td><td>Apenas no final</td><td>Maiores</td><td>CDB, bonds (Bullet/Balloon)</td></tr>
+</tbody>
+</table>
+<h3>SAC: fórmula</h3>
+<p><em>Amortização (A) = Dívida (D) / Número de Parcelas (n)</em></p>
+<p>Saldo devedor após k pagamentos = D − (k × A). Os juros de cada parcela incidem sobre o saldo devedor do período anterior.</p>
+<h3>Comparativo a Valor Presente</h3>
+<p>O SAC paga menos juros TOTAIS pois amortiza mais rápido. Porém, trazendo os fluxos a valor presente, <strong>Price e SAC são equivalentes</strong>. O SAA é o mais caro em juros totais (saldo devedor não diminui durante o prazo).</p>
+</div>`,
+    mapa: {
+      root: "Fundamentos de Finanças",
+      branches: [
+        { label: "Juros", color: "#d4a843", icon: "📐", children: [
+          { label: "Juros Simples", detail: "FV = C×(1+i×n) | Linear | Taxa proporcional" },
+          { label: "Juros Compostos", detail: "FV = PV×(1+i)^n | Exponencial | Taxa equivalente" },
+          { label: "Taxa Real (Fischer)", detail: "(1+Nom)/(1+Inflação) − 1 | NTN-B: multiplicação" },
+          { label: "Taxa Proporcional", detail: "Juros Simples: ÷ tempo direto (regra de três)" },
+          { label: "Taxa Equivalente", detail: "Juros Compostos: iQ = [(1+iT)^(q/t)−1]×100" }
+        ]},
+        { label: "ETTJ", color: "#5b8fee", icon: "📈", children: [
+          { label: "Taxa Spot", detail: "Inicia hoje" },
+          { label: "Taxa a Termo", detail: "Não inicia hoje — período futuro" },
+          { label: "Curva Normal", detail: "Ascendente: prazo maior = taxa maior" },
+          { label: "Curva Invertida", detail: "Descendente: pol. expansionista" }
+        ]},
+        { label: "Séries e PMT", color: "#4dbdaf", icon: "💰", children: [
+          { label: "END (Postecipado)", detail: "Paga no final — padrão HP [g][8]" },
+          { label: "BEGIN (Antecipado)", detail: "Paga no início — [g][7] BEG no visor" },
+          { label: "Perpetuidade", detail: "PV = PMT / i — renda infinita" },
+          { label: "Desconto por Fora", detail: "D = VN × i × n | VP = VN − D" }
+        ]},
+        { label: "Amortização", color: "#e74c3c", icon: "🏦", children: [
+          { label: "Price", detail: "PMT constante | amortização crescente" },
+          { label: "SAC", detail: "Amortização = D/n | PMT decresce | menos juros" },
+          { label: "SAA (Bullet)", detail: "Só juros no período | principal no final | mais caro" }
+        ]}
+      ]
+    },
+    tags: ["juros simples", "juros compostos", "VP", "VF", "PV", "FV", "PMT", "taxa proporcional", "taxa equivalente", "Fischer", "taxa real", "taxa nominal", "ETTJ", "curva de juros", "taxa spot", "taxa a termo", "Price", "SAC", "SAA", "amortização", "desconto bancário", "perpetuidade", "HP 12C", "fluxo de caixa", "NTN-B", "anuidade", "Bullet"],
+    fc: [
+      { q: "Qual a diferença fundamental entre juros simples e juros compostos?", a: "Simples: juros incidem SEMPRE sobre o capital inicial → crescimento LINEAR. FV = C×(1+i×n). Compostos: juros incidem sobre capital + juros anteriores ('juros sobre juros') → crescimento EXPONENCIAL. FV = PV×(1+i)^n. Resultado: a partir do 1º período compostos > simples." },
+      { q: "Qual tipo de taxa é usada em juros simples e em juros compostos?", a: "Juros Simples: TAXA PROPORCIONAL — divide diretamente pelo tempo (regra de três). Ex: 30% a.a. ÷ 12 = 2,5% a.m. Juros Compostos: TAXA EQUIVALENTE — conversão exponencial. Ex: 12% a.a. = 0,9489% a.m. (não 1%). Misturar os dois é erro clássico de prova." },
+      { q: "Qual a Fórmula de Fischer e para que serve?", a: "Taxa Real = [(1 + Nominal) / (1 + Inflação) − 1] × 100. Isola o ganho real acima da inflação. Exemplo: fundo rende 15%, inflação 10% → Taxa Real = (1,15/1,10) − 1 = 4,55%. NUNCA subtrair diretamente (15%−10%=5% está ERRADO em juros compostos)." },
+      { q: "O que é a ETTJ e qual a diferença entre taxa Spot e taxa a Termo?", a: "ETTJ (Estrutura a Termo da Taxa de Juros) = curva de juros, relação entre prazo e retorno esperado em renda fixa. Taxa SPOT: inicia HOJE. Taxa a TERMO: taxa de período futuro, que NÃO inicia hoje (ex: juros esperados do 2º ao 3º ano). A soma composta de spot + termos = spot longa." },
+      { q: "Quais os 3 sistemas de amortização e suas características-chave?", a: "Price (Francês): prestação CONSTANTE, amortização crescente. SAC: amortização CONSTANTE (D÷n), prestação decrescente, paga MENOS juros no total. SAA (Americano): paga só juros periodicamente, amortiza TUDO no final (Bullet). O mais caro em juros totais é o SAA. Price e SAC são equivalentes a valor presente." },
+      { q: "O que é perpetuidade e qual a fórmula?", a: "Perpetuidade (série infinita) = renda que dura para sempre — equivale a 'viver dos juros'. PV(per) = PMT / i. Exemplo: renda de R$5.000/mês a 0,5% a.m. → PV = 5.000 / 0,005 = R$1.000.000. Esse capital nunca é consumido, apenas os juros são retirados." },
+      { q: "Diferença entre pagamento antecipado (BEGIN) e postecipado (END) na HP 12C?", a: "Postecipado (END) = pagamento no FINAL de cada período — padrão da HP 12C (sem BEG no visor). Antecipado (BEGIN) = pagamento no INÍCIO — ativa com [g][7], surge 'BEG' no visor. SEMPRE voltar para END ([g][8]) após resolver uma questão antecipada. PV antecipado é sempre maior que postecipado." },
+      { q: "Como funciona o desconto bancário comercial (por fora)?", a: "Desconto = Valor Nominal × i × n (juros simples sobre o VALOR NOMINAL futuro, não sobre o PV). VP = VN − Desconto. É 'por fora' pois o desconto é calculado sobre o valor de resgate. Exemplo: VN R$3.000, 2% a.m., 6 meses → D = R$360 → VP = R$2.640. Taxa efetiva é MAIOR que a taxa nominal de desconto." }
+    ],
+    q: [
+      { t: "Uma aplicação de R$ 10.000 a 2% ao mês por 6 meses em regime de JUROS SIMPLES resulta em montante de:", o: ["A) R$ 11.261,62", "B) R$ 11.200,00", "C) R$ 12.000,00", "D) R$ 11.040,82"], c: 1, f: "Juros Simples: FV = C × (1 + i×n) = 10.000 × (1 + 0,02×6) = 10.000 × 1,12 = R$11.200. A alternativa A (R$11.261,62) é o resultado em JUROS COMPOSTOS. Em simples o crescimento é linear, sempre menor que em compostos para o mesmo prazo." },
+      { t: "Em juros SIMPLES, qual é a taxa mensal proporcional a 36% ao ano?", o: ["A) 2,597% ao mês (taxa equivalente)", "B) 3% ao mês (taxa proporcional)", "C) 2,942% ao mês", "D) 2,466% ao mês"], c: 1, f: "Em JUROS SIMPLES usa-se TAXA PROPORCIONAL (regra de três): 36% a.a. ÷ 12 meses = 3% a.m. Em JUROS COMPOSTOS a taxa equivalente seria diferente (cálculo exponencial). A distinção entre proporcional e equivalente é a pegadinha mais frequente de matemática financeira na prova CFP." },
+      { t: "Um fundo de investimento rendeu 15% em 12 meses. Sabendo que a inflação do período foi de 10%, a taxa de juros REAL foi de:", o: ["A) 5,00% ao ano (subtração direta: 15% − 10%)", "B) 4,55% ao ano (Fórmula de Fischer)", "C) 4,76% ao ano", "D) 6,50% ao ano"], c: 1, f: "Taxa Real = [(1+0,15)/(1+0,10)] − 1 = [1,15/1,10] − 1 = 1,04545 − 1 = 4,55%. A alternativa A (5%) é o erro clássico da subtração direta — em juros compostos taxas NÃO se subtraem, se DIVIDEM. A fórmula de Fischer é obrigatória sempre que houver inflação envolvida." },
+      { t: "Uma NTN-B remunera 4,55% ao ano + IPCA. Sabendo que o IPCA do período foi de 10%, qual foi a rentabilidade nominal total?", o: ["A) 14,55% ao ano (soma direta: 4,55% + 10%)", "B) 15% ao ano (multiplicação via Fischer)", "C) 13,50% ao ano", "D) 16,05% ao ano"], c: 1, f: "Taxa Nominal = [(1 + 0,0455) × (1 + 0,10) − 1] × 100 = [(1,0455 × 1,10) − 1] × 100 = 15%. O '+' da NTN-B NÃO é soma — é MULTIPLICAÇÃO de fatores. 4,55% + 10% = 14,55% está ERRADO. Esse erro aparece em quase toda prova CFP envolvendo títulos indexados." },
+      { t: "Comparando os sistemas Price e SAC para o mesmo empréstimo, mesma taxa e mesmo prazo, qual afirmação está CORRETA?", o: ["A) O SAC tem taxa de juros menor que a Price", "B) A Price tem prestações iniciais maiores que o SAC", "C) O SAC paga menos juros totais, pois amortiza o saldo devedor mais rapidamente", "D) Trazidos a valor presente, o SAC é mais vantajoso que a Price para o devedor"], c: 2, f: "O SAC paga MENOS juros totais porque amortiza mais o saldo devedor no início (prestações iniciais maiores). A TAXA de juros é idêntica nos dois sistemas — não confunda. Trazendo os fluxos a valor presente, Price e SAC são EQUIVALENTES. O banco é indiferente entre os dois. O SAA é o mais caro em juros totais." },
+      { t: "No Sistema de Amortização Americano (SAA), como se comportam os pagamentos durante a vigência do empréstimo?", o: ["A) Prestações iguais com juros e amortização (como na Price)", "B) Prestações decrescentes com amortização constante (como no SAC)", "C) Pagamentos periódicos apenas de juros; amortização do principal somente no vencimento final", "D) Pagamentos de amortização crescente e juros decrescentes"], c: 2, f: "No SAA (Americano ou Bullet), o devedor paga SOMENTE OS JUROS periodicamente. O principal é amortizado APENAS no final. É o mais caro em juros totais pois o saldo devedor nunca diminui durante o prazo. Equivalente ao CDB: você recebe tudo (principal + juros) no vencimento." },
+      { t: "A taxa Spot e a taxa a Termo na ETTJ se diferenciam porque:", o: ["A) A taxa Spot é sempre menor que a taxa a Termo", "B) A taxa Spot inicia hoje; a taxa a Termo se refere a período futuro que não inicia hoje", "C) Taxas Spot são calculadas pelo BACEN; taxas a Termo são projetadas pelo mercado", "D) Taxas Spot são para títulos privados; taxas a Termo para títulos públicos"], c: 1, f: "Taxa SPOT = taxa que começa HOJE (ex: LTN de 1 ano negociada agora). Taxa a TERMO = taxa de período futuro que não inicia hoje (ex: juros esperados entre o 1º e o 2º ano). A ETTJ permite calcular a taxa implícita de qualquer período futuro e analisar expectativas do mercado." },
+      { t: "Um título com valor nominal de R$ 5.000 é descontado 'por fora' 3 meses antes do vencimento a 3% ao mês. Qual o valor recebido pelo portador?", o: ["A) R$ 4.563,97 (desconto por dentro)", "B) R$ 4.576,23", "C) R$ 4.550,00 (desconto por fora)", "D) R$ 4.250,00"], c: 2, f: "Desconto por fora (bancário): D = VN × i × n = 5.000 × 0,03 × 3 = R$450. VP = VN − D = 5.000 − 450 = R$4.550. O desconto 'por fora' usa juros SIMPLES sobre o VALOR NOMINAL (futuro). A alternativa A (R$4.563,97) seria o desconto 'por dentro' usando juros compostos: VP = 5.000/(1,03)^3." },
+      { t: "Para calcular uma série de pagamentos ANTECIPADOS na HP 12C, o analista deve:", o: ["A) Digitar [g][8] antes do cálculo e verificar se aparece END no visor", "B) Digitar [g][7] e verificar se aparece 'BEG' no visor antes de calcular", "C) Adicionar 1 ao número de períodos (n + 1)", "D) Usar [f][CLX] e depois inserir os dados normalmente"], c: 1, f: "[g][7] ativa o modo BEGIN (pagamentos antecipados, no INÍCIO do período) — aparece 'BEG' no visor. [g][8] ativa o modo END (postecipado, padrão). Após usar BEGIN, SEMPRE retornar para END com [g][8]. Não confundir: [f][CLX] apenas zera registros, não muda o modo." },
+      { t: "Qual o capital necessário para garantir uma renda perpétua de R$ 4.000 por mês, com taxa de investimento de 0,5% ao mês?", o: ["A) R$ 200.000", "B) R$ 480.000", "C) R$ 800.000", "D) R$ 2.000.000"], c: 2, f: "Perpetuidade: PV = PMT / i = 4.000 / 0,005 = R$800.000. Renda perpétua = viver dos juros: o capital nunca é consumido. Com R$800.000 a 0,5% a.m. os juros serão exatamente R$4.000/mês. Importante: na prova podem dar a taxa em ano e o PMT em mês — converta para a mesma base antes." },
+      { t: "Numa série de pagamentos com PMT mensal, a taxa anual fornecida deve ser:", o: ["A) Usada diretamente sem conversão, pois a HP 12C converte automaticamente", "B) Dividida por 12 (proporcional) se o regime for juros simples, ou convertida pela equivalência se for juros compostos", "C) Sempre dividida por 12, independente do regime de capitalização", "D) Multiplicada por 12 para chegar à taxa mensal equivalente"], c: 1, f: "Em juros SIMPLES (ex: desconto bancário): divide por 12 — taxa proporcional. Em juros COMPOSTOS (ex: financiamentos na HP 12C): usa fórmula de equivalência [(1+i_anual)^(1/12) − 1]. Atenção: na HP 12C, quando há PMT, a taxa e o prazo SEMPRE devem estar na base do PMT (mensal = mensal)." },
+      { t: "No sistema SAC, calcular o saldo devedor após 3 pagamentos de um empréstimo de R$ 12.000 em 6 parcelas é:", o: ["A) R$ 7.000 (depende dos juros pagos)", "B) R$ 6.000 (3 amortizações de R$ 2.000 cada)", "C) R$ 8.000", "D) Impossível sem saber a taxa de juros"], c: 1, f: "No SAC, Amortização = D/n = 12.000/6 = R$2.000 por período. Saldo devedor após 3 pagamentos = 12.000 − (3 × 2.000) = R$6.000. O GRANDE diferencial do SAC: o saldo devedor se calcula SEM precisar da taxa de juros — basta multiplicar a amortização pelo número de períodos pagos. Os juros afetam o valor das prestações, não o saldo." }
+    ],
+    al: [
+      { t: "danger", tag: "Proporcional ≠ Equivalente — nunca confunda!", txt: "Em <strong>Juros Simples</strong>: TAXA PROPORCIONAL — divide por tempo: 30% a.a. = 2,5% a.m. Em <strong>Juros Compostos</strong>: TAXA EQUIVALENTE — fórmula exponencial: 12% a.a. = 0,9489% a.m. (não 1%!). Usar taxa proporcional em questão de juros compostos zera a questão. Identifique SEMPRE o regime antes de qualquer cálculo." },
+      { t: "danger", tag: "Taxa Nominal NÃO é soma da Real + Inflação", txt: "A NTN-B remunera 'X% + IPCA' — esse '+' é <strong>MULTIPLICAÇÃO via Fischer</strong>. Fórmula: Taxa Nominal = [(1+Real) × (1+Inflação) − 1]. Exemplo: 4,55% real + IPCA 10% = <strong>15% nominal</strong> (não 14,55%). Subtração direta também está errada para calcular a taxa real — use sempre a divisão de fatores." },
+      { t: "danger", tag: "SAC paga menos juros — não é taxa menor!", txt: "O SAC paga menos juros <strong>TOTAIS</strong> porque amortiza o saldo devedor mais rápido (prestações iniciais maiores). A <strong>taxa de juros é idêntica</strong> na SAC e na Price para o mesmo contrato. Trazendo os fluxos a valor presente, as duas tabelas são <strong>equivalentes</strong>. Nunca diga que o SAC tem taxa menor." },
+      { t: "warn", tag: "BEGIN e END na HP 12C — SEMPRE volte para END!", txt: "Após calcular série antecipada (<strong>[g][7] = BEGIN</strong>), SEMPRE retorne para END com <strong>[g][8]</strong>. Se esquecer, todos os cálculos seguintes sairão errados. Na prova CFP, séries antecipadas são raras — se o enunciado não disser 'antecipado' ou 'no início', assuma postecipado (END). 'BEG' no visor = BEGIN ativo." },
+      { t: "tip", tag: "Fluxo de caixa sempre — e zere a HP antes!", txt: "Antes de qualquer cálculo: (1) <strong>[f][CLX]</strong> para zerar a HP; (2) Monte o fluxo com sinais corretos: <strong>entrada de caixa = positivo; saída de caixa = negativo (CHS)</strong>; (3) Confirme que i, n e PMT estão na MESMA BASE. Para acumulação: PV e PMT têm o mesmo sinal; FV sinal contrário. Para financiamento: PV positivo (entrou na conta), PMT negativo (pagamento)." },
+      { t: "info", tag: "SAA = Bullet = CDB = amortização no vencimento", txt: "O Sistema de Amortização Americano (SAA) é o modelo de um CDB ou bond corporativo: você empresta dinheiro (PV saída), o emissor paga juros periodicamente (em alguns casos capitalizados) e devolve o principal no vencimento. Chamado de 'Bullet' ou 'Ballon' — é o mais caro em juros totais pois o saldo devedor permanece intacto até o final." }
+    ],
+    conexoes: `<div class="content-body">
+<h3>Como Finanças Conecta-se aos Outros Módulos</h3>
+<p>A matemática financeira é a <strong>base de cálculo de toda a certificação CFP</strong>. Os conceitos deste módulo aparecem diretamente em quase todos os outros:</p>
+<ul>
+<li><strong>NTN-B (Módulos de Renda Fixa):</strong> rendimento = Taxa Real × (1 + IPCA) — Fórmula de Fischer aplicada</li>
+<li><strong>SELIC-Over (Módulo 2 — Economia):</strong> base 252 dias úteis, capitalização composta</li>
+<li><strong>Cupom Cambial (Módulo 2):</strong> converte juros compostos/252 DU para simples/360 DC</li>
+<li><strong>Financiamento imobiliário SFH (Caixa):</strong> PRICE ou SAC com TR — os sistemas deste módulo</li>
+<li><strong>Valuation de ações (Módulo de Renda Variável):</strong> fluxo de caixa descontado usa PV/FV em compostos</li>
+</ul>
+<h3>Sinônimos e Equivalências</h3>
+<table class="data-table">
+<thead><tr><th>Termo técnico</th><th>Sinônimos / Como entender na prática</th></tr></thead>
+<tbody>
+<tr><td><strong>PV</strong></td><td>Valor Presente, Capital (C), Principal — o que você tem hoje</td></tr>
+<tr><td><strong>FV</strong></td><td>Valor Futuro, Montante (M) — o que você terá no vencimento</td></tr>
+<tr><td><strong>PMT</strong></td><td>Pagamento, Parcela, Prestação, Renda periódica, Anuidade</td></tr>
+<tr><td><strong>Bullet / Ballon</strong></td><td>SAA — pagamento único no vencimento (CDB, bonds corporativos)</td></tr>
+<tr><td><strong>ETTJ</strong></td><td>Curva de juros, yield curve (inglês) — relação prazo vs retorno</td></tr>
+<tr><td><strong>Taxa proporcional</strong></td><td>Só em juros simples — divide direto pelo tempo</td></tr>
+<tr><td><strong>Taxa equivalente</strong></td><td>Só em juros compostos — conversão exponencial</td></tr>
+</tbody>
+</table>
+<h3>Exemplos do Dia a Dia</h3>
+<ul>
+<li><strong>Financiamento de carro (Price):</strong> 48 parcelas iguais de R$1.200 — PMT constante, amortização cresce a cada parcela</li>
+<li><strong>Financiamento Caixa pelo SFH (SAC):</strong> 1ª parcela R$3.500, última R$1.200 — amortização constante, parcelas decrescem</li>
+<li><strong>CDB de 2 anos sem cupom:</strong> aplica hoje, recebe principal + juros no vencimento — SAA (Bullet)</li>
+<li><strong>Tesouro IPCA+ (NTN-B):</strong> rende taxa real MAIS IPCA — via Fischer, não soma</li>
+<li><strong>Nota promissória descontada no banco:</strong> desconto por fora (comercial), juros simples sobre valor nominal</li>
+</ul>
+<h3>Analogias para Fixar</h3>
+<p><strong>Juros simples = escada</strong>: cada degrau tem sempre o mesmo tamanho (juros sempre sobre o mesmo capital). <strong>Juros compostos = bola de neve</strong>: a bola cresce e fica mais pesada a cada volta — juros sobre capital + juros anteriores.</p>
+<p><strong>SAC vs Price = duas formas de pagar o apartamento</strong>: SAC começa caro e vai ficando mais barato (amortiza mais no início, paga menos juros no total). Price tem parcela estável mas paga mais juros. O banco é indiferente: a valor presente são equivalentes. A escolha depende do fluxo de caixa do cliente.</p>
+</div>`
+  }
 };
 
 const MODS = [
   { id: 1, n: "01", name: "Sistema Financeiro Nacional" },
-  { id: 2, n: "02", name: "Fundamentos de Economia" }
+  { id: 2, n: "02", name: "Fundamentos de Economia" },
+  { id: 3, n: "03", name: "Fundamentos de Finanças" }
 ];
 
 const META = {
-  total: 2,
-  gerado_em: "19/05/2026"
+  total: 3,
+  gerado_em: "20/05/2026"
 };
