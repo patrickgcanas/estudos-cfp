@@ -527,11 +527,12 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
 <div class="sb-modal-bg" id="sbModalBg">
   <div class="sb-modal">
     <div class="sb-modal-title">☁️ Sincronizar dados</div>
-    <div class="sb-modal-sub">Entre com seu e-mail e senha para sincronizar notas e progresso em todos os dispositivos.</div>
-    <input type="email" id="sbEmail" placeholder="seu@email.com" autocomplete="email">
-    <input type="password" id="sbPassword" placeholder="Senha" autocomplete="current-password" onkeydown="if(event.key==='Enter')sbDoLogin()">
+    <div class="sb-modal-sub" id="sbModalSub">Entre com seu e-mail e senha.</div>
+    <input type="email" id="sbEmail" placeholder="patrickg.canas@gmail.com" autocomplete="email">
+    <input type="password" id="sbPassword" placeholder="Senha (mín. 6 caracteres)" autocomplete="current-password" onkeydown="if(event.key==='Enter')sbDoLogin()">
     <div class="sb-modal-err" id="sbErr"></div>
-    <button class="sb-modal-btn" id="sbLoginBtn" onclick="sbDoLogin()">Entrar / Cadastrar</button>
+    <button class="sb-modal-btn" id="sbLoginBtn" onclick="sbDoLogin()">Entrar</button>
+    <button class="sb-modal-cancel" onclick="sbToggleMode()">Primeiro acesso? Criar conta</button>
     <button class="sb-modal-cancel" onclick="sbCloseModal()">Cancelar</button>
   </div>
 </div>
@@ -1181,42 +1182,51 @@ function sbCloseModal(){
   document.getElementById('sbModalBg').classList.remove('open');
 }
 
+let sbMode = 'login'; // 'login' | 'signup'
+
+function sbToggleMode(){
+  sbMode = sbMode === 'login' ? 'signup' : 'login';
+  const btn = document.getElementById('sbLoginBtn');
+  const toggle = document.querySelector('.sb-modal-cancel');
+  const sub = document.getElementById('sbModalSub');
+  document.getElementById('sbErr').style.display = 'none';
+  if(sbMode === 'signup'){
+    btn.textContent = 'Criar conta';
+    toggle.textContent = 'Já tenho conta. Entrar';
+    sub.textContent = 'Crie sua conta para sincronizar os dados.';
+  } else {
+    btn.textContent = 'Entrar';
+    toggle.textContent = 'Primeiro acesso? Criar conta';
+    sub.textContent = 'Entre com seu e-mail e senha.';
+  }
+}
+
 async function sbDoLogin(){
   const email = document.getElementById('sbEmail').value.trim();
   const password = document.getElementById('sbPassword').value;
-  const errEl = document.getElementById('sbErr');
   const btn = document.getElementById('sbLoginBtn');
   if(!email || !password){ sbShowErr('Preencha e-mail e senha.'); return; }
   btn.disabled = true; btn.textContent = 'Aguarde...';
-  errEl.style.display = 'none';
+  document.getElementById('sbErr').style.display = 'none';
 
   try {
-    // Tenta login
-    let { data, error } = await sb.auth.signInWithPassword({ email, password });
-
-    if(error){
-      const msg = error.message || '';
-      if(msg.toLowerCase().includes('invalid') || msg.toLowerCase().includes('credentials') || msg.toLowerCase().includes('not found')){
-        // Usuário não existe — cadastra
-        const res = await sb.auth.signUp({ email, password });
-        if(res.error){ btn.disabled=false; btn.textContent='Entrar / Cadastrar'; sbShowErr(res.error.message); return; }
-        // Cadastro feito — pode precisar confirmar e-mail
-        if(!res.data?.session){
-          btn.disabled=false; btn.textContent='Entrar / Cadastrar';
-          sbShowErr('✓ Cadastro realizado! Verifique seu e-mail e clique no link de confirmação. Depois volte e entre com sua senha.', true);
-          return;
-        }
-      } else {
-        btn.disabled=false; btn.textContent='Entrar / Cadastrar';
-        sbShowErr(msg || 'Erro ao entrar. Tente novamente.');
+    if(sbMode === 'signup'){
+      const { data, error } = await sb.auth.signUp({ email, password });
+      btn.disabled = false; btn.textContent = 'Criar conta';
+      if(error){ sbShowErr(error.message); return; }
+      if(!data?.session){
+        sbShowErr('✓ Conta criada! Verifique seu e-mail e clique no link de confirmação. Depois clique em "Já tenho conta. Entrar".', true);
         return;
       }
+      sbCloseModal();
+    } else {
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
+      btn.disabled = false; btn.textContent = 'Entrar';
+      if(error){ sbShowErr('Senha ou e-mail incorretos. Tente novamente.'); return; }
+      sbCloseModal();
     }
-
-    btn.disabled=false; btn.textContent='Entrar / Cadastrar';
-    sbCloseModal();
   } catch(e){
-    btn.disabled=false; btn.textContent='Entrar / Cadastrar';
+    btn.disabled = false; btn.textContent = sbMode === 'login' ? 'Entrar' : 'Criar conta';
     sbShowErr('Erro de conexão: ' + e.message);
   }
 }
