@@ -1185,6 +1185,8 @@ async function sbSync(){
   sbRenderStatus(error ? 'error' : 'ok');
 }
 
+window.addEventListener('online', () => sbSync());
+
 function sbRenderStatus(state){
   const el = document.getElementById('sbStatus');
   if(!el) return;
