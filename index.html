@@ -1145,7 +1145,13 @@ async function sbInit(){
   if(!sb){ sbRenderStatus('offline'); return; }
   try {
     const hadCloudData = await sbLoad();
-    if(!hadCloudData) await sbSync(); // nuvem vazia → envia dados locais
+    if(!hadCloudData) await sbSync();
+    else {
+      updateProgress();
+      updateSRSBadge();
+      renderMods(MODS);
+      if(curMod && curTab) switchTab(curTab);
+    }
     sbRenderStatus('ok');
   } catch(e){ console.warn('sbInit:', e); sbRenderStatus('offline'); }
 }
