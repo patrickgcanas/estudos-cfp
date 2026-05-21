@@ -773,13 +773,229 @@ const D = {
 <p><strong>Juros simples = escada</strong>: cada degrau tem sempre o mesmo tamanho (juros sempre sobre o mesmo capital). <strong>Juros compostos = bola de neve</strong>: a bola cresce e fica mais pesada a cada volta — juros sobre capital + juros anteriores.</p>
 <p><strong>SAC vs Price = duas formas de pagar o apartamento</strong>: SAC começa caro e vai ficando mais barato (amortiza mais no início, paga menos juros no total). Price tem parcela estável mas paga mais juros. O banco é indiferente: a valor presente são equivalentes. A escolha depende do fluxo de caixa do cliente.</p>
 </div>`
+  },
+
+  4: {
+    titulo: "Planejamento de Aposentadoria I",
+    exp: `<div class="content-body">
+<h2>3 Fontes de Renda na Aposentadoria</h2>
+<table class="data-table">
+<thead><tr><th>Fonte</th><th>Gestão</th><th>Obrigatoriedade</th><th>Característica</th></tr></thead>
+<tbody>
+<tr><td><strong>RGPS</strong></td><td>INSS</td><td>Compulsória (privados)</td><td>Repartição simples, teto de benefício</td></tr>
+<tr><td><strong>RPPS</strong></td><td>Ente público</td><td>Compulsória (servidores efetivos)</td><td>Regime próprio, EC 103/2019</td></tr>
+<tr><td><strong>Prev. Complementar</strong></td><td>EFPC ou EAPC</td><td>Facultativa</td><td>Fecha o gap entre benefício público e padrão de vida</td></tr>
+</tbody>
+</table>
+
+<h2>Taxa Real de Juros</h2>
+<p>Toda projeção de aposentadoria deve ser feita em termos <strong>reais</strong> para preservar o poder de compra. Taxa real não é a diferença — é uma divisão:</p>
+<table class="data-table">
+<thead><tr><th>Forma</th><th>Fórmula</th><th>Exemplo: nominal 6%, inflação 4%</th></tr></thead>
+<tbody>
+<tr><td><strong>Correta (Fischer)</strong></td><td>(1 + nominal) ÷ (1 + inflação) − 1</td><td>(1,06 ÷ 1,04) − 1 = <strong>1,9231%</strong></td></tr>
+<tr><td><strong>Errada</strong></td><td>nominal − inflação</td><td>6% − 4% = 2% ❌</td></tr>
+</tbody>
+</table>
+<h3>HP 12C — Taxa Real</h3>
+<p>Usando base 100: <strong>FV = 110 → PV = 104 [CHS] → n = 1 → i → 5,7692%</strong> (nominal 10%, inflação 4%)</p>
+<p>Lógica: o FV de R$100 à taxa nominal, o PV é R$100 corrigido pela inflação. O <em>i</em> resultante é a taxa real.</p>
+
+<h2>Capital Necessário — As 2 Etapas</h2>
+<p>Calcular poupança mensal exige duas etapas em sequência — nunca num só cálculo:</p>
+<table class="data-table">
+<thead><tr><th>Etapa</th><th>Fase</th><th>O que calcular</th><th>HP 12C</th></tr></thead>
+<tbody>
+<tr><td><strong>1ª</strong></td><td>Aposentadoria (futuro)</td><td>PV do fluxo de renda desejado</td><td>n, i, PMT → <strong>PV</strong></td></tr>
+<tr><td><strong>2ª</strong></td><td>Acumulação (presente)</td><td>PMT para atingir o capital da etapa 1</td><td>n, i, FV (= PV da etapa 1) → <strong>PMT</strong></td></tr>
+</tbody>
+</table>
+<p><strong>Regra de ouro:</strong> o PV calculado na etapa 1 (capital na aposentadoria) vira o FV da etapa 2. Nunca misture as duas etapas no mesmo cálculo.</p>
+
+<h2>3 Estratégias de Renda</h2>
+<table class="data-table">
+<thead><tr><th>Estratégia</th><th>Como funciona</th><th>FV na HP 12C</th><th>Capital</th></tr></thead>
+<tbody>
+<tr><td><strong>Esgotamento</strong></td><td>Consome todo o capital — termina em zero</td><td>FV = 0</td><td>Menor</td></tr>
+<tr><td><strong>Herança</strong></td><td>Deixa um legado definido ao fim</td><td>FV = valor do legado</td><td>Intermediário</td></tr>
+<tr><td><strong>Vitalícia</strong></td><td>Capital nunca se esgota — perpetuidade</td><td>PV = PMT ÷ i (prazo infinito)</td><td>Maior</td></tr>
+</tbody>
+</table>
+
+<h3>Exemplo Rafael — i = 1% a.m., renda = R$10.000/mês, acumulação = 30 anos</h3>
+<table class="data-table">
+<thead><tr><th>Estratégia</th><th>Etapa 1: capital na aposentadoria</th><th>Etapa 2: poupança mensal</th></tr></thead>
+<tbody>
+<tr><td><strong>Esgotamento</strong> (20 anos)</td><td>n=240, i=1%, PMT=10.000, FV=0 → PV = R$908.194</td><td>n=360, i=1%, FV=908.194, PV=0 → PMT = <strong>R$259,86</strong></td></tr>
+<tr><td><strong>Herança</strong> (R$500k legado)</td><td>PV = R$908.194 + R$500.000÷1,01²⁴⁰ = R$954.096</td><td>n=360, i=1%, FV=954.096 → PMT = <strong>R$273,00</strong></td></tr>
+<tr><td><strong>Vitalícia</strong></td><td>PV = R$10.000 ÷ 0,01 = <strong>R$1.000.000</strong></td><td>n=360, i=1%, FV=1.000.000 → PMT = <strong>R$286,13</strong></td></tr>
+</tbody>
+</table>
+
+<h2>Previdência Social</h2>
+<h3>RGPS — Nova Previdência (EC 103/2019)</h3>
+<p>Abrange trabalhadores da iniciativa privada e autônomos. Administrado pelo <strong>INSS</strong>. Financiamento por repartição simples.</p>
+<table class="data-table">
+<thead><tr><th>Requisito</th><th>Mulheres</th><th>Homens</th></tr></thead>
+<tbody>
+<tr><td><strong>Idade mínima</strong></td><td>62 anos</td><td>65 anos</td></tr>
+<tr><td><strong>Contribuição mínima</strong></td><td>15 anos</td><td>20 anos</td></tr>
+<tr><td><strong>Benefício base</strong></td><td colspan="2">60% do salário de benefício</td></tr>
+<tr><td><strong>Acréscimo por ano extra</strong></td><td colspan="2">+2% por ano acima do mínimo</td></tr>
+<tr><td><strong>Para 100%</strong></td><td>35 anos (60% + 2%×20)</td><td>40 anos (60% + 2%×20)</td></tr>
+</tbody>
+</table>
+<h4>Aposentadoria Especial</h4>
+<p>Para atividades expostas a agentes nocivos: <strong>15, 20 ou 25 anos</strong> de contribuição conforme o grau de exposição — sem exigência de idade mínima.</p>
+<h4>Outros Benefícios RGPS</h4>
+<table class="data-table">
+<thead><tr><th>Benefício</th><th>Requisito-chave</th></tr></thead>
+<tbody>
+<tr><td><strong>Pensão por morte</strong></td><td>18 contribuições (acidente: sem carência)</td></tr>
+<tr><td><strong>Auxílio por incapacidade temporária</strong></td><td>15 dias afastado; 12 meses de carência (acidente: sem carência)</td></tr>
+<tr><td><strong>Salário-maternidade</strong></td><td>10 meses de carência (empregada: sem carência)</td></tr>
+<tr><td><strong>Salário-família</strong></td><td>Baixa renda; filhos até 14 anos</td></tr>
+</tbody>
+</table>
+
+<h3>RPPS — Regime Próprio de Previdência Social</h3>
+<p>Para <strong>servidores públicos efetivos</strong>. Regido pela EC 103/2019: <strong>62F+25 / 65H+25 anos de serviço público</strong>, com 10 anos na carreira e 5 no cargo. Servidores ingressos após 2003 têm teto igual ao RGPS (FUNPRESP).</p>
+
+<h3>BPC-LOAS — Benefício de Prestação Continuada</h3>
+<p>Benefício <strong>assistencial</strong> — não é previdenciário, não exige contribuição. 1 salário mínimo para pessoa com 65+ anos OU deficiente, com renda familiar per capita ≤ ¼ do salário mínimo. Financiado pelo FNAS (não pelo RGPS); o INSS apenas administra o pagamento.</p>
+
+<h2>Previdência Complementar</h2>
+<h3>EFPC vs EAPC</h3>
+<table class="data-table">
+<thead><tr><th></th><th>EFPC (fechada)</th><th>EAPC (aberta)</th></tr></thead>
+<tbody>
+<tr><td><strong>Acesso</strong></td><td>Só funcionários do patrocinador</td><td>Qualquer pessoa</td></tr>
+<tr><td><strong>Regulação</strong></td><td>CNPC / PREVIC</td><td>CNSP / SUSEP</td></tr>
+<tr><td><strong>Fins lucrativos</strong></td><td>Não</td><td>Sim</td></tr>
+<tr><td><strong>Produtos típicos</strong></td><td>BD, CD e CV</td><td>PGBL e VGBL (CV)</td></tr>
+</tbody>
+</table>
+
+<h3>BD / CD / CV</h3>
+<table class="data-table">
+<thead><tr><th></th><th>BD</th><th>CD</th><th>CV</th></tr></thead>
+<tbody>
+<tr><td><strong>O que é fixo</strong></td><td>Benefício futuro</td><td>Contribuição mensal</td><td>Contribuição (acumulação) / benefício (renda)</td></tr>
+<tr><td><strong>Risco</strong></td><td>Patrocinador</td><td>Participante</td><td>Participante / seguradora</td></tr>
+<tr><td><strong>Tributação</strong></td><td><strong>Sempre progressiva</strong></td><td>Progressiva ou regressiva¹</td><td>Progressiva ou regressiva¹</td></tr>
+</tbody>
+</table>
+<p>¹ Exceto renda vitalícia: sempre progressiva, independente do plano.</p>
+
+<h3>PGBL vs VGBL</h3>
+<table class="data-table">
+<thead><tr><th></th><th>PGBL</th><th>VGBL</th></tr></thead>
+<tbody>
+<tr><td><strong>Dedução IR</strong></td><td>Sim — até 12% da renda bruta tributável</td><td>Não</td></tr>
+<tr><td><strong>IR no resgate</strong></td><td>Sobre o valor total (aporte + rendimento)</td><td>Apenas sobre o rendimento</td></tr>
+<tr><td><strong>Indicado para</strong></td><td>Declara IRPF completo</td><td>Isento, simplificado, ou acima de 12%</td></tr>
+<tr><td><strong>Portabilidade cruzada</strong></td><td colspan="2">PGBL→VGBL ou VGBL→PGBL: <strong>proibida</strong></td></tr>
+</tbody>
+</table>
+
+<h3>Características Técnicas</h3>
+<ul>
+<li><strong>Carregamento:</strong> incide sobre a <em>contribuição</em> (não sobre o saldo). Pode ser na entrada, saída ou ambos.</li>
+<li><strong>TAF (Taxa de Administração Financeira):</strong> incide sobre o saldo do fundo; remunera a gestão dos ativos.</li>
+<li><strong>Portabilidade:</strong> transferência sem incidência de IR, somente entre planos do mesmo tipo.</li>
+<li><strong>Tábua biométrica:</strong> tabela de mortalidade para precificar rendas vitalícias. Tabela mais conservadora (maior expectativa de vida) = prêmio maior = cobertura mais adequada para o beneficiário.</li>
+</ul>
+</div>`,
+    mapa: {
+      root: "Planejamento de Aposentadoria",
+      branches: [
+        { label: "3 Fontes", color: "#d4a843", icon: "🏛️", children: [
+          { label: "RGPS", detail: "INSS · privados · repartição simples" },
+          { label: "RPPS", detail: "Servidores públicos efetivos" },
+          { label: "Complementar", detail: "EFPC ou EAPC · facultativa" }
+        ]},
+        { label: "Taxa Real", color: "#5b8fee", icon: "📐", children: [
+          { label: "Fórmula", detail: "(1+nom)÷(1+inf)−1 · nunca subtrair" },
+          { label: "HP 12C", detail: "FV=110, PV=104[CHS], n=1 → i" },
+          { label: "Projeção real", detail: "Preserva poder de compra" }
+        ]},
+        { label: "2 Etapas", color: "#4dbdaf", icon: "📊", children: [
+          { label: "Etapa 1", detail: "PV da renda na aposentadoria" },
+          { label: "Etapa 2", detail: "PV etapa 1 = FV da acumulação" }
+        ]},
+        { label: "3 Estratégias", color: "#e74c3c", icon: "🎯", children: [
+          { label: "Esgotamento", detail: "FV=0 · menor capital · R$259,86" },
+          { label: "Herança", detail: "FV=legado · intermediário · R$273,00" },
+          { label: "Vitalícia", detail: "PMT÷i · maior capital · R$286,13" }
+        ]},
+        { label: "Prev. Social", color: "#9b59b6", icon: "🏥", children: [
+          { label: "EC 103/2019", detail: "62F+15 / 65H+20 · 60%+2%/ano" },
+          { label: "Aposentadoria Especial", detail: "15, 20 ou 25 anos de exposição" },
+          { label: "BPC-LOAS", detail: "65+ · ≤¼SM · assistencial (≠RGPS)" }
+        ]},
+        { label: "Prev. Complementar", color: "#2ecc71", icon: "💼", children: [
+          { label: "BD", detail: "Benefício fixo · sempre progressivo" },
+          { label: "CD", detail: "Contribuição fixa · risco participante" },
+          { label: "CV/PGBL/VGBL", detail: "Híbrido · CNSP/SUSEP · EAPC" }
+        ]}
+      ]
+    },
+    tags: ["aposentadoria", "taxa real", "taxa nominal", "Fischer", "HP 12C", "2 etapas", "esgotamento", "herança", "vitalícia", "perpetuidade", "RGPS", "RPPS", "INSS", "EC 103/2019", "Nova Previdência", "BPC-LOAS", "EFPC", "EAPC", "PREVIC", "SUSEP", "BD", "CD", "CV", "PGBL", "VGBL", "portabilidade", "carregamento", "TAF", "tábua biométrica", "previdência complementar", "repartição simples", "aposentadoria especial"],
+    fc: [
+      { q: "Qual a fórmula correta da taxa real de juros?", a: "Taxa Real = (1 + nominal) ÷ (1 + inflação) − 1. Na HP 12C: FV=110, PV=104[CHS], n=1 → i=5,7692%. Nunca subtraia nominal − inflação (superestima a taxa real)." },
+      { q: "Como funciona o cálculo em 2 etapas para aposentadoria?", a: "Etapa 1 (aposentadoria): calcule o PV da renda desejada (n=prazo, i, PMT → PV). Etapa 2 (acumulação): esse PV vira o FV → calcule o PMT para atingi-lo. Nunca misture as duas etapas." },
+      { q: "Qual a diferença entre as 3 estratégias de renda?", a: "Esgotamento (FV=0): capital termina em zero — menor contribuição. Herança (FV=legado): deixa valor ao final. Vitalícia (PV=PMT÷i): perpetuidade, nunca acaba — maior contribuição." },
+      { q: "No exemplo do Rafael (renda R$10.000/mês, i=1%a.m., aposentar daqui 30 anos): qual o PMT para esgotamento (20 anos de renda)?", a: "Etapa 1: n=240, i=1%, PMT=10.000, FV=0 → PV=R$908.194. Etapa 2: n=360, i=1%, FV=908.194, PV=0 → PMT = R$259,86/mês." },
+      { q: "Qual o PMT para a estratégia vitalícia no exemplo do Rafael (mesmas premissas)?", a: "Etapa 1 (perpetuidade): PV = PMT÷i = 10.000÷0,01 = R$1.000.000. Etapa 2: n=360, i=1%, FV=1.000.000 → PMT = R$286,13/mês." },
+      { q: "Nova Previdência (EC 103/2019): quais os requisitos para aposentadoria e benefício base?", a: "Mulheres: 62 anos + 15 anos de contribuição. Homens: 65 anos + 20 anos de contribuição. Benefício base = 60% + 2% por cada ano acima do mínimo. Para 100%: 35 anos (F) ou 40 anos (H)." },
+      { q: "BD, CD e CV — qual SEMPRE usa tributação progressiva?", a: "BD (Benefício Definido) sempre usa tributação progressiva — sem opção. CD e CV podem usar tabela regressiva, exceto renda vitalícia, que sempre é progressiva para todos os planos." },
+      { q: "Qual a diferença fiscal entre PGBL e VGBL?", a: "PGBL: deduções no IR até 12% da renda bruta, mas IR no resgate incide sobre o valor total. VGBL: sem dedução, mas IR no resgate incide apenas sobre o rendimento. PGBL = paga IR duas vezes se sacar cedo; VGBL = paga só sobre o lucro." },
+      { q: "PGBL pode ser convertido para VGBL por portabilidade?", a: "NÃO. Portabilidade só é permitida entre planos do mesmo tipo: PGBL→PGBL e VGBL→VGBL. Cruzar os tipos mudaria o tratamento fiscal das contribuições já deduzidas — vedado." },
+      { q: "O que é BPC-LOAS e por que não é previdência?", a: "Benefício assistencial de 1 salário mínimo para 65+ anos ou deficiente com renda familiar ≤ ¼ do salário mínimo per capita. Não exige contribuição ao INSS — financiado pelo FNAS (assistência social), não pelo RGPS." },
+      { q: "Qual a diferença entre EFPC e EAPC?", a: "EFPC: fundo de pensão fechado, acesso restrito ao patrocinador, sem fins lucrativos, CNPC/PREVIC. EAPC: entidade aberta (seguradoras/bancos), qualquer pessoa pode contratar, com fins lucrativos, CNSP/SUSEP." },
+      { q: "O que é carregamento e sobre o que incide?", a: "Taxa administrativa incidente sobre a contribuição (não sobre o saldo). Pode ser na entrada, saída ou ambos. Diferente da TAF, que incide sobre o saldo acumulado." },
+      { q: "O que significa uma tábua biométrica mais conservadora para o beneficiário?", a: "Projeta maior expectativa de vida → seguradora exige mais reservas → prêmio/contribuição mais alta, mas a cobertura é mais adequada ao real risco de longevidade. Para o beneficiário: mais caro, porém mais proteção." },
+      { q: "O que é aposentadoria especial no RGPS?", a: "Aposentadoria para exposição a agentes nocivos (insalubres/perigosos): 15, 20 ou 25 anos de contribuição conforme o grau de exposição — sem exigência de idade mínima." },
+      { q: "Como calcular o capital necessário para renda vitalícia (perpetuidade)?", a: "PV = PMT ÷ i. Exemplo: R$10.000/mês com i=1%a.m. → PV = 10.000÷0,01 = R$1.000.000. Este valor vira o FV da fase de acumulação (etapa 2). Não existe n — o prazo é infinito." }
+    ],
+    q: [
+      { t: "A taxa nominal é 12% a.a. e a inflação é 6% a.a. Qual a taxa real de juros?", o: ["A) 6,00% a.a.", "B) 5,66% a.a.", "C) 5,00% a.a.", "D) 7,20% a.a."], c: 1, f: "Taxa real = (1,12 ÷ 1,06) − 1 = 1,0566 − 1 = 5,66%. A subtração simples (12%−6%=6%) superestima a taxa real — é o erro mais frequente neste tema." },
+      { t: "Rafael precisa de R$10.000/mês por 20 anos (240 meses) na aposentadoria. Com taxa de 1% a.m. (estratégia esgotamento), qual o capital necessário?", o: ["A) R$ 1.000.000,00", "B) R$ 908.194,15", "C) R$ 954.096,00", "D) R$ 2.400.000,00"], c: 1, f: "Etapa 1: n=240, i=1%, PMT=10.000, FV=0 → PV = R$908.194,15. R$1.000.000 seria a perpetuidade (vitalícia). R$2.400.000 seria apenas 10.000×240 sem desconto algum." },
+      { t: "Usando o capital de R$908.194 (esgotamento) e 30 anos de acumulação (i=1%a.m.), qual o PMT mensal de Rafael?", o: ["A) R$ 259,86", "B) R$ 286,13", "C) R$ 273,00", "D) R$ 908,19"], c: 0, f: "Etapa 2: n=360, i=1%, FV=908.194, PV=0 → PMT = R$259,86. A opção B (R$286,13) seria a contribuição para vitalícia (FV=R$1.000.000). A opção C (R$273,00) seria para herança de R$500k." },
+      { t: "Se Rafael optasse pela estratégia vitalícia (renda infinita de R$10.000/mês, i=1%a.m.), qual seria sua contribuição mensal em 30 anos?", o: ["A) R$ 259,86", "B) R$ 273,00", "C) R$ 286,13", "D) R$ 1.000,00"], c: 2, f: "Vitalícia: PV = PMT÷i = 10.000÷0,01 = R$1.000.000. Etapa 2: n=360, i=1%, FV=1.000.000 → PMT = R$286,13. A diferença de apenas R$26,27/mês por uma renda vitalícia é a eficiência dos juros compostos ao longo de 30 anos." },
+      { t: "Um homem, pela Nova Previdência (EC 103/2019), recebe 100% do salário de benefício quando atinge:", o: ["A) 65 anos e 20 anos de contribuição", "B) 65 anos e 35 anos de contribuição", "C) 65 anos e 40 anos de contribuição", "D) 60 anos e 35 anos de contribuição"], c: 2, f: "Homem: benefício base = 60% com 20 anos mínimos. Cada ano extra acrescenta 2%. Para 100%: precisa de 20 mais 20 anos extras = 40 anos totais (60%+2%×20=100%). Com 65 anos + 40 anos de contribuição." },
+      { t: "Um participante de plano BD (EFPC) pode optar pela tabela regressiva de IR no recebimento do benefício?", o: ["A) Sim, se o plano existir há mais de 10 anos", "B) Sim, se o participante contribuir há mais de 10 anos", "C) Não — planos BD sempre usam a tabela progressiva do IRPF", "D) Sim, apenas para renda por prazo certo"], c: 2, f: "BD (Benefício Definido) de EFPC usa SEMPRE tributação progressiva — sem exceção. A tabela regressiva é exclusiva de planos CD e CV. Independente do tempo de contribuição ou tipo de renda escolhida, o BD é sempre progressivo." },
+      { t: "Um cliente tem PGBL e quer fazer portabilidade para um VGBL de outra seguradora. Esta operação é:", o: ["A) Permitida, pois ambos são planos abertos (EAPC)", "B) Permitida se o cliente tiver mais de 5 anos no plano", "C) Vedada — portabilidade entre PGBL e VGBL é proibida", "D) Permitida apenas se a destinatária for EFPC"], c: 2, f: "Portabilidade entre PGBL e VGBL é VEDADA. Mudaria o tratamento fiscal das contribuições já deduzidas — quem deduziu no PGBL não pode converter para VGBL (que não tributa contribuições). Portabilidade só entre iguais: PGBL→PGBL e VGBL→VGBL." },
+      { t: "O BPC-LOAS é classificado como:", o: ["A) Benefício previdenciário do RGPS, pago pelo INSS", "B) Benefício assistencial, sem exigência de contribuição, financiado pelo FNAS", "C) Benefício do RPPS para servidores de baixa renda", "D) Previdência complementar para trabalhadores informais"], c: 1, f: "BPC-LOAS é ASSISTENCIAL — financiado pelo FNAS (Fundo Nacional de Assistência Social), não pelo RGPS. Não exige contribuição prévia ao INSS. O INSS apenas administra o pagamento. Confundir BPC com benefício previdenciário é armadilha recorrente." }
+    ],
+    al: [
+      { t: "danger", tag: "Taxa real ≠ nominal − inflação", txt: "Taxa real = (1+nom)÷(1+inf)−1, nunca subtração. Para nominal=6%, inflação=4%: real=<strong>1,9231%</strong> (não 2%). Em horizontes de 30 anos a diferença acumulada é brutal." },
+      { t: "danger", tag: "BD: sempre tributação progressiva", txt: "Planos BD (EFPC) usam <strong>sempre</strong> a tabela progressiva do IRPF — sem exceção, sem opção. A confusão surge porque CD e CV podem escolher. Viu BD na questão → tributação progressiva, ponto final." },
+      { t: "danger", tag: "PGBL → VGBL: portabilidade proibida", txt: "Portabilidade é permitida somente entre planos do <strong>mesmo tipo</strong>: PGBL↔PGBL e VGBL↔VGBL. Cruzar tipos alteraria o tratamento fiscal das contribuições já deduzidas." },
+      { t: "danger", tag: "Renda vitalícia = sempre progressiva", txt: "Mesmo em planos CD e CV (que normalmente podem usar regressiva), a <strong>renda vitalícia</strong> é sempre tributada pela tabela progressiva. Somente renda por prazo certo e pagamento único admitem a regressiva." },
+      { t: "danger", tag: "Carregamento: base é a contribuição", txt: "Carregamento incide sobre o valor <strong>aportado</strong> (contribuição), não sobre o saldo acumulado. Quem cobra sobre o saldo é a TAF (Taxa de Administração Financeira)." },
+      { t: "warn", tag: "BPC-LOAS não é previdência", txt: "BPC-LOAS é benefício <strong>assistencial</strong> — sem contribuição, financiado pelo FNAS. O INSS apenas paga; o fundo é separado do RGPS. Para a prova: BPC-LOAS ≠ benefício previdenciário ≠ RGPS." },
+      { t: "warn", tag: "Tábua conservadora = mais proteção (não mais barata)", txt: "Tabela de mortalidade mais conservadora (vida mais longa) → seguradora precisa de mais reserva → <strong>prêmio maior para o cliente</strong>. É mais cara, mas corretamente precificada. Tábua antiga (menos conservadora) = risco atuarial e menos proteção." },
+      { t: "tip", tag: "Mnemônico: 2 etapas da aposentadoria", txt: "<strong>Etapa 1 = olho no futuro</strong>: quanto capital vou precisar lá na frente? (PV da renda). <strong>Etapa 2 = olho no presente</strong>: esse PV vira meu FV — quanto poupo por mês para chegar lá? Sempre separadas, nunca misturadas." }
+    ],
+    conexoes: `<div class="content-body">
+<h3>Previdência Social × Complementar × Planejamento</h3>
+<p>O planejamento começa identificando o <em>gap</em>: diferença entre a renda futura do RGPS/RPPS (limitada pelo teto) e o padrão de vida desejado. A previdência complementar fecha esse gap. O cálculo HP 12C em taxa real mostra exatamente o PMT para atingir o capital.</p>
+<h3>Taxa Real ↔ Juros Compostos (Módulo 3)</h3>
+<p>A fórmula de Fischer é a mesma de juros compostos aplicada a dois indexadores simultâneos. A taxa real não é diferença, é proporção — o mesmo conceito de "quanto a mais rende um indexador sobre outro" visto na curva de juros.</p>
+<h3>EFPC × Regulação do SFN (Módulo 1)</h3>
+<p>EFPC: regulada pelo <strong>CNPC/PREVIC</strong>. EAPC: regulada pelo <strong>CNSP/SUSEP</strong>. Ambas já apareceram no módulo de SFN — o planejamento de aposentadoria é o contexto prático onde essas entidades ficam no centro do portfólio do cliente.</p>
+<h3>Tábua Biométrica × Risco de Longevidade</h3>
+<p>A tábua biométrica é uma matriz de probabilidade de sobrevivência por idade. Seguradoras que usam tábuas antigas subestimam a longevidade e ficam subcapitalizadas para honrar rendas vitalícias — risco sistêmico que a SUSEP mitiga exigindo tábuas atualizadas.</p>
+</div>`
   }
 };
 
 const MODS = [
   { id: 1, n: "01", name: "Sistema Financeiro Nacional", cfp_mod: 1 },
   { id: 2, n: "02", name: "Fundamentos de Economia", cfp_mod: 1 },
-  { id: 3, n: "03", name: "Fundamentos de Finanças", cfp_mod: 1 }
+  { id: 3, n: "03", name: "Fundamentos de Finanças", cfp_mod: 1 },
+  { id: 4, n: "04", name: "Planejamento de Aposentadoria I", cfp_mod: 4 }
 ];
 
 const CFP_MOD_NAMES = {
@@ -794,6 +1010,6 @@ const CFP_MOD_NAMES = {
 };
 
 const META = {
-  total: 3,
+  total: 4,
   gerado_em: "21/05/2026"
 };
