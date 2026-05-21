@@ -1146,7 +1146,7 @@ function chatOpenClaude(){
 
 /* ══ SUPABASE SYNC ══════════════════════════════════════════════ */
 const SB_URL = 'https://pdmetoerqbidnteuviee.supabase.co';
-const SB_KEY = 'sb_publishable_59mei1wkfKQygMD66Nvbxg_T2RvSbCW';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkbWV0b2VycWJpZG50ZXV2aWVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzODY2ODAsImV4cCI6MjA5NDk2MjY4MH0.LGnFDM8lX0jG2Fo2uYeMBPvWcc6ntr7dDyvzL-966ks';
 let sb = null;
 try { sb = (typeof supabase !== 'undefined') ? supabase.createClient(SB_URL, SB_KEY) : null; }
 catch(e) { console.warn('Supabase init failed:', e); }
