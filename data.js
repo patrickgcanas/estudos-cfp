@@ -572,15 +572,52 @@ const D = {
 <p><strong>Por que "subtração = divisão"?</strong> Em juros simples, você soma e subtrai normalmente. Em juros compostos, os fatores se multiplicam — então "retirar" um pedaço do produto significa dividi-lo. É a operação inversa da multiplicação.</p>
 <p><strong>Aplicação prática:</strong> Imagine que você sabe o retorno total de 3 anos (todos os fatores multiplicados) e conhece os fatores dos anos 2 e 3. Para achar o fator do ano 1, basta <em>dividir</em> o total pelos anos que você já tem. Na HP 12C isso se traduz em: calcule o fator dos anos conhecidos → use como PV; coloque o total como FV → [i] encontra a taxa incógnita.</p>
 
-<h3>HP 12C — Exemplo 1: Encontrar a Taxa Spot Longa</h3>
-<p><em>Spot 1A = 2%, taxa a termo do 2º ano = 3%, taxa a termo do 3º ano = 4%. Qual a taxa spot de 3 anos?</em></p>
+<h3>Exemplo 1 Detalhado: Encontrar a Taxa Spot de 3 Anos</h3>
+<p><strong>Dados:</strong> Taxa spot 1A = 2% &nbsp;|&nbsp; Taxa a termo do ano 2 = 3% &nbsp;|&nbsp; Taxa a termo do ano 3 = 4%<br>
+<strong>Pergunta:</strong> Qual a taxa spot 0-3, ou seja, a taxa única anualizada equivalente a todo esse período?</p>
+
+<h4>Passo 0 — Entenda a linha do tempo antes de calcular</h4>
+<p>Cada taxa cobre um "pedaço" sequencial da linha do tempo. Elas não se somam — se encadeiam:</p>
 <table class="data-table">
-<thead><tr><th>Passo 1 — Retorno TOTAL do período</th><th>Passo 2 — Anualizar (extrair a taxa spot)</th></tr></thead>
+<thead><tr><th>Trecho</th><th>Taxa</th><th>Tipo</th><th>O que acontece com R$100</th></tr></thead>
 <tbody>
-<tr><td>100 [ENTER] → 2 [%] [+] → 3 [%] [+] → 4 [%] [+] → 100 [−]<br><strong>R: 9,26%</strong></td><td>9,26 [i] → 3 [n] → 1 [R/S]<br><strong>R: 2,997% a.a.</strong></td></tr>
+<tr><td>Hoje → Ano 1</td><td>2%</td><td>Taxa <strong>Spot</strong> (começa hoje)</td><td>R$100 × 1,02 = <strong>R$102,00</strong></td></tr>
+<tr><td>Ano 1 → Ano 2</td><td>3%</td><td>Taxa <strong>a Termo 1A</strong> (começa no ano 1)</td><td>R$102,00 × 1,03 = <strong>R$105,06</strong></td></tr>
+<tr><td>Ano 2 → Ano 3</td><td>4%</td><td>Taxa <strong>a Termo 2A</strong> (começa no ano 2)</td><td>R$105,06 × 1,04 = <strong>R$109,26</strong></td></tr>
 </tbody>
 </table>
-<p>O Passo 1 acumula os retornos de cada período. O Passo 2 extrai a taxa anual equivalente (raiz cúbica via HP 12C). Atenção: 9,26% é o retorno <em>total</em> dos 3 anos, não a taxa anual.</p>
+<p>Resultado final: R$109,26 sobre os R$100 investidos = <strong>9,26% de retorno total no período de 3 anos</strong>. Esse é o número que a HP 12C vai encontrar no Passo 1.</p>
+
+<h4>Passo 1 — HP 12C como "acumulador de fatores" (encontrar o retorno total)</h4>
+<p>A tecla <strong>[%][+]</strong> na HP 12C faz exatamente o encadeamento acima: pega o valor no visor, calcula X% dele e adiciona ao próprio valor — replicando a multiplicação por (1 + taxa) de cada período.</p>
+<table class="data-table">
+<thead><tr><th>Tecla(s)</th><th>O que a calculadora faz</th><th>Visor</th></tr></thead>
+<tbody>
+<tr><td><strong>100 [ENTER]</strong></td><td>Coloca 100 como capital de referência</td><td>100,00</td></tr>
+<tr><td><strong>2 [%] [+]</strong></td><td>Calcula 2% de 100 (= 2) e soma: 100 + 2</td><td>102,00 → aplica taxa spot ano 1</td></tr>
+<tr><td><strong>3 [%] [+]</strong></td><td>Calcula 3% de 102 (= 3,06) e soma: 102 + 3,06</td><td>105,06 → aplica taxa a termo ano 2</td></tr>
+<tr><td><strong>4 [%] [+]</strong></td><td>Calcula 4% de 105,06 (= 4,20) e soma: 105,06 + 4,20</td><td>109,26 → aplica taxa a termo ano 3</td></tr>
+<tr><td><strong>100 [−]</strong></td><td>Subtrai o capital inicial para obter só o retorno líquido</td><td><strong>9,26</strong> → retorno total % do período</td></tr>
+</tbody>
+</table>
+<p>O 9,26% que aparece <strong>não é uma taxa anual</strong> — é o retorno bruto acumulado nos 3 anos inteiros. Agora precisamos transformar isso em taxa por ano.</p>
+
+<h4>Passo 2 — Anualizar: transformar retorno total em taxa spot anualizada</h4>
+<p>Temos: retorno total = 9,26% em 3 anos. Queremos: qual taxa, aplicada por 3 anos em juros compostos, gera esse mesmo retorno? Matematicamente é a raiz cúbica do fator total:</p>
+<p style="text-align:center;font-weight:bold;">(1 + Z₃)³ = 1,0926 &nbsp;→&nbsp; Z₃ = ³√1,0926 − 1 = 2,997% a.a.</p>
+<p>A HP 12C faz essa raiz para você com a sequência abaixo — ela resolve: "dado que em <em>n</em> períodos acumulei <em>i</em>% total, qual a taxa equivalente por período?"</p>
+<table class="data-table">
+<thead><tr><th>Tecla(s)</th><th>O que está informando à HP 12C</th></tr></thead>
+<tbody>
+<tr><td><strong>9,26 [i]</strong></td><td>Retorno total do período = 9,26% (a "taxa total" em <em>n</em> períodos)</td></tr>
+<tr><td><strong>3 [n]</strong></td><td>Duração = 3 períodos (anos)</td></tr>
+<tr><td><strong>1 [R/S]</strong></td><td>Manda calcular a taxa equivalente por período (extrai a raiz n-ésima)</td></tr>
+</tbody>
+</table>
+<p><strong>Resultado: 2,997% a.a.</strong> — essa é a taxa spot de 3 anos. Se você aplicar R$100 a 2,997% ao ano por 3 anos em juros compostos, chegará exatamente em R$109,26. É a taxa <em>média geométrica</em> das três taxas — não a média aritmética (que daria 3% e estaria errada).</p>
+
+<h4>Por que 2,997% ≠ (2% + 3% + 4%) ÷ 3 = 3%?</h4>
+<p>Porque em juros compostos os fatores se <strong>multiplicam</strong>, não se somam. A média aritmética ignora o efeito dos juros sobre juros acumulados entre os períodos. A taxa spot de 3 anos é sempre a <em>média geométrica</em> dos fatores — e o valor é ligeiramente diferente da aritmética. Na prova, nunca use média aritmética de taxas em questões de ETTJ.</p>
 
 <h3>HP 12C — Exemplo 2: Encontrar a Taxa Spot Curta (Inverso)</h3>
 <p><em>Uma LTN de 3 anos rende 9,26% no período. Taxa a termo do ano 2 = 3%, taxa a termo do ano 3 = 4%. Qual a taxa spot de 1 ano?</em></p>
