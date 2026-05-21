@@ -1,4 +1,4 @@
-const CACHE = 'cfp-estudos-v1';
+const CACHE = 'cfp-estudos-v2';
 const CORE = ['./', './index.html', './data.js', './manifest.json', './icons/icon-192.svg', './icons/icon-512.svg'];
 
 self.addEventListener('install', e => {
@@ -28,7 +28,16 @@ self.addEventListener('fetch', e => {
     );
     return;
   }
-  // data.js always fetched from network so content updates appear on F5
+  // index.html and data.js always fetched from network so updates appear on F5
+  if (url.includes('index.html') || e.request.mode === 'navigate') {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        if (res.ok) caches.open(CACHE).then(c => c.put(e.request, res.clone()));
+        return res;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
   if (url.includes('data.js')) {
     e.respondWith(
       fetch(e.request).then(res => {
