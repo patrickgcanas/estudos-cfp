@@ -293,11 +293,70 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
 @media(max-width:400px){
   .fc-grid,.mapa-grid{grid-template-columns:1fr}
 }
+
+/* ── SRS / Spaced Repetition ── */
+.srs-btns{display:flex;gap:5px;margin-top:8px;justify-content:center}
+.srs-btn{flex:1;padding:5px 4px;border-radius:5px;border:1px solid;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;cursor:pointer;transition:all .15s;background:transparent;line-height:1}
+.srs-hard{border-color:var(--red2);color:var(--red2)}.srs-hard:hover{background:rgba(231,76,60,.15)}
+.srs-ok{border-color:var(--gold);color:var(--gold)}.srs-ok:hover{background:rgba(212,168,67,.15)}
+.srs-easy{border-color:var(--green);color:var(--green)}.srs-easy:hover{background:rgba(39,174,96,.15)}
+.srs-rated{font-size:10px;color:var(--teal2);text-align:center;display:block;width:100%;padding:4px 0;font-weight:500}
+.fc.fc-due{border-color:rgba(212,168,67,.5)!important}
+.fc.fc-known{border-color:rgba(39,174,96,.28)!important}
+.srs-badge{font-size:8px;padding:1px 4px;background:rgba(212,168,67,.18);border:1px solid rgba(212,168,67,.35);border-radius:3px;color:var(--gold2);margin-left:5px;vertical-align:middle;font-family:'JetBrains Mono',monospace;font-weight:500}
+.srs-badge.ok{background:rgba(39,174,96,.1);border-color:rgba(39,174,96,.3);color:var(--green2)}
+.srs-due-banner{margin:0 0 12px;padding:10px 14px;background:rgba(212,168,67,.05);border:1px solid rgba(212,168,67,.2);border-radius:var(--r);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.srs-due-banner-txt{font-size:12px;color:var(--gold2);flex:1}
+.mod-dot.srs{background:var(--gold)!important}
+.sb-nav-badge{font-family:'JetBrains Mono',monospace;font-size:9px;background:rgba(212,168,67,.2);border:1px solid rgba(212,168,67,.3);color:var(--gold2);padding:1px 6px;border-radius:8px;margin-left:auto}
+
+/* ── Review Overlay ── */
+.rev-overlay{display:none;position:fixed;inset:0;background:var(--bg);z-index:500;flex-direction:column}
+.rev-overlay.open{display:flex}
+.rev-header{height:52px;padding:0 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:var(--s1);flex-shrink:0}
+.rev-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--t1);flex:1}
+.rev-progress{font-size:11px;color:var(--t3)}
+.rev-close{background:none;border:none;color:var(--t3);cursor:pointer;padding:6px;border-radius:5px;font-size:16px}
+.rev-close:hover{color:var(--t1);background:var(--s3)}
+.rev-body{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;align-items:center}
+.rev-card{width:100%;max-width:540px;background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);cursor:pointer;perspective:600px;margin-bottom:16px;transition:border-color .2s}
+.rev-card:hover{border-color:var(--border2)}
+.rev-card-inner{width:100%;min-height:200px;position:relative;transform-style:preserve-3d;transition:transform .38s ease}
+.rev-card.flipped .rev-card-inner{transform:rotateY(180deg)}
+.rev-card-face{position:absolute;inset:0;padding:20px 22px;backface-visibility:hidden;display:flex;flex-direction:column;min-height:200px}
+.rev-card-back{transform:rotateY(180deg)}
+.rev-card-tag{font-size:9px;text-transform:uppercase;letter-spacing:1.2px;font-weight:700;margin-bottom:10px}
+.rev-card-front .rev-card-tag{color:var(--blue2)}
+.rev-card-back .rev-card-tag{color:var(--teal2)}
+.rev-card-txt{font-size:14px;color:var(--t1);line-height:1.6;flex:1}
+.rev-card-back .rev-card-txt{font-size:13px;color:var(--t2)}
+.rev-card-mod{font-size:9px;color:var(--t4);margin-top:8px}
+.rev-card-hint{font-size:10px;color:var(--t4);text-align:center;padding:8px 0 0}
+.rev-rate-btns{width:100%;max-width:540px;display:flex;gap:10px}
+.rev-rate-btns.hidden{visibility:hidden;pointer-events:none}
+.rev-rate-btn{flex:1;padding:11px 6px;border-radius:8px;border:1px solid;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;background:transparent;line-height:1.3}
+.rev-hard{border-color:var(--red2);color:var(--red2)}.rev-hard:hover{background:rgba(231,76,60,.12)}
+.rev-ok-btn{border-color:var(--gold);color:var(--gold)}.rev-ok-btn:hover{background:rgba(212,168,67,.12)}
+.rev-easy{border-color:var(--green);color:var(--green)}.rev-easy:hover{background:rgba(39,174,96,.12)}
+.rev-stats-row{display:flex;gap:10px;justify-content:center;margin:16px 0}
+.rev-stat{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:12px 18px;text-align:center}
+.rev-stat-n{font-family:'Syne',sans-serif;font-size:22px;font-weight:800}
+.rev-stat-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
 </style>
 </head>
 <body>
 
 <div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+
+<!-- Review overlay -->
+<div class="rev-overlay" id="revOverlay">
+  <div class="rev-header">
+    <div class="rev-title">🔄 Revisão de Hoje</div>
+    <span class="rev-progress" id="revProgress"></span>
+    <button class="rev-close" onclick="closeReview()">✕</button>
+  </div>
+  <div class="rev-body" id="revBody"></div>
+</div>
 
 <!-- Simulado fullscreen overlay -->
 <div class="sim-overlay" id="simOverlay">
@@ -336,6 +395,9 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
     </div>
     <div class="mod-list" id="modList"></div>
     <div class="sb-nav">
+      <button class="sb-nav-btn" id="btnReview" onclick="openReview()">
+        <span class="sb-nav-icon">🔄</span> Revisão de Hoje <span class="sb-nav-badge" id="srsNavBadge" style="display:none">0</span>
+      </button>
       <button class="sb-nav-btn" id="btnSimulado" onclick="openSimulado()">
         <span class="sb-nav-icon">🎯</span> Simulado cronometrado
       </button>
@@ -413,13 +475,15 @@ let curTab = 'explicacao';
 let done = new Set(JSON.parse(localStorage.getItem('cfp_done') || '[]'));
 let qstats = JSON.parse(localStorage.getItem('cfp_stats') || '{"c":0,"t":0}');
 let notes = JSON.parse(localStorage.getItem('cfp_notes') || '{}');
-let viewMode = 'welcome'; // 'welcome' | 'module' | 'correlacoes'
+let srsData = JSON.parse(localStorage.getItem('cfp_srs') || '{}');
+let viewMode = 'welcome';
 
 const PANELS = ['explicacao','mapa','flashcards','perguntas','alertas','notas'];
 
 function saveDone(){ localStorage.setItem('cfp_done', JSON.stringify([...done])); }
 function saveStats(){ localStorage.setItem('cfp_stats', JSON.stringify(qstats)); }
 function saveNotes(){ localStorage.setItem('cfp_notes', JSON.stringify(notes)); }
+function saveSRS(){ localStorage.setItem('cfp_srs', JSON.stringify(srsData)); }
 
 /* ══ DRAWER ═════════════════════════════════════════════════════ */
 function toggleDrawer(){
@@ -438,7 +502,9 @@ function renderMods(list){
   list.forEach(m => {
     const isDone = done.has(m.id);
     const hasNote = notes[m.id] && notes[m.id].trim().length > 0;
-    const dotClass = isDone && hasNote ? 'done has-note' : isDone ? 'done' : hasNote ? 'has-note' : '';
+    const hasDue = modHasDue(m.id);
+    let dotClass = isDone && hasNote ? 'done has-note' : isDone ? 'done' : hasNote ? 'has-note' : '';
+    if (hasDue) dotClass = dotClass ? dotClass + ' srs' : 'srs';
     el.innerHTML += `<div class="mod-item${curMod?.id===m.id?' active':''}" onclick="selectMod(${m.id})" id="mi-${m.id}">
       <span class="mod-n">${m.n}</span>
       <span class="mod-nm">${esc(m.name)}</span>
@@ -544,15 +610,32 @@ function renderMapa(p,dat){
 
 function renderFC(p,dat){
   const cards = dat.fc||[];
-  let html = `<div class="fc-section"><div class="section-title"><span>🃏</span> Flashcards <span style="font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace;font-weight:400">${cards.length} cards — toque para revelar</span></div><div class="fc-grid">`;
+  if(!cards.length){ p.innerHTML='<div style="padding:30px;text-align:center;opacity:.4;color:var(--t3);font-size:13px">Nenhum flashcard disponível para este módulo ainda.</div>'; return; }
+  const today = Date.now();
+  const due = cards.filter((_,i)=>{ const s=srsData[`${curMod.id}_${i}`]; return s&&s.due<=today; }).length;
+  let html=`<div class="fc-section"><div class="section-title"><span>🃏</span> Flashcards <span style="font-size:11px;color:var(--t3);font-family:'JetBrains Mono',monospace;font-weight:400">${cards.length} cards — avalie após revelar</span></div>`;
+  if(due>0) html+=`<div class="srs-due-banner"><span class="srs-due-banner-txt">🔄 ${due} card${due>1?'s':''} para revisar neste módulo</span><button class="btn btn-gold" style="font-size:11px;padding:5px 10px;flex-shrink:0" onclick="openReview()">Revisar agora</button></div>`;
+  html+=`<div class="fc-grid">`;
   cards.forEach((c,i)=>{
-    html+=`<div class="fc" onclick="this.classList.toggle('flip')">
+    const key=`${curMod.id}_${i}`;
+    const s=srsData[key];
+    const isDue=s&&s.due<=today;
+    const isKnown=s&&s.reps>0&&s.due>today;
+    const daysUntil=isKnown?Math.ceil((s.due-today)/86400000):null;
+    const badge=isDue?`<span class="srs-badge">REVISAR</span>`:isKnown?`<span class="srs-badge ok">+${daysUntil}d</span>`:'';
+    html+=`<div class="fc${isDue?' fc-due':isKnown?' fc-known':''}" onclick="this.classList.toggle('flip')" id="fc-${key}">
       <div class="fc-inner">
-        <div class="fc-face fc-front"><div><div class="fc-tag">Pergunta</div><div class="fc-txt">${esc(c.q)}</div></div><div class="fc-hint">toque para resposta</div></div>
-        <div class="fc-face fc-back"><div><div class="fc-tag">Resposta</div><div class="fc-txt">${esc(c.a)}</div></div><div class="fc-hint">toque para virar</div></div>
+        <div class="fc-face fc-front"><div><div class="fc-tag">Pergunta ${badge}</div><div class="fc-txt">${esc(c.q)}</div></div><div class="fc-hint">toque para resposta</div></div>
+        <div class="fc-face fc-back"><div><div class="fc-tag">Resposta</div><div class="fc-txt">${esc(c.a)}</div></div>
+          <div class="srs-btns">
+            <button class="srs-btn srs-hard" onclick="event.stopPropagation();srsRate('${key}',0,this)">Difícil</button>
+            <button class="srs-btn srs-ok" onclick="event.stopPropagation();srsRate('${key}',3,this)">Ok</button>
+            <button class="srs-btn srs-easy" onclick="event.stopPropagation();srsRate('${key}',5,this)">Fácil</button>
+          </div>
+        </div>
       </div></div>`;
   });
-  p.innerHTML = html+'</div></div>';
+  p.innerHTML=html+'</div></div>';
 }
 
 function renderQ(p,dat){
@@ -623,6 +706,149 @@ function toggleDone(){
   if(!curMod) return;
   done.has(curMod.id)?done.delete(curMod.id):done.add(curMod.id);
   saveDone(); updateProgress(); renderMods(MODS); renderDoneBtn();
+}
+
+/* ══ SRS — SPACED REPETITION ════════════════════════════════════ */
+function srsUpdateCard(key, quality){
+  let c = srsData[key] || {interval:0, ef:2.5, reps:0};
+  if(quality < 3){
+    c.reps = 0; c.interval = 1;
+  } else {
+    if(c.reps===0) c.interval=1;
+    else if(c.reps===1) c.interval=6;
+    else c.interval=Math.round(c.interval*c.ef);
+    c.reps++;
+    c.ef = Math.max(1.3, c.ef + 0.1 - (5-quality)*(0.08+(5-quality)*0.02));
+  }
+  c.due = Date.now() + c.interval*86400000;
+  srsData[key] = c;
+  saveSRS();
+}
+
+function srsRate(key, quality, btn){
+  srsUpdateCard(key, quality);
+  const card = document.getElementById('fc-'+key);
+  if(card){
+    card.classList.remove('fc-due');
+    if(quality>=3) card.classList.add('fc-known');
+    const btns = card.querySelector('.srs-btns');
+    if(btns){
+      const days = srsData[key].interval;
+      btns.innerHTML = `<span class="srs-rated">✓ ${days===1?'Amanhã':'Em '+days+' dias'}</span>`;
+    }
+  }
+  updateSRSBadge();
+  renderMods(MODS);
+}
+
+function modHasDue(modId){
+  const today = Date.now();
+  return (D[modId]?.fc||[]).some((_,i)=>{ const s=srsData[`${modId}_${i}`]; return s&&s.due<=today; });
+}
+
+function updateSRSBadge(){
+  const today = Date.now();
+  let count = 0;
+  MODS.forEach(m=>{ (D[m.id]?.fc||[]).forEach((_,i)=>{ const s=srsData[`${m.id}_${i}`]; if(s&&s.due<=today) count++; }); });
+  const badge = document.getElementById('srsNavBadge');
+  if(badge){ badge.textContent=count; badge.style.display=count>0?'':'none'; }
+}
+
+/* ══ REVIEW SESSION ══════════════════════════════════════════════ */
+let rev = {cards:[], cur:0, flipped:false, stats:{hard:0,ok:0,easy:0}};
+
+function openReview(){
+  closeDrawer();
+  const today = Date.now();
+  const cards = [];
+  MODS.forEach(m=>{
+    (D[m.id]?.fc||[]).forEach((c,i)=>{
+      const key=`${m.id}_${i}`;
+      const s=srsData[key];
+      if(!s||s.due<=today) cards.push({key,q:c.q,a:c.a,modN:m.n,modName:m.name});
+    });
+  });
+  if(!cards.length){
+    document.getElementById('revOverlay').classList.add('open');
+    document.getElementById('revProgress').textContent='';
+    document.getElementById('revBody').innerHTML=`<div style="text-align:center;padding:40px 20px;max-width:400px">
+      <div style="font-size:40px;margin-bottom:12px">✅</div>
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--t1);margin-bottom:8px">Tudo em dia!</div>
+      <div style="font-size:13px;color:var(--t2);margin-bottom:24px;line-height:1.6">Nenhum card para revisar agora. Continue estudando novos módulos e avalie os cards — eles voltarão no momento certo.</div>
+      <button class="btn btn-gold" style="padding:10px 24px;font-size:13px" onclick="closeReview()">Fechar</button>
+    </div>`;
+    return;
+  }
+  rev.cards = cards.sort(()=>Math.random()-.5);
+  rev.cur = 0; rev.flipped = false; rev.stats = {hard:0,ok:0,easy:0};
+  document.getElementById('revOverlay').classList.add('open');
+  renderRevCard();
+}
+
+function renderRevCard(){
+  const c = rev.cards[rev.cur];
+  const total = rev.cards.length;
+  document.getElementById('revProgress').textContent = `${rev.cur+1} / ${total}`;
+  rev.flipped = false;
+  document.getElementById('revBody').innerHTML=`
+    <div class="rev-card" id="revCard" onclick="flipRevCard()">
+      <div class="rev-card-inner">
+        <div class="rev-card-face rev-card-front">
+          <div class="rev-card-tag">Pergunta</div>
+          <div class="rev-card-txt">${esc(c.q)}</div>
+          <div class="rev-card-mod">${esc(c.modN)} · ${esc(c.modName)}</div>
+          <div class="rev-card-hint">clique para revelar resposta</div>
+        </div>
+        <div class="rev-card-face rev-card-back">
+          <div class="rev-card-tag">Resposta</div>
+          <div class="rev-card-txt">${esc(c.a)}</div>
+          <div class="rev-card-mod">${esc(c.modN)} · ${esc(c.modName)}</div>
+          <div class="rev-card-hint">Como foi?</div>
+        </div>
+      </div>
+    </div>
+    <div class="rev-rate-btns hidden" id="revRateBtns">
+      <button class="rev-rate-btn rev-hard" onclick="rateRevCard(0)">Difícil<br><span style="font-size:10px;font-weight:400;opacity:.7">repetir amanhã</span></button>
+      <button class="rev-rate-btn rev-ok-btn" onclick="rateRevCard(3)">Ok<br><span style="font-size:10px;font-weight:400;opacity:.7">revisão em breve</span></button>
+      <button class="rev-rate-btn rev-easy" onclick="rateRevCard(5)">Fácil<br><span style="font-size:10px;font-weight:400;opacity:.7">lembro bem</span></button>
+    </div>`;
+}
+
+function flipRevCard(){
+  if(rev.flipped) return;
+  rev.flipped = true;
+  document.getElementById('revCard').classList.add('flipped');
+  document.getElementById('revRateBtns').classList.remove('hidden');
+}
+
+function rateRevCard(quality){
+  srsUpdateCard(rev.cards[rev.cur].key, quality);
+  if(quality===0) rev.stats.hard++; else if(quality===3) rev.stats.ok++; else rev.stats.easy++;
+  rev.cur++;
+  if(rev.cur>=rev.cards.length) showRevResults(); else renderRevCard();
+}
+
+function showRevResults(){
+  updateSRSBadge();
+  renderMods(MODS);
+  const total = rev.cards.length;
+  document.getElementById('revProgress').textContent='Concluído';
+  document.getElementById('revBody').innerHTML=`<div style="text-align:center;max-width:540px;width:100%;padding-top:20px">
+    <div style="font-size:44px;margin-bottom:12px">🎉</div>
+    <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--t1);margin-bottom:6px">Revisão concluída!</div>
+    <div style="font-size:13px;color:var(--t2);margin-bottom:16px;line-height:1.6">${total} card${total>1?'s':''} revisado${total>1?'s':''} hoje</div>
+    <div class="rev-stats-row">
+      <div class="rev-stat"><div class="rev-stat-n" style="color:var(--green)">${rev.stats.easy}</div><div class="rev-stat-l">Fácil</div></div>
+      <div class="rev-stat"><div class="rev-stat-n" style="color:var(--gold)">${rev.stats.ok}</div><div class="rev-stat-l">Ok</div></div>
+      <div class="rev-stat"><div class="rev-stat-n" style="color:var(--red2)">${rev.stats.hard}</div><div class="rev-stat-l">Difícil</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--t3);margin-bottom:24px;line-height:1.6">Cards "Difícil" voltam amanhã. "Fácil" voltam em alguns dias. O sistema ajusta os intervalos conforme sua memória.</div>
+    <button class="btn btn-gold" style="width:100%;max-width:300px;padding:12px;font-size:13px;justify-content:center" onclick="closeReview()">Fechar</button>
+  </div>`;
+}
+
+function closeReview(){
+  document.getElementById('revOverlay').classList.remove('open');
 }
 
 /* ══ SIMULADO ═══════════════════════════════════════════════════ */
@@ -790,6 +1016,7 @@ document.getElementById('metaTotal').textContent = META.total;
 document.getElementById('metaDate').textContent = META.gerado_em;
 renderMods(MODS);
 updateProgress();
+updateSRSBadge();
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{ navigator.serviceWorker.register('./sw.js').catch(()=>{}); });
