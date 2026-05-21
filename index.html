@@ -1186,20 +1186,46 @@ async function sbDoLogin(){
   const password = document.getElementById('sbPassword').value;
   const errEl = document.getElementById('sbErr');
   const btn = document.getElementById('sbLoginBtn');
-  if(!email || !password){ errEl.textContent='Preencha e-mail e senha.'; errEl.style.display='block'; return; }
+  if(!email || !password){ sbShowErr('Preencha e-mail e senha.'); return; }
   btn.disabled = true; btn.textContent = 'Aguarde...';
   errEl.style.display = 'none';
 
-  // Tenta login; se usuário não existir, cadastra
-  let { data, error } = await sb.auth.signInWithPassword({ email, password });
-  if(error && error.message.includes('Invalid login credentials')){
-    const res = await sb.auth.signUp({ email, password });
-    data = res.data; error = res.error;
-  }
+  try {
+    // Tenta login
+    let { data, error } = await sb.auth.signInWithPassword({ email, password });
 
-  btn.disabled = false; btn.textContent = 'Entrar / Cadastrar';
-  if(error){ errEl.textContent = error.message; errEl.style.display='block'; return; }
-  sbCloseModal();
+    if(error){
+      const msg = error.message || '';
+      if(msg.toLowerCase().includes('invalid') || msg.toLowerCase().includes('credentials') || msg.toLowerCase().includes('not found')){
+        // Usuário não existe — cadastra
+        const res = await sb.auth.signUp({ email, password });
+        if(res.error){ btn.disabled=false; btn.textContent='Entrar / Cadastrar'; sbShowErr(res.error.message); return; }
+        // Cadastro feito — pode precisar confirmar e-mail
+        if(!res.data?.session){
+          btn.disabled=false; btn.textContent='Entrar / Cadastrar';
+          sbShowErr('✓ Cadastro realizado! Verifique seu e-mail e clique no link de confirmação. Depois volte e entre com sua senha.', true);
+          return;
+        }
+      } else {
+        btn.disabled=false; btn.textContent='Entrar / Cadastrar';
+        sbShowErr(msg || 'Erro ao entrar. Tente novamente.');
+        return;
+      }
+    }
+
+    btn.disabled=false; btn.textContent='Entrar / Cadastrar';
+    sbCloseModal();
+  } catch(e){
+    btn.disabled=false; btn.textContent='Entrar / Cadastrar';
+    sbShowErr('Erro de conexão: ' + e.message);
+  }
+}
+
+function sbShowErr(msg, green){
+  const el = document.getElementById('sbErr');
+  el.textContent = msg;
+  el.style.color = green ? 'var(--green2)' : 'var(--red2)';
+  el.style.display = 'block';
 }
 
 async function sbSignOut(){
