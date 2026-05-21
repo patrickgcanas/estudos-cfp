@@ -28,6 +28,16 @@ self.addEventListener('fetch', e => {
     );
     return;
   }
+  // data.js always fetched from network so content updates appear on F5
+  if (url.includes('data.js')) {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        if (res.ok) caches.open(CACHE).then(c => c.put(e.request, res.clone()));
+        return res;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
   e.respondWith(
     caches.match(e.request).then(r => r || fetch(e.request).then(res => {
       if (res.ok && e.request.method === 'GET') {
