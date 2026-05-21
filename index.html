@@ -131,10 +131,12 @@ body.mod-selected .tabbar{display:flex}
 .fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:10px}
 .fc{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);cursor:pointer;transition:all .2s;perspective:600px;min-height:120px}
 .fc:hover{border-color:var(--border2);transform:translateY(-1px)}
-.fc-inner{width:100%;min-height:120px;position:relative;transform-style:preserve-3d;transition:transform .38s ease}
-.fc.flip .fc-inner{transform:rotateY(180deg)}
-.fc-face{position:absolute;inset:0;padding:12px 14px;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:space-between}
-.fc-back{transform:rotateY(180deg)}
+.fc-inner{width:100%;min-height:120px;position:relative}
+.fc-face{padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;min-height:120px}
+.fc-back{display:none}
+.fc.flip .fc-front{display:none}
+.fc.flip .fc-back{display:flex;animation:fcIn .18s ease}
+@keyframes fcIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
 .fc-tag{font-size:9px;text-transform:uppercase;letter-spacing:1.2px;font-weight:600;margin-bottom:6px}
 .fc-front .fc-tag{color:var(--blue2)}
 .fc-back .fc-tag{color:var(--teal2)}
