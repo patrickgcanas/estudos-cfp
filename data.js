@@ -560,6 +560,18 @@ const D = {
 </table>
 <p><strong>Chave para a prova:</strong> a HP 12C transforma essa fórmula em <em>somas e subtrações</em> — não precisa decorar a fórmula completa, basta entender o raciocínio em 2 passos.</p>
 
+<h3>Como Calcular a Taxa a Termo — A Lógica</h3>
+<p>Dois princípios fundamentais governam todos os cálculos da ETTJ. Grave esses dois e qualquer questão da prova se resolve:</p>
+<table class="data-table">
+<thead><tr><th>Princípio</th><th>Em palavras</th><th>Em juros compostos</th></tr></thead>
+<tbody>
+<tr><td><strong>1. Somatório</strong></td><td>A taxa total de um período é o <strong>somatório</strong> das taxas intermediárias</td><td>"Somar" taxas = <strong>multiplicar fatores</strong>: (1+total) = (1+f₁)×(1+f₂)×...×(1+fₙ)</td></tr>
+<tr><td><strong>2. Subtração = Divisão</strong></td><td>Um "pedaço" da taxa total é a taxa total <strong>subtraída</strong> das taxas que não queremos</td><td>"Subtrair" em compostos = <strong>dividir fatores</strong>: (1+f_incógnita) = Fator Total ÷ Fator Conhecido</td></tr>
+</tbody>
+</table>
+<p><strong>Por que "subtração = divisão"?</strong> Em juros simples, você soma e subtrai normalmente. Em juros compostos, os fatores se multiplicam — então "retirar" um pedaço do produto significa dividi-lo. É a operação inversa da multiplicação.</p>
+<p><strong>Aplicação prática:</strong> Imagine que você sabe o retorno total de 3 anos (todos os fatores multiplicados) e conhece os fatores dos anos 2 e 3. Para achar o fator do ano 1, basta <em>dividir</em> o total pelos anos que você já tem. Na HP 12C isso se traduz em: calcule o fator dos anos conhecidos → use como PV; coloque o total como FV → [i] encontra a taxa incógnita.</p>
+
 <h3>HP 12C — Exemplo 1: Encontrar a Taxa Spot Longa</h3>
 <p><em>Spot 1A = 2%, taxa a termo do 2º ano = 3%, taxa a termo do 3º ano = 4%. Qual a taxa spot de 3 anos?</em></p>
 <table class="data-table">
