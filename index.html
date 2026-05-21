@@ -1120,23 +1120,29 @@ function chatOpenClaude(){
 /* ══ SUPABASE SYNC ══════════════════════════════════════════════ */
 const SB_URL = 'https://pdmetoerqbidnteuviee.supabase.co';
 const SB_KEY = 'sb_publishable_59mei1wkfKQygMD66Nvbxg_T2RvSbCW';
-const sb = supabase.createClient(SB_URL, SB_KEY);
+let sb = null;
+try { sb = (typeof supabase !== 'undefined') ? supabase.createClient(SB_URL, SB_KEY) : null; }
+catch(e) { console.warn('Supabase init failed:', e); }
 
 let sbUser = null;
 let sbTimer = null;
 
 async function sbInit(){
-  const { data: { session } } = await sb.auth.getSession();
-  if(session?.user){ sbUser = session.user; await sbLoad(); }
-  sbRender();
-  sb.auth.onAuthStateChange(async (event, session) => {
-    sbUser = session?.user || null;
-    if(event === 'SIGNED_IN'){ await sbLoad(); updateProgress(); updateSRSBadge(); if(curMod && curTab) switchTab(curTab); }
+  if(!sb){ sbRender(); return; }
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if(session?.user){ sbUser = session.user; await sbLoad(); }
     sbRender();
-  });
+    sb.auth.onAuthStateChange(async (event, session) => {
+      sbUser = session?.user || null;
+      if(event === 'SIGNED_IN'){ await sbLoad(); updateProgress(); updateSRSBadge(); if(curMod && curTab) switchTab(curTab); }
+      sbRender();
+    });
+  } catch(e) { console.warn('sbInit error:', e); sbRender(); }
 }
 
 async function sbSignIn(){
+  if(!sb){ alert('Sincronização indisponível. Verifique sua conexão.'); return; }
   const email = prompt('Digite seu e-mail para receber o link de acesso:');
   if(!email?.trim()) return;
   const { error } = await sb.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: location.href } });
@@ -1162,14 +1168,14 @@ async function sbLoad(){
 }
 
 function sbScheduleSync(){
-  if(!sbUser) return;
+  if(!sb || !sbUser) return;
   clearTimeout(sbTimer);
   sbDot('var(--gold)', 'Salvando...');
   sbTimer = setTimeout(sbSync, 2500);
 }
 
 async function sbSync(){
-  if(!sbUser) return;
+  if(!sb || !sbUser) return;
   const { error } = await sb.from('cfp_data').upsert({
     user_id: sbUser.id, notes, done:[...done], srs:srsData, stats:qstats,
     updated_at: new Date().toISOString()
