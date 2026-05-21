@@ -1144,21 +1144,23 @@ let sbTimer = null;
 async function sbInit(){
   if(!sb){ sbRenderStatus('offline'); return; }
   try {
-    await sbLoad();
+    const hadCloudData = await sbLoad();
+    if(!hadCloudData) await sbSync(); // nuvem vazia → envia dados locais
     sbRenderStatus('ok');
   } catch(e){ console.warn('sbInit:', e); sbRenderStatus('offline'); }
 }
 
 async function sbLoad(){
-  if(!sb) return;
+  if(!sb) return false;
   const { data, error } = await sb.from('cfp_data').select('*').eq('user_id', SB_UID).single();
-  if(error){ if(error.code !== 'PGRST116') console.error('sbLoad:', error); return; }
-  if(!data) return;
+  if(error){ if(error.code !== 'PGRST116') console.error('sbLoad:', error); return false; }
+  if(!data) return false;
   notes   = data.notes  || {};
   done    = new Set(data.done  || []);
   srsData = data.srs    || {};
   qstats  = data.stats  || { c:0, t:0 };
   saveDone(true); saveStats(true); saveNotes(true); saveSRS(true);
+  return true;
 }
 
 function sbScheduleSync(){
