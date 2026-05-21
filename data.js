@@ -524,17 +524,61 @@ const D = {
 <p><strong>Atenção NTN-B:</strong> remunera "4,55% + IPCA" — esse "+" é MULTIPLICAÇÃO de fatores, não soma. 4,55% real + 10% IPCA = 15% nominal (não 14,55%).</p>
 
 <h2>Estrutura a Termo da Taxa de Juros (ETTJ)</h2>
-<p>Também chamada de <strong>curva de juros</strong> — representa a relação entre prazo e retorno esperado nas aplicações de renda fixa.</p>
+<p>Também chamada de <strong>curva de juros</strong> — representa a expectativa de retornos nas aplicações de renda fixa levando em conta a <strong>relação entre tempo e taxa</strong>. A ideia central é que cada período possui sua própria taxa, e os retornos não são uniformes ao longo do tempo (mesmo que a gente acredite nisso).</p>
+
+<h3>Taxa Spot vs Taxa a Termo</h3>
 <table class="data-table">
-<thead><tr><th>Conceito</th><th>Definição</th></tr></thead>
+<thead><tr><th>Conceito</th><th>Definição</th><th>Exemplo prático</th></tr></thead>
 <tbody>
-<tr><td><strong>Taxa Spot</strong></td><td>Taxa que INICIA hoje (ex: LTN de 1 ano negociada agora)</td></tr>
-<tr><td><strong>Taxa a Termo</strong></td><td>Taxa de período futuro que NÃO inicia hoje (ex: juros do 2º ao 3º ano)</td></tr>
-<tr><td><strong>Curva Normal (Ascendente)</strong></td><td>Quanto maior o prazo, maior a taxa — situação usual de mercado</td></tr>
-<tr><td><strong>Curva Invertida (Descendente)</strong></td><td>Taxas longas menores que as curtas — indica política monetária expansionista</td></tr>
-<tr><td><strong>Curva Arqueada</strong></td><td>Forma de "montanha" — expectativa de queda de juros no longo prazo</td></tr>
+<tr><td><strong>Taxa Spot (Z)</strong></td><td>Taxa que <strong>INICIA HOJE</strong> — cobre do presente até um ponto futuro</td><td>Spot do ano 1 = 2%: aplicação de 1 ano que começa agora</td></tr>
+<tr><td><strong>Taxa a Termo (f)</strong></td><td>Taxa de período <strong>futuro que NÃO inicia hoje</strong> — cobre de um ponto futuro a outro</td><td>Taxa a termo do ano 2 = 3%: juros esperados entre o 1º e o 2º ano</td></tr>
 </tbody>
 </table>
+<p><strong>Exemplo intuitivo:</strong> Spot 2021 = 2%, taxa a termo 2022 = 3%. Aplicando R$100 hoje: ao final do ano 1 → R$102,00; ao final do ano 2 → R$102 × 1,03 = <strong>R$105,06</strong> (retorno total de 5,06% no período, ou <strong>2,4988% a.a.</strong> — a taxa spot de 2 anos).</p>
+<p>Mesmo com a taxa spot de 2 anos sendo 2,4988% a.a., isso <em>não significa</em> que rendeu essa taxa em cada ano: o ano 1 rendeu 2% e o ano 2 rendeu 3%. É uma composição.</p>
+
+<h3>Formatos da Curva de Juros</h3>
+<table class="data-table">
+<thead><tr><th>Formato</th><th>Comportamento</th><th>Sinal de Mercado</th></tr></thead>
+<tbody>
+<tr><td><strong>Normal (Ascendente)</strong></td><td>Quanto maior o prazo, maior a taxa — situação usual</td><td>Prêmio de prazo: investidor exige mais por esperar mais tempo</td></tr>
+<tr><td><strong>Invertida (Descendente)</strong></td><td>Taxas longas menores que as curtas</td><td>Política monetária expansionista — mercado espera queda de juros no futuro</td></tr>
+<tr><td><strong>Arqueada</strong></td><td>Sobe no curto prazo, forma pico e cai no longo</td><td>Expectativa de alta temporária de juros seguida de queda estrutural</td></tr>
+</tbody>
+</table>
+
+<h3>Fórmula da ETTJ</h3>
+<p>Como a ETTJ usa juros compostos, os fatores de retorno se <strong>multiplicam</strong> — não se somam:</p>
+<p style="font-size:1.15em;font-weight:bold;text-align:center;padding:8px;background:#f0f4ff;border-radius:6px;">(1 + Z<sub>n</sub>)<sup>n</sup> = (1 + Z<sub>1</sub>) × (1 + f<sub>2</sub>) × ⋯ × (1 + f<sub>n</sub>)</p>
+<table class="data-table">
+<thead><tr><th>Variável</th><th>Significado</th></tr></thead>
+<tbody>
+<tr><td><strong>Z<sub>n</sub></strong></td><td>Taxa spot anualizada do período total (o que geralmente queremos)</td></tr>
+<tr><td><strong>Z<sub>1</sub></strong></td><td>Taxa spot do 1º ano (começa hoje)</td></tr>
+<tr><td><strong>f<sub>2</sub>...f<sub>n</sub></strong></td><td>Taxas a termo de cada período intermediário (não iniciam hoje)</td></tr>
+</tbody>
+</table>
+<p><strong>Chave para a prova:</strong> a HP 12C transforma essa fórmula em <em>somas e subtrações</em> — não precisa decorar a fórmula completa, basta entender o raciocínio em 2 passos.</p>
+
+<h3>HP 12C — Exemplo 1: Encontrar a Taxa Spot Longa</h3>
+<p><em>Spot 1A = 2%, taxa a termo do 2º ano = 3%, taxa a termo do 3º ano = 4%. Qual a taxa spot de 3 anos?</em></p>
+<table class="data-table">
+<thead><tr><th>Passo 1 — Retorno TOTAL do período</th><th>Passo 2 — Anualizar (extrair a taxa spot)</th></tr></thead>
+<tbody>
+<tr><td>100 [ENTER] → 2 [%] [+] → 3 [%] [+] → 4 [%] [+] → 100 [−]<br><strong>R: 9,26%</strong></td><td>9,26 [i] → 3 [n] → 1 [R/S]<br><strong>R: 2,997% a.a.</strong></td></tr>
+</tbody>
+</table>
+<p>O Passo 1 acumula os retornos de cada período. O Passo 2 extrai a taxa anual equivalente (raiz cúbica via HP 12C). Atenção: 9,26% é o retorno <em>total</em> dos 3 anos, não a taxa anual.</p>
+
+<h3>HP 12C — Exemplo 2: Encontrar a Taxa Spot Curta (Inverso)</h3>
+<p><em>Uma LTN de 3 anos rende 9,26% no período. Taxa a termo do ano 2 = 3%, taxa a termo do ano 3 = 4%. Qual a taxa spot de 1 ano?</em></p>
+<table class="data-table">
+<thead><tr><th>Passo 1 — Calcular o "pedaço" a ser subtraído (anos 2 e 3)</th><th>Passo 2 — Isolar a taxa incógnita (ano 1)</th></tr></thead>
+<tbody>
+<tr><td>100 [ENTER] → 3 [%] [+] → 4 [%] [+] → 100 [−] = <strong>7,12%</strong><br>Fator acumulado dos anos 2 e 3 = 107,12</td><td>109,26 [FV] → 107,12 [CHS][PV] → 1 [n] → [i]<br><strong>R: 2% a.a.</strong></td></tr>
+</tbody>
+</table>
+<p>Lógica: o retorno total (109,26) é o produto de todos os fatores. Dividindo pelo "pedaço" dos anos 2 e 3 (107,12), sobra exatamente o fator do ano 1 — e a HP 12C extrai essa taxa com [i].</p>
 
 <h2>Desconto Bancário e Comercial (por fora)</h2>
 <p>Modalidade mais utilizada pelas instituições. Baseia-se em <strong>juros simples sobre o valor nominal</strong> (valor futuro). Fórmulas:</p>
@@ -584,10 +628,12 @@ const D = {
           { label: "Taxa Equivalente", detail: "Juros Compostos: iQ = [(1+iT)^(q/t)−1]×100" }
         ]},
         { label: "ETTJ", color: "#5b8fee", icon: "📈", children: [
-          { label: "Taxa Spot", detail: "Inicia hoje" },
-          { label: "Taxa a Termo", detail: "Não inicia hoje — período futuro" },
-          { label: "Curva Normal", detail: "Ascendente: prazo maior = taxa maior" },
-          { label: "Curva Invertida", detail: "Descendente: pol. expansionista" }
+          { label: "Taxa Spot", detail: "INICIA HOJE — do presente a um ponto futuro" },
+          { label: "Taxa a Termo", detail: "NÃO inicia hoje — entre dois pontos futuros" },
+          { label: "Curva Normal", detail: "Ascendente: prazo maior = taxa maior — padrão" },
+          { label: "Curva Invertida", detail: "Descendente — política monetária expansionista" },
+          { label: "Curva Arqueada", detail: "Pico no médio prazo, queda no longo" },
+          { label: "Fórmula", detail: "(1+Zn)^n = (1+Z1)×(1+f2)×...×(1+fn)" }
         ]},
         { label: "Séries e PMT", color: "#4dbdaf", icon: "💰", children: [
           { label: "END (Postecipado)", detail: "Paga no final — padrão HP [g][8]" },
@@ -608,6 +654,9 @@ const D = {
       { q: "Qual tipo de taxa é usada em juros simples e em juros compostos?", a: "Juros Simples: TAXA PROPORCIONAL — divide diretamente pelo tempo (regra de três). Ex: 30% a.a. ÷ 12 = 2,5% a.m. Juros Compostos: TAXA EQUIVALENTE — conversão exponencial. Ex: 12% a.a. = 0,9489% a.m. (não 1%). Misturar os dois é erro clássico de prova." },
       { q: "Qual a Fórmula de Fischer e para que serve?", a: "Taxa Real = [(1 + Nominal) / (1 + Inflação) − 1] × 100. Isola o ganho real acima da inflação. Exemplo: fundo rende 15%, inflação 10% → Taxa Real = (1,15/1,10) − 1 = 4,55%. NUNCA subtrair diretamente (15%−10%=5% está ERRADO em juros compostos)." },
       { q: "O que é a ETTJ e qual a diferença entre taxa Spot e taxa a Termo?", a: "ETTJ (Estrutura a Termo da Taxa de Juros) = curva de juros, relação entre prazo e retorno esperado em renda fixa. Taxa SPOT: inicia HOJE. Taxa a TERMO: taxa de período futuro, que NÃO inicia hoje (ex: juros esperados do 2º ao 3º ano). A soma composta de spot + termos = spot longa." },
+      { q: "Qual a fórmula da ETTJ e como os fatores se combinam?", a: "(1 + Zn)^n = (1 + Z1) × (1 + f2) × ... × (1 + fn). Os fatores se MULTIPLICAM (juros compostos). Zn = taxa spot anualizada do total; Z1 = spot do 1º ano; f2...fn = taxas a termo de cada período. Na HP 12C: use [%][+] para acumular os retornos e depois [i][n][R/S] para anualizar." },
+      { q: "HP 12C — como encontrar a taxa spot de 3 anos (spot 1A=2%, termo 2A=3%, termo 3A=4%)?", a: "Passo 1 (retorno total): 100[ENTER]→2[%][+]→3[%][+]→4[%][+]→100[−] = 9,26%. Passo 2 (anualizar): 9,26[i]→3[n]→1[R/S] = 2,997% a.a. Atenção: 9,26% é o retorno TOTAL do período de 3 anos, não a taxa anual." },
+      { q: "HP 12C — como encontrar uma taxa spot curta quando se conhece o retorno total e as taxas a termo?", a: "Passo 1 (parte conhecida): calcule o fator acumulado das taxas que você TEM: ex. 100[ENTER]→3[%][+]→4[%][+]→100[−] = 7,12% → fator 107,12. Passo 2 (taxa incógnita): total como FV (109,26) → fator conhecido CHS PV (107,12) → n=1 → [i] = 2% a.a. Lógica: total ÷ parte conhecida = parte incógnita." },
       { q: "Quais os 3 sistemas de amortização e suas características-chave?", a: "Price (Francês): prestação CONSTANTE, amortização crescente. SAC: amortização CONSTANTE (D÷n), prestação decrescente, paga MENOS juros no total. SAA (Americano): paga só juros periodicamente, amortiza TUDO no final (Bullet). O mais caro em juros totais é o SAA. Price e SAC são equivalentes a valor presente." },
       { q: "O que é perpetuidade e qual a fórmula?", a: "Perpetuidade (série infinita) = renda que dura para sempre — equivale a 'viver dos juros'. PV(per) = PMT / i. Exemplo: renda de R$5.000/mês a 0,5% a.m. → PV = 5.000 / 0,005 = R$1.000.000. Esse capital nunca é consumido, apenas os juros são retirados." },
       { q: "Diferença entre pagamento antecipado (BEGIN) e postecipado (END) na HP 12C?", a: "Postecipado (END) = pagamento no FINAL de cada período — padrão da HP 12C (sem BEG no visor). Antecipado (BEGIN) = pagamento no INÍCIO — ativa com [g][7], surge 'BEG' no visor. SEMPRE voltar para END ([g][8]) após resolver uma questão antecipada. PV antecipado é sempre maior que postecipado." },
@@ -621,6 +670,9 @@ const D = {
       { t: "Comparando os sistemas Price e SAC para o mesmo empréstimo, mesma taxa e mesmo prazo, qual afirmação está CORRETA?", o: ["A) O SAC tem taxa de juros menor que a Price", "B) A Price tem prestações iniciais maiores que o SAC", "C) O SAC paga menos juros totais, pois amortiza o saldo devedor mais rapidamente", "D) Trazidos a valor presente, o SAC é mais vantajoso que a Price para o devedor"], c: 2, f: "O SAC paga MENOS juros totais porque amortiza mais o saldo devedor no início (prestações iniciais maiores). A TAXA de juros é idêntica nos dois sistemas — não confunda. Trazendo os fluxos a valor presente, Price e SAC são EQUIVALENTES. O banco é indiferente entre os dois. O SAA é o mais caro em juros totais." },
       { t: "No Sistema de Amortização Americano (SAA), como se comportam os pagamentos durante a vigência do empréstimo?", o: ["A) Prestações iguais com juros e amortização (como na Price)", "B) Prestações decrescentes com amortização constante (como no SAC)", "C) Pagamentos periódicos apenas de juros; amortização do principal somente no vencimento final", "D) Pagamentos de amortização crescente e juros decrescentes"], c: 2, f: "No SAA (Americano ou Bullet), o devedor paga SOMENTE OS JUROS periodicamente. O principal é amortizado APENAS no final. É o mais caro em juros totais pois o saldo devedor nunca diminui durante o prazo. Equivalente ao CDB: você recebe tudo (principal + juros) no vencimento." },
       { t: "A taxa Spot e a taxa a Termo na ETTJ se diferenciam porque:", o: ["A) A taxa Spot é sempre menor que a taxa a Termo", "B) A taxa Spot inicia hoje; a taxa a Termo se refere a período futuro que não inicia hoje", "C) Taxas Spot são calculadas pelo BACEN; taxas a Termo são projetadas pelo mercado", "D) Taxas Spot são para títulos privados; taxas a Termo para títulos públicos"], c: 1, f: "Taxa SPOT = taxa que começa HOJE (ex: LTN de 1 ano negociada agora). Taxa a TERMO = taxa de período futuro que não inicia hoje (ex: juros esperados entre o 1º e o 2º ano). A ETTJ permite calcular a taxa implícita de qualquer período futuro e analisar expectativas do mercado." },
+      { t: "Sabendo que a taxa spot do ano 1 é 2% e a taxa a termo do ano 2 é 3%, qual o retorno total de uma aplicação de R$ 100 por 2 anos?", o: ["A) R$ 105,00 (soma direta: 2% + 3%)", "B) R$ 105,06 (produto dos fatores: 1,02 × 1,03)", "C) R$ 104,55 (Fórmula de Fischer)", "D) R$ 105,09"], c: 1, f: "A ETTJ usa juros COMPOSTOS — os fatores se MULTIPLICAM: 100 × 1,02 × 1,03 = R$105,06 (retorno total de 5,06%). Somar as taxas diretamente (2%+3%=5%) está ERRADO. Na HP 12C: 100[ENTER]→2[%][+]→3[%][+] = 105,06. Esse resultado (105,06) também pode ser expresso como taxa spot de 2 anos = 2,4988% a.a." },
+      { t: "Qual a taxa spot de 3 anos, sabendo que: spot 1A = 2%, taxa a termo do 2º ano = 3%, taxa a termo do 3º ano = 4%?", o: ["A) 3,00% a.a. (média aritmética das três taxas)", "B) 9,26% a.a.", "C) 2,997% a.a.", "D) 4,00% a.a."], c: 2, f: "HP 12C Passo 1: 100[ENTER]→2[%][+]→3[%][+]→4[%][+]→100[−] = 9,26% (retorno TOTAL de 3 anos). Passo 2: 9,26[i]→3[n]→1[R/S] = 2,997% a.a. Atenção: 9,26% é o retorno total do período, não a taxa anual. A média aritmética (3%) ignora os juros compostos. A taxa spot de 3 anos é sempre menor que as taxas a termo mais altas." },
+      { t: "Uma LTN de 3 anos rende 9,26% no período. A taxa a termo do 2º ano é 3% e do 3º ano é 4%. Qual a taxa spot de 1 ano?", o: ["A) 2,26% a.a.", "B) 2,00% a.a.", "C) 1,73% a.a.", "D) 9,26% ÷ 3 = 3,09% a.a."], c: 1, f: "HP 12C Passo 1 (parte conhecida): 100[ENTER]→3[%][+]→4[%][+]→100[−] = 7,12% → fator 107,12. Passo 2: 109,26[FV]→107,12[CHS][PV]→1[n]→[i] = 2% a.a. Lógica: o retorno total (109,26) é o produto de TODOS os fatores. Dividindo pelo fator dos anos 2 e 3 (107,12), sobra o fator do ano 1, de onde extraímos a taxa." },
       { t: "Um título com valor nominal de R$ 5.000 é descontado 'por fora' 3 meses antes do vencimento a 3% ao mês. Qual o valor recebido pelo portador?", o: ["A) R$ 4.563,97 (desconto por dentro)", "B) R$ 4.576,23", "C) R$ 4.550,00 (desconto por fora)", "D) R$ 4.250,00"], c: 2, f: "Desconto por fora (bancário): D = VN × i × n = 5.000 × 0,03 × 3 = R$450. VP = VN − D = 5.000 − 450 = R$4.550. O desconto 'por fora' usa juros SIMPLES sobre o VALOR NOMINAL (futuro). A alternativa A (R$4.563,97) seria o desconto 'por dentro' usando juros compostos: VP = 5.000/(1,03)^3." },
       { t: "Para calcular uma série de pagamentos ANTECIPADOS na HP 12C, o analista deve:", o: ["A) Digitar [g][8] antes do cálculo e verificar se aparece END no visor", "B) Digitar [g][7] e verificar se aparece 'BEG' no visor antes de calcular", "C) Adicionar 1 ao número de períodos (n + 1)", "D) Usar [f][CLX] e depois inserir os dados normalmente"], c: 1, f: "[g][7] ativa o modo BEGIN (pagamentos antecipados, no INÍCIO do período) — aparece 'BEG' no visor. [g][8] ativa o modo END (postecipado, padrão). Após usar BEGIN, SEMPRE retornar para END com [g][8]. Não confundir: [f][CLX] apenas zera registros, não muda o modo." },
       { t: "Qual o capital necessário para garantir uma renda perpétua de R$ 4.000 por mês, com taxa de investimento de 0,5% ao mês?", o: ["A) R$ 200.000", "B) R$ 480.000", "C) R$ 800.000", "D) R$ 2.000.000"], c: 2, f: "Perpetuidade: PV = PMT / i = 4.000 / 0,005 = R$800.000. Renda perpétua = viver dos juros: o capital nunca é consumido. Com R$800.000 a 0,5% a.m. os juros serão exatamente R$4.000/mês. Importante: na prova podem dar a taxa em ano e o PMT em mês — converta para a mesma base antes." },
@@ -633,7 +685,9 @@ const D = {
       { t: "danger", tag: "SAC paga menos juros — não é taxa menor!", txt: "O SAC paga menos juros <strong>TOTAIS</strong> porque amortiza o saldo devedor mais rápido (prestações iniciais maiores). A <strong>taxa de juros é idêntica</strong> na SAC e na Price para o mesmo contrato. Trazendo os fluxos a valor presente, as duas tabelas são <strong>equivalentes</strong>. Nunca diga que o SAC tem taxa menor." },
       { t: "warn", tag: "BEGIN e END na HP 12C — SEMPRE volte para END!", txt: "Após calcular série antecipada (<strong>[g][7] = BEGIN</strong>), SEMPRE retorne para END com <strong>[g][8]</strong>. Se esquecer, todos os cálculos seguintes sairão errados. Na prova CFP, séries antecipadas são raras — se o enunciado não disser 'antecipado' ou 'no início', assuma postecipado (END). 'BEG' no visor = BEGIN ativo." },
       { t: "tip", tag: "Fluxo de caixa sempre — e zere a HP antes!", txt: "Antes de qualquer cálculo: (1) <strong>[f][CLX]</strong> para zerar a HP; (2) Monte o fluxo com sinais corretos: <strong>entrada de caixa = positivo; saída de caixa = negativo (CHS)</strong>; (3) Confirme que i, n e PMT estão na MESMA BASE. Para acumulação: PV e PMT têm o mesmo sinal; FV sinal contrário. Para financiamento: PV positivo (entrou na conta), PMT negativo (pagamento)." },
-      { t: "info", tag: "SAA = Bullet = CDB = amortização no vencimento", txt: "O Sistema de Amortização Americano (SAA) é o modelo de um CDB ou bond corporativo: você empresta dinheiro (PV saída), o emissor paga juros periodicamente (em alguns casos capitalizados) e devolve o principal no vencimento. Chamado de 'Bullet' ou 'Ballon' — é o mais caro em juros totais pois o saldo devedor permanece intacto até o final." }
+      { t: "info", tag: "SAA = Bullet = CDB = amortização no vencimento", txt: "O Sistema de Amortização Americano (SAA) é o modelo de um CDB ou bond corporativo: você empresta dinheiro (PV saída), o emissor paga juros periodicamente (em alguns casos capitalizados) e devolve o principal no vencimento. Chamado de 'Bullet' ou 'Ballon' — é o mais caro em juros totais pois o saldo devedor permanece intacto até o final." },
+      { t: "danger", tag: "ETTJ — Spot não é média das taxas!", txt: "A taxa spot de 2 anos NÃO é a média de (spot 1A + termo 2A). É a <strong>raiz quadrada do produto dos fatores</strong>: √(1,02 × 1,03) − 1 = 2,4988% a.a. Somar e dividir por 2 está errado em juros compostos. Nos cálculos da prova, sempre use a HP 12C com os passos de acumulação e anualização." },
+      { t: "tip", tag: "HP 12C ETTJ — 2 passos fixos", txt: "<strong>Para achar spot longa:</strong> acumule os retornos com [%][+], subtraia 100, obtenha % total → anualiza com [i][n][R/S]. <strong>Para achar taxa incógnita:</strong> calcule o 'pedaço que você tem' com o mesmo processo, use como PV (CHS); coloque o total como FV; n = períodos incógnitos; [i] = taxa." }
     ],
     conexoes: `<div class="content-body">
 <h3>Como Finanças Conecta-se aos Outros Módulos</h3>
