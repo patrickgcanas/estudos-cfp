@@ -1,4 +1,4 @@
-const CACHE = 'cfp-estudos-v3';
+const CACHE = 'cfp-estudos-v4';
 const CORE = ['./', './index.html', './data.js', './manifest.json', './icons/icon-192.svg', './icons/icon-512.svg'];
 
 self.addEventListener('install', e => {
