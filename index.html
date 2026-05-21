@@ -461,7 +461,7 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
       <div class="sstat"><div class="sstat-n" id="stAcc">—</div><div class="sstat-l">Acertos</div></div>
     </div>
     <div class="sb-sync" id="sbStatus">
-      <button class="sb-signin-btn" onclick="sbSignIn()">☁️ Sincronizar dados</button>
+      <div class="sb-user-row"><span class="sb-sync-dot" style="background:var(--t4)"></span><span class="sb-user-email">☁️ Conectando...</span></div>
     </div>
     <div class="nota-geracao">Atualizado em <span id="metaDate">—</span></div>
   </aside>
@@ -522,20 +522,6 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
 </nav>
 <!-- FAB for notes on mobile -->
 <button class="fab-notes" id="fabNotes" onclick="switchTab('notas')" title="Anotações">📝</button>
-
-<!-- Login modal -->
-<div class="sb-modal-bg" id="sbModalBg">
-  <div class="sb-modal">
-    <div class="sb-modal-title">☁️ Sincronizar dados</div>
-    <div class="sb-modal-sub" id="sbModalSub">Entre com seu e-mail e senha.</div>
-    <input type="email" id="sbEmail" placeholder="patrickg.canas@gmail.com" autocomplete="email">
-    <input type="password" id="sbPassword" placeholder="Senha (mín. 6 caracteres)" autocomplete="current-password" onkeydown="if(event.key==='Enter')sbDoLogin()">
-    <div class="sb-modal-err" id="sbErr"></div>
-    <button class="sb-modal-btn" id="sbLoginBtn" onclick="sbDoLogin()">Entrar</button>
-    <button class="sb-modal-cancel" onclick="sbToggleMode()">Primeiro acesso? Criar conta</button>
-    <button class="sb-modal-cancel" onclick="sbCloseModal()">Cancelar</button>
-  </div>
-</div>
 
 <!-- Chat Tutor (Claude.ai launcher) -->
 <div class="chat-card" id="chatCard">
@@ -1145,106 +1131,27 @@ function chatOpenClaude(){
   window.open('https://claude.ai/new', '_blank');
 }
 
-/* ══ SUPABASE SYNC ══════════════════════════════════════════════ */
+/* ══ SUPABASE SYNC (sem login) ══════════════════════════════════ */
 const SB_URL = 'https://pdmetoerqbidnteuviee.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkbWV0b2VycWJpZG50ZXV2aWVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzODY2ODAsImV4cCI6MjA5NDk2MjY4MH0.LGnFDM8lX0jG2Fo2uYeMBPvWcc6ntr7dDyvzL-966ks';
+const SB_UID = 'a1b2c3d4-0000-cfp0-0000-patrickg2026';
 let sb = null;
 try { sb = (typeof supabase !== 'undefined') ? supabase.createClient(SB_URL, SB_KEY) : null; }
 catch(e) { console.warn('Supabase init failed:', e); }
 
-let sbUser = null;
 let sbTimer = null;
 
 async function sbInit(){
-  if(!sb){ sbRender(); return; }
+  if(!sb){ sbRenderStatus('offline'); return; }
   try {
-    const { data: { session } } = await sb.auth.getSession();
-    if(session?.user){ sbUser = session.user; await sbLoad(); }
-    sbRender();
-    sb.auth.onAuthStateChange(async (event, session) => {
-      sbUser = session?.user || null;
-      if(event === 'SIGNED_IN'){ await sbLoad(); updateProgress(); updateSRSBadge(); if(curMod && curTab) switchTab(curTab); }
-      sbRender();
-    });
-  } catch(e) { console.warn('sbInit error:', e); sbRender(); }
-}
-
-function sbSignIn(){
-  if(!sb){ alert('Sincronização indisponível. Verifique sua conexão.'); return; }
-  document.getElementById('sbEmail').value = '';
-  document.getElementById('sbPassword').value = '';
-  document.getElementById('sbErr').style.display = 'none';
-  document.getElementById('sbModalBg').classList.add('open');
-  setTimeout(()=>document.getElementById('sbEmail').focus(), 100);
-}
-
-function sbCloseModal(){
-  document.getElementById('sbModalBg').classList.remove('open');
-}
-
-let sbMode = 'login'; // 'login' | 'signup'
-
-function sbToggleMode(){
-  sbMode = sbMode === 'login' ? 'signup' : 'login';
-  const btn = document.getElementById('sbLoginBtn');
-  const toggle = document.querySelector('.sb-modal-cancel');
-  const sub = document.getElementById('sbModalSub');
-  document.getElementById('sbErr').style.display = 'none';
-  if(sbMode === 'signup'){
-    btn.textContent = 'Criar conta';
-    toggle.textContent = 'Já tenho conta. Entrar';
-    sub.textContent = 'Crie sua conta para sincronizar os dados.';
-  } else {
-    btn.textContent = 'Entrar';
-    toggle.textContent = 'Primeiro acesso? Criar conta';
-    sub.textContent = 'Entre com seu e-mail e senha.';
-  }
-}
-
-async function sbDoLogin(){
-  const email = document.getElementById('sbEmail').value.trim();
-  const password = document.getElementById('sbPassword').value;
-  const btn = document.getElementById('sbLoginBtn');
-  if(!email || !password){ sbShowErr('Preencha e-mail e senha.'); return; }
-  btn.disabled = true; btn.textContent = 'Aguarde...';
-  document.getElementById('sbErr').style.display = 'none';
-
-  try {
-    if(sbMode === 'signup'){
-      const { data, error } = await sb.auth.signUp({ email, password });
-      btn.disabled = false; btn.textContent = 'Criar conta';
-      if(error){ sbShowErr(error.message); return; }
-      if(!data?.session){
-        sbShowErr('✓ Conta criada! Verifique seu e-mail e clique no link de confirmação. Depois clique em "Já tenho conta. Entrar".', true);
-        return;
-      }
-      sbCloseModal();
-    } else {
-      const { data, error } = await sb.auth.signInWithPassword({ email, password });
-      btn.disabled = false; btn.textContent = 'Entrar';
-      if(error){ sbShowErr('Senha ou e-mail incorretos. Tente novamente.'); return; }
-      sbCloseModal();
-    }
-  } catch(e){
-    btn.disabled = false; btn.textContent = sbMode === 'login' ? 'Entrar' : 'Criar conta';
-    sbShowErr('Erro de conexão: ' + e.message);
-  }
-}
-
-function sbShowErr(msg, green){
-  const el = document.getElementById('sbErr');
-  el.textContent = msg;
-  el.style.color = green ? 'var(--green2)' : 'var(--red2)';
-  el.style.display = 'block';
-}
-
-async function sbSignOut(){
-  await sb.auth.signOut();
+    await sbLoad();
+    sbRenderStatus('ok');
+  } catch(e){ console.warn('sbInit:', e); sbRenderStatus('offline'); }
 }
 
 async function sbLoad(){
-  if(!sbUser) return;
-  const { data, error } = await sb.from('cfp_data').select('*').eq('user_id', sbUser.id).single();
+  if(!sb) return;
+  const { data, error } = await sb.from('cfp_data').select('*').eq('user_id', SB_UID).single();
   if(error){ if(error.code !== 'PGRST116') console.error('sbLoad:', error); return; }
   if(!data) return;
   notes   = data.notes  || {};
@@ -1255,39 +1162,27 @@ async function sbLoad(){
 }
 
 function sbScheduleSync(){
-  if(!sb || !sbUser) return;
+  if(!sb) return;
   clearTimeout(sbTimer);
-  sbDot('var(--gold)', 'Salvando...');
+  sbRenderStatus('saving');
   sbTimer = setTimeout(sbSync, 2500);
 }
 
 async function sbSync(){
-  if(!sb || !sbUser) return;
+  if(!sb) return;
   const { error } = await sb.from('cfp_data').upsert({
-    user_id: sbUser.id, notes, done:[...done], srs:srsData, stats:qstats,
+    user_id: SB_UID, notes, done:[...done], srs:srsData, stats:qstats,
     updated_at: new Date().toISOString()
   });
-  sbDot(error ? 'var(--red2)' : 'var(--green)', error ? 'Erro ao salvar' : 'Sincronizado');
+  sbRenderStatus(error ? 'error' : 'ok');
 }
 
-function sbDot(color, title){
-  const d = document.getElementById('sbSyncDot');
-  if(d){ d.style.background = color; d.title = title; }
-}
-
-function sbRender(){
+function sbRenderStatus(state){
   const el = document.getElementById('sbStatus');
   if(!el) return;
-  if(sbUser){
-    const short = sbUser.email.length > 22 ? sbUser.email.slice(0,20)+'…' : sbUser.email;
-    el.innerHTML = `<div class="sb-user-row">
-      <span class="sb-sync-dot" id="sbSyncDot" style="background:var(--green)" title="Sincronizado"></span>
-      <span class="sb-user-email">${short}</span>
-      <button class="sb-signout" onclick="sbSignOut()">Sair</button>
-    </div>`;
-  } else {
-    el.innerHTML = `<button class="sb-signin-btn" onclick="sbSignIn()">☁️ Sincronizar dados</button>`;
-  }
+  const map = { ok:['var(--green)','☁️ Sincronizado'], saving:['var(--gold)','☁️ Salvando...'], error:['var(--red2)','☁️ Erro ao salvar'], offline:['var(--t4)','☁️ Offline'] };
+  const [color, label] = map[state] || map.offline;
+  el.innerHTML = `<div class="sb-user-row"><span class="sb-sync-dot" style="background:${color}"></span><span class="sb-user-email">${label}</span></div>`;
 }
 
 /* ══ UTILS ══════════════════════════════════════════════════════ */
