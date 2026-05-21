@@ -322,6 +322,20 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
 .sb-signout{background:none;border:none;color:var(--t4);font-size:10px;cursor:pointer;padding:2px 5px;border-radius:3px;flex-shrink:0}
 .sb-signout:hover{color:var(--red2);background:rgba(231,76,60,.08)}
 .sb-link-sent{font-size:11px;color:var(--green2);text-align:center;padding:4px 0}
+.sb-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:600;align-items:center;justify-content:center;padding:24px}
+.sb-modal-bg.open{display:flex}
+.sb-modal{background:var(--s1);border:1px solid var(--border2);border-radius:var(--r2);padding:24px;width:100%;max-width:320px;display:flex;flex-direction:column;gap:12px}
+.sb-modal-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--t1)}
+.sb-modal-sub{font-size:11px;color:var(--t3);line-height:1.5}
+.sb-modal input{width:100%;padding:10px 12px;background:var(--s3);border:1px solid var(--border2);border-radius:var(--r);color:var(--t1);font-family:'DM Sans',sans-serif;font-size:13px;outline:none}
+.sb-modal input:focus{border-color:var(--teal2)}
+.sb-modal input::placeholder{color:var(--t4)}
+.sb-modal-btn{width:100%;padding:10px;background:var(--teal);border:none;border-radius:var(--r);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.sb-modal-btn:hover{opacity:.88}
+.sb-modal-btn:disabled{opacity:.4;cursor:not-allowed}
+.sb-modal-err{font-size:11px;color:var(--red2);text-align:center;display:none}
+.sb-modal-cancel{background:none;border:none;color:var(--t4);font-size:11px;cursor:pointer;text-align:center;padding:2px}
+.sb-modal-cancel:hover{color:var(--t2)}
 
 /* ── Chat Tutor (Claude.ai launcher) ── */
 .chat-fab{position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal2));border:none;color:#fff;font-size:24px;cursor:pointer;z-index:150;box-shadow:0 4px 20px rgba(42,157,143,.45);transition:transform .15s,box-shadow .15s;display:flex;align-items:center;justify-content:center;line-height:1}
@@ -508,6 +522,19 @@ body.mod-selected .fab-notes{display:flex;bottom:calc(var(--bnav-h) + var(--safe
 </nav>
 <!-- FAB for notes on mobile -->
 <button class="fab-notes" id="fabNotes" onclick="switchTab('notas')" title="Anotações">📝</button>
+
+<!-- Login modal -->
+<div class="sb-modal-bg" id="sbModalBg">
+  <div class="sb-modal">
+    <div class="sb-modal-title">☁️ Sincronizar dados</div>
+    <div class="sb-modal-sub">Entre com seu e-mail e senha para sincronizar notas e progresso em todos os dispositivos.</div>
+    <input type="email" id="sbEmail" placeholder="seu@email.com" autocomplete="email">
+    <input type="password" id="sbPassword" placeholder="Senha" autocomplete="current-password" onkeydown="if(event.key==='Enter')sbDoLogin()">
+    <div class="sb-modal-err" id="sbErr"></div>
+    <button class="sb-modal-btn" id="sbLoginBtn" onclick="sbDoLogin()">Entrar / Cadastrar</button>
+    <button class="sb-modal-cancel" onclick="sbCloseModal()">Cancelar</button>
+  </div>
+</div>
 
 <!-- Chat Tutor (Claude.ai launcher) -->
 <div class="chat-card" id="chatCard">
@@ -1141,14 +1168,38 @@ async function sbInit(){
   } catch(e) { console.warn('sbInit error:', e); sbRender(); }
 }
 
-async function sbSignIn(){
+function sbSignIn(){
   if(!sb){ alert('Sincronização indisponível. Verifique sua conexão.'); return; }
-  const email = prompt('Digite seu e-mail para receber o link de acesso:');
-  if(!email?.trim()) return;
-  const { error } = await sb.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: location.href } });
-  const el = document.getElementById('sbStatus');
-  if(error) el.innerHTML = `<div class="sb-link-sent" style="color:var(--red2)">Erro: ${error.message}</div>`;
-  else el.innerHTML = `<div class="sb-link-sent">✓ Link enviado para ${email.trim()}<br>Verifique seu e-mail.</div>`;
+  document.getElementById('sbEmail').value = '';
+  document.getElementById('sbPassword').value = '';
+  document.getElementById('sbErr').style.display = 'none';
+  document.getElementById('sbModalBg').classList.add('open');
+  setTimeout(()=>document.getElementById('sbEmail').focus(), 100);
+}
+
+function sbCloseModal(){
+  document.getElementById('sbModalBg').classList.remove('open');
+}
+
+async function sbDoLogin(){
+  const email = document.getElementById('sbEmail').value.trim();
+  const password = document.getElementById('sbPassword').value;
+  const errEl = document.getElementById('sbErr');
+  const btn = document.getElementById('sbLoginBtn');
+  if(!email || !password){ errEl.textContent='Preencha e-mail e senha.'; errEl.style.display='block'; return; }
+  btn.disabled = true; btn.textContent = 'Aguarde...';
+  errEl.style.display = 'none';
+
+  // Tenta login; se usuário não existir, cadastra
+  let { data, error } = await sb.auth.signInWithPassword({ email, password });
+  if(error && error.message.includes('Invalid login credentials')){
+    const res = await sb.auth.signUp({ email, password });
+    data = res.data; error = res.error;
+  }
+
+  btn.disabled = false; btn.textContent = 'Entrar / Cadastrar';
+  if(error){ errEl.textContent = error.message; errEl.style.display='block'; return; }
+  sbCloseModal();
 }
 
 async function sbSignOut(){
