@@ -777,12 +777,23 @@ const D = {
 };
 
 const MODS = [
-  { id: 1, n: "01", name: "Sistema Financeiro Nacional" },
-  { id: 2, n: "02", name: "Fundamentos de Economia" },
-  { id: 3, n: "03", name: "Fundamentos de Finanças" }
+  { id: 1, n: "01", name: "Sistema Financeiro Nacional", cfp_mod: 1 },
+  { id: 2, n: "02", name: "Fundamentos de Economia", cfp_mod: 1 },
+  { id: 3, n: "03", name: "Fundamentos de Finanças", cfp_mod: 1 }
 ];
+
+const CFP_MOD_NAMES = {
+  1: "Fundamentos de Economia e Finanças",
+  2: "Gestão de Ativos e Investimentos",
+  3: "Previdência",
+  4: "Planejamento de Aposentadoria",
+  5: "Gestão de Riscos e Seguros",
+  6: "Planejamento Fiscal",
+  7: "Planejamento Sucessório",
+  8: "Ética e Legislação"
+};
 
 const META = {
   total: 3,
-  gerado_em: "20/05/2026"
+  gerado_em: "21/05/2026"
 };

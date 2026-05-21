@@ -498,18 +498,30 @@ function closeDrawer(){
 /* ══ MODULE LIST ════════════════════════════════════════════════ */
 function renderMods(list){
   const el = document.getElementById('modList');
-  el.innerHTML = '<div class="mod-label">Módulos do Curso</div>';
+  el.innerHTML = '';
+  const groups = {};
   list.forEach(m => {
-    const isDone = done.has(m.id);
-    const hasNote = notes[m.id] && notes[m.id].trim().length > 0;
-    const hasDue = modHasDue(m.id);
-    let dotClass = isDone && hasNote ? 'done has-note' : isDone ? 'done' : hasNote ? 'has-note' : '';
-    if (hasDue) dotClass = dotClass ? dotClass + ' srs' : 'srs';
-    el.innerHTML += `<div class="mod-item${curMod?.id===m.id?' active':''}" onclick="selectMod(${m.id})" id="mi-${m.id}">
-      <span class="mod-n">${m.n}</span>
-      <span class="mod-nm">${esc(m.name)}</span>
-      <span class="mod-dot${dotClass?' '+dotClass:''}"></span>
-    </div>`;
+    const gk = m.cfp_mod || 0;
+    if (!groups[gk]) groups[gk] = [];
+    groups[gk].push(m);
+  });
+  const sortedGroups = Object.keys(groups).sort((a,b) => Number(a)-Number(b));
+  sortedGroups.forEach(gk => {
+    const gNum = Number(gk);
+    const gName = (typeof CFP_MOD_NAMES !== 'undefined' && CFP_MOD_NAMES[gNum]) ? CFP_MOD_NAMES[gNum] : 'Módulo ' + gNum;
+    el.innerHTML += `<div class="mod-label" style="margin-top:6px">M${gNum} · ${esc(gName)}</div>`;
+    groups[gk].forEach(m => {
+      const isDone = done.has(m.id);
+      const hasNote = notes[m.id] && notes[m.id].trim().length > 0;
+      const hasDue = modHasDue(m.id);
+      let dotClass = isDone && hasNote ? 'done has-note' : isDone ? 'done' : hasNote ? 'has-note' : '';
+      if (hasDue) dotClass = dotClass ? dotClass + ' srs' : 'srs';
+      el.innerHTML += `<div class="mod-item${curMod?.id===m.id?' active':''}" onclick="selectMod(${m.id})" id="mi-${m.id}">
+        <span class="mod-n">${m.n}</span>
+        <span class="mod-nm">${esc(m.name)}</span>
+        <span class="mod-dot${dotClass?' '+dotClass:''}"></span>
+      </div>`;
+    });
   });
 }
 function filterMods(q){ renderMods(q ? MODS.filter(m=>m.name.toLowerCase().includes(q.toLowerCase())) : MODS); }
