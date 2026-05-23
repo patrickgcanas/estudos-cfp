@@ -988,6 +988,281 @@ const D = {
 <h3>Tábua Biométrica × Risco de Longevidade</h3>
 <p>A tábua biométrica é uma matriz de probabilidade de sobrevivência por idade. Seguradoras que usam tábuas antigas subestimam a longevidade e ficam subcapitalizadas para honrar rendas vitalícias — risco sistêmico que a SUSEP mitiga exigindo tábuas atualizadas.</p>
 </div>`
+  },
+
+  5: {
+    titulo: "Planejamento de Aposentadoria II",
+    exp: `<div class="content-body">
+<h2>PGBL e VGBL — Produtos de Previdência Privada Aberta</h2>
+<p>Os planos de previdência privada aberta são regulados pela <strong>SUSEP</strong> e distribuídos pelas <strong>EAPCs</strong> (Entidades Abertas de Previdência Complementar). Os dois principais produtos são o PGBL e o VGBL, que diferem fundamentalmente no tratamento tributário.</p>
+<h3>PGBL — Plano Gerador de Benefício Livre</h3>
+<ul>
+<li>Permite <strong>dedução de até 12% da renda bruta tributável anual</strong> na declaração de IR (modelo completo)</li>
+<li>Na fase de resgate, o IR incide sobre o <strong>valor total</strong> (capital aportado + rendimentos)</li>
+<li>Indicado para: declaração completa e quem ainda não atingiu o teto de deduções</li>
+</ul>
+<h3>VGBL — Vida Gerador de Benefício Livre</h3>
+<ul>
+<li><strong>Não permite dedução</strong> na declaração de IR</li>
+<li>Na fase de resgate, o IR incide <strong>apenas sobre os rendimentos</strong></li>
+<li>Indicado para: declaração simplificada, isentos de IR ou quem já usou o limite de 12%</li>
+<li>Classificado juridicamente como <em>seguro de pessoa</em> (não plano de previdência)</li>
+</ul>
+<table class="data-table">
+<thead><tr><th>Característica</th><th>PGBL</th><th>VGBL</th></tr></thead>
+<tbody>
+<tr><td>Dedução IR (acumulação)</td><td>Até 12% renda bruta</td><td>Não permite</td></tr>
+<tr><td>Base de tributação no resgate</td><td>Total (capital + rendimentos)</td><td>Apenas rendimentos</td></tr>
+<tr><td>Declaração recomendada</td><td>Modelo completo</td><td>Simplificada ou isento</td></tr>
+<tr><td>Classificação SUSEP</td><td>Plano de previdência</td><td>Seguro de pessoa</td></tr>
+<tr><td>Bens e Direitos (IRPF)</td><td>Não declarado como bem</td><td>Código 97</td></tr>
+</tbody>
+</table>
+<h2>Regimes de Tributação</h2>
+<h3>Tabela Progressiva (Compensável)</h3>
+<p>Segue a tabela do IR da pessoa física (0% a 27,5%). O IR retido na fonte é <em>antecipação</em> e ajustado na declaração anual — pode gerar restituição ou complementação.</p>
+<table class="data-table">
+<thead><tr><th>Base de Cálculo Mensal</th><th>Alíquota</th></tr></thead>
+<tbody>
+<tr><td>Até R$ 2.259,20</td><td>0% (isento)</td></tr>
+<tr><td>R$ 2.259,21 a R$ 2.826,65</td><td>7,5%</td></tr>
+<tr><td>R$ 2.826,66 a R$ 3.751,05</td><td>15%</td></tr>
+<tr><td>R$ 3.751,06 a R$ 4.664,68</td><td>22,5%</td></tr>
+<tr><td>Acima de R$ 4.664,68</td><td>27,5%</td></tr>
+</tbody>
+</table>
+<h3>Tabela Regressiva (Definitiva / Exclusiva na Fonte)</h3>
+<p>Alíquotas decrescentes conforme o prazo de acumulação. O IR retido é <strong>definitivo</strong> — não entra na declaração de ajuste anual. Ideal para horizontes longos.</p>
+<table class="data-table">
+<thead><tr><th>Prazo de Acumulação</th><th>Alíquota</th></tr></thead>
+<tbody>
+<tr><td>Até 2 anos</td><td>35%</td></tr>
+<tr><td>2 a 4 anos</td><td>30%</td></tr>
+<tr><td>4 a 6 anos</td><td>25%</td></tr>
+<tr><td>6 a 8 anos</td><td>20%</td></tr>
+<tr><td>8 a 10 anos</td><td>15%</td></tr>
+<tr><td>Acima de 10 anos</td><td><strong>10%</strong></td></tr>
+</tbody>
+</table>
+<p>Mnemônico: começa em <em>35%</em> e cai <em>5 p.p. a cada 2 anos</em> — seis faixas, alíquota mínima de 10% após 10 anos.</p>
+<h2>Lei 14.803/2024 — Nova Regra de Escolha do Regime</h2>
+<p>Antes da lei: a escolha do regime tributário (progressivo ou regressivo) era feita <strong>na contratação</strong> do plano.<br>
+Após a lei: a escolha migrou para o <strong>momento do primeiro resgate ou início do recebimento do benefício</strong>, dando mais flexibilidade ao participante para decidir com base em sua situação fiscal futura.</p>
+<h2>FIE — Fundo de Investimento Especialmente Constituído</h2>
+<p>Os recursos da previdência privada aberta são investidos em <strong>FIEs</strong>, regulamentados pela SUSEP (não pela CVM). Os FIEs são isentos do <strong>come-cotas</strong> semestral — vantagem tributária frente aos fundos convencionais.</p>
+<h3>Classificação SUSEP dos FIEs</h3>
+<table class="data-table">
+<thead><tr><th>Tipo</th><th>Alocação</th></tr></thead>
+<tbody>
+<tr><td><strong>Soberano</strong></td><td>100% em títulos públicos federais</td></tr>
+<tr><td><strong>Renda Fixa Crédito Privado</strong></td><td>Mín. 80% em RF; pode ter crédito privado; <strong>sem renda variável</strong></td></tr>
+<tr><td><strong>Composto</strong></td><td>Pode ter <strong>até 49% em renda variável</strong>; único tipo com RV</td></tr>
+</tbody>
+</table>
+<h2>Limites de RV — CMN 4.993/2022</h2>
+<p>A Resolução CMN 4.993/2022 define os limites máximos de alocação em renda variável pelo <em>perfil do participante</em> (distinto do limite do FIE):</p>
+<table class="data-table">
+<thead><tr><th>Perfil</th><th>Limite Máximo em RV</th></tr></thead>
+<tbody>
+<tr><td>Investidor Comum</td><td><strong>Até 70%</strong></td></tr>
+<tr><td>Investidor Qualificado</td><td><strong>Até 100%</strong></td></tr>
+</tbody>
+</table>
+<p>Investidor qualificado: mais de R$ 1 milhão investidos ou certificação reconhecida pelo BC (CFA, CFP, CPA-20).</p>
+</div>`,
+    mapa: {
+      root: "Previdência Privada",
+      branches: [
+        { label: "Produtos", color: "#d4a843", icon: "📦", children: [
+          { label: "PGBL", detail: "Deduz 12% renda bruta · tributa total" },
+          { label: "VGBL", detail: "Não deduz · tributa só rendimentos · seguro de pessoa" }
+        ]},
+        { label: "Tributação", color: "#5b8fee", icon: "📊", children: [
+          { label: "Progressiva", detail: "0 a 27,5% · compensável · ajuste anual" },
+          { label: "Regressiva", detail: "35% → 10% · definitiva · exclusiva fonte" },
+          { label: "Lei 14.803/24", detail: "Escolha no 1º resgate (não na contratação)" }
+        ]},
+        { label: "FIE (SUSEP)", color: "#4dbdaf", icon: "💼", children: [
+          { label: "Soberano", detail: "100% títulos públicos" },
+          { label: "RF Crédito Priv.", detail: "Min 80% RF · sem RV" },
+          { label: "Composto", detail: "Único com RV · até 49%" }
+        ]},
+        { label: "Limites CMN", color: "#e05b5b", icon: "⚖️", children: [
+          { label: "Inv. Comum", detail: "Até 70% em RV" },
+          { label: "Inv. Qualificado", detail: "Até 100% em RV" }
+        ]}
+      ]
+    },
+    tags: ["PGBL","VGBL","previdência privada","tabela regressiva","progressiva","FIE","SUSEP","CMN 4993","come-cotas","Lei 14803","portabilidade","EAPC"],
+    fc: [
+      { q: "Qual a principal diferença tributária entre PGBL e VGBL?", a: "PGBL permite dedução de até 12% da renda bruta (IR modelo completo), mas tributa o valor TOTAL no resgate. VGBL não permite dedução, mas tributa apenas os RENDIMENTOS no resgate." },
+      { q: "O que mudou com a Lei 14.803/2024 na previdência privada?", a: "A escolha do regime tributário (progressivo ou regressivo) passou da contratação para o MOMENTO DO PRIMEIRO RESGATE ou início do benefício, dando mais flexibilidade ao participante." },
+      { q: "Quais são as alíquotas da tabela regressiva e qual o prazo para atingir 10%?", a: "35% (até 2 anos), 30% (2-4), 25% (4-6), 20% (6-8), 15% (8-10), 10% (acima de 10 anos). Prazo mínimo para 10%: mais de 10 anos de acumulação." },
+      { q: "O que é um FIE e quais são os três tipos classificados pela SUSEP?", a: "FIE = Fundo de Investimento Especialmente Constituído (regulado pela SUSEP, não CVM). Tipos: Soberano (100% títulos públicos), Renda Fixa Crédito Privado (mín. 80% RF, sem RV), Composto (até 49% em RV — único com renda variável)." },
+      { q: "Segundo a CMN 4.993/2022, qual o limite de RV para investidor comum vs qualificado?", a: "Investidor Comum: até 70% em RV. Investidor Qualificado: até 100% em RV. Atenção: o limite de 49% é do FIE Composto (produto), não do participante — são limites diferentes." },
+      { q: "Como o VGBL deve ser declarado no IR anual?", a: "VGBL é seguro de pessoa (código 97): declarado como bem na ficha de Bens e Direitos — contribuições NÃO são dedutíveis. PGBL: contribuições lançadas como dedução (até 12%) na ficha de pagamentos efetuados." },
+      { q: "O que é come-cotas e como ele se aplica à previdência privada?", a: "Come-cotas é a antecipação semestral de IR em fundos convencionais (RF e multimercado). Os FIEs de previdência são ISENTOS do come-cotas — vantagem tributária relevante na fase de acumulação." }
+    ],
+    q: [
+      { t: "Um cliente faz declaração de IR no modelo completo, tem renda bruta anual de R$ 200.000 e não atingiu o limite de deduções de previdência. Qual produto é mais indicado?", o: ["A) VGBL, pois tributa apenas rendimentos no resgate.", "B) PGBL, pois permite deduzir até R$ 24.000 (12% de R$ 200.000) da base de IR.", "C) PGBL, pois é isento de IR no resgate após 10 anos.", "D) VGBL, pois pode ser declarado como bem isento."], c: 1, f: "O PGBL é indicado para quem faz declaração completa com renda tributável elevada: permite deduzir até 12% de R$ 200.000 = R$ 24.000 ao ano, gerando economia fiscal imediata. Embora o resgate tribute o total, a dedução anual cria vantagem líquida para perfis tributários altos." },
+      { t: "Um participante de PGBL com regime regressivo faz resgate após 9 anos de acumulação. Qual alíquota de IR será aplicada?", o: ["A) 10%, última faixa da tabela regressiva.", "B) 15%, pois 9 anos se enquadra na faixa de 8 a 10 anos.", "C) 20%, pois está acima de 8 anos.", "D) 25%, pois a tabela só atinge 15% após 10 anos completos."], c: 1, f: "Na tabela regressiva, 9 anos se enquadra na faixa '8 a 10 anos' = alíquota de 15%. A alíquota de 10% exige MAIS de 10 anos. O IR retido é definitivo (exclusivo na fonte) — não entra no ajuste anual." },
+      { t: "Qual dos tipos de FIE é o ÚNICO que pode investir em renda variável?", o: ["A) FIE Soberano.", "B) FIE Renda Fixa Crédito Privado.", "C) FIE Composto.", "D) FIE Multimercado Previdenciário."], c: 2, f: "Pela classificação SUSEP, existem três tipos de FIE: Soberano (100% títulos públicos), Renda Fixa Crédito Privado (mín. 80% RF, sem RV) e Composto (até 49% em RV). O FIE Composto é o ÚNICO com renda variável. 'Multimercado Previdenciário' não existe na classificação SUSEP." },
+      { t: "Segundo a CMN 4.993/2022, qual o limite máximo de RV para um 'Investidor Comum' em previdência?", o: ["A) 49%, igual ao limite do FIE Composto.", "B) 30%, para perfil conservador padrão.", "C) 70%, conforme o limite da CMN para investidores comuns.", "D) 100%, sem restrição para qualquer participante."], c: 2, f: "A CMN 4.993/2022 estabelece: Investidor Comum → até 70% em RV; Investidor Qualificado → até 100%. Atenção: o limite de 49% é do FIE Composto (produto em si), não do participante. O participante pode alocar em múltiplos FIEs; o teto do seu portfólio é 70%." }
+    ],
+    al: [
+      { t: "danger", tag: "PGBL tributa o TOTAL", txt: "A pegadinha mais clássica: no PGBL, o IR no resgate incide sobre o valor TOTAL resgatado (capital + rendimentos), não apenas sobre os ganhos. Isso compensa a dedução de 12% na acumulação. No VGBL, IR só sobre rendimentos." },
+      { t: "danger", tag: "Lei 14.803/24 — Atenção ao momento", txt: "Antes da lei: escolha do regime na <strong>contratação</strong>. Após a lei: escolha no <strong>momento do 1º resgate</strong>. A prova pode apresentar cenários anteriores e posteriores à lei — atenção ao contexto temporal da questão." },
+      { t: "warn", tag: "49% vs 70% — Não confundir", txt: "O limite de <strong>49% em RV</strong> é do FIE Composto (classificação SUSEP do fundo). O limite de <strong>70% em RV</strong> é do Investidor Comum (CMN 4.993/2022, perfil do participante). Contextos e normas diferentes." },
+      { t: "warn", tag: "VGBL = Seguro, não Plano", txt: "O VGBL é juridicamente um <strong>seguro de pessoa</strong>: (1) não é dedutível no IR; (2) declarado em Bens e Direitos (código 97); (3) na sucessão, não passa pelo inventário — beneficiários indicados recebem diretamente." },
+      { t: "tip", tag: "Mnemônico tabela regressiva", txt: "Começa em <strong>35%</strong> e cai <strong>5 p.p. a cada 2 anos</strong>: 35% → 30% → 25% → 20% → 15% → 10%. Seis faixas. Alíquota mínima de 10% após mais de 10 anos." }
+    ],
+    conexoes: `<div class="content-body">
+<h3>PGBL/VGBL × SFN (Módulo 1)</h3>
+<p>A SUSEP (supervisora dos seguros privados e da previdência aberta) e o CNSP (normativo) já foram vistos no Módulo 1. Aposentadoria II é o contexto prático onde essas entidades regulam os produtos que o cliente vai comprar. EFPC segue CNPC/PREVIC — linha divisória essencial para a prova.</p>
+<h3>Tabela Regressiva × Juros Compostos (Módulo 3)</h3>
+<p>A vantagem da tabela regressiva é maximizada pelo efeito dos juros compostos: quanto mais tempo o dinheiro fica investido, menor a alíquota e maior o montante acumulado. Os dois efeitos se combinam — uma questão pode pedir para calcular o benefício líquido comparando os dois regimes com HP-12C.</p>
+<h3>Aposentadoria II × Aposentadoria I (Módulo 4)</h3>
+<p>O Módulo 4 cobriu o cálculo do capital necessário (etapas 1 e 2 com HP-12C), o gap previdenciário e os benefícios do RGPS/RPPS. O Módulo 5 cobre os <em>instrumentos</em> para fechar esse gap: PGBL, VGBL, e como são tributados e regulados. Os dois módulos formam o planejamento previdenciário completo.</p>
+<h3>Come-cotas × Tributação de Fundos (Módulo 3)</h3>
+<p>Fundos convencionais de RF e multimercado sofrem come-cotas (antecipação de IR em maio e novembro). FIEs de previdência são isentos — vantagem de diferimento tributário que potencializa o crescimento na fase longa de acumulação.</p>
+</div>`
+  },
+
+  6: {
+    titulo: "Análise de Projetos",
+    exp: `<div class="content-body">
+<h2>VPL — Valor Presente Líquido (NPV)</h2>
+<p>O VPL desconta todos os fluxos de caixa futuros de um projeto à Taxa Mínima de Atratividade (TMA) e subtrai o investimento inicial. Mede a <strong>criação de valor em termos absolutos</strong>.</p>
+<p>Fórmula: <strong>VPL = Σ [FCt / (1 + i)^t] − I₀</strong></p>
+<p><strong>Regra de decisão:</strong></p>
+<ul>
+<li><em>VPL &gt; 0</em> → Projeto viável (cria valor acima da TMA)</li>
+<li><em>VPL = 0</em> → Indiferente (remunera exatamente a TMA)</li>
+<li><em>VPL &lt; 0</em> → Inviável (destrói valor)</li>
+</ul>
+<p>Entre projetos mutuamente exclusivos: escolhe-se o de <strong>maior VPL</strong>.</p>
+<h3>Cálculo na HP-12C</h3>
+<p>1. <code>g END</code> (fluxos ao final); 2. Investimento inicial negativo: <code>CHS g CFo</code>; 3. Cada fluxo: <code>g CFj</code>; 4. Repetições: <code>g Nj</code>; 5. Taxa: <code>i</code>; 6. Calcule: <code>f NPV</code></p>
+<h2>TIR — Taxa Interna de Retorno (IRR)</h2>
+<p>A TIR é a taxa que <strong>zera o VPL</strong> de um projeto — representa sua rentabilidade intrínseca.</p>
+<p><strong>Regra de decisão:</strong> TIR &gt; TMA → viável; TIR &lt; TMA → inviável.</p>
+<p>Entre projetos exclusivos: maior TIR vence — <em>mas pode conflitar com o VPL.</em></p>
+<h3>HP-12C: mesmos fluxos do VPL → <code>f IRR</code></h3>
+<h2>Múltiplas TIRs</h2>
+<p>Ocorrem quando há <strong>inversões de sinal</strong> nos fluxos de caixa (ex: −, +, −).</p>
+<ul>
+<li><strong>Regra de Descartes:</strong> Número máximo de TIRs positivas = número de mudanças de sinal no fluxo.</li>
+<li><strong>Critério de Norstrom:</strong> Se a série dos <em>saldos acumulados</em> tiver apenas UMA mudança de sinal → existe uma única TIR positiva, independente do número de inversões nos fluxos brutos.</li>
+</ul>
+<h2>TIRM — Taxa Interna de Retorno Modificada (MIRR)</h2>
+<p>Resolve o problema da TIR: usa taxas separadas para reinvestimento e financiamento.</p>
+<ul>
+<li><strong>Taxa de financiamento (tf):</strong> desconta fluxos negativos ao período 0 (VP dos custos)</li>
+<li><strong>Taxa de reinvestimento (tr):</strong> leva fluxos positivos ao período n (VF dos benefícios)</li>
+</ul>
+<p>Fórmula: <strong>TIRM = (VF dos benefícios / VP dos custos)^(1/n) − 1</strong></p>
+<p>A TIRM é sempre <em>única</em> — não tem problema de múltiplas soluções.</p>
+<h2>Payback Simples vs Descontado</h2>
+<table class="data-table">
+<thead><tr><th>Critério</th><th>Payback Simples</th><th>Payback Descontado</th></tr></thead>
+<tbody>
+<tr><td>Desconto dos fluxos</td><td>Não</td><td>Sim (pela TMA)</td></tr>
+<tr><td>Valor do dinheiro no tempo</td><td>Ignora</td><td>Considera</td></tr>
+<tr><td>Resultado</td><td>Menor prazo</td><td>Maior ou igual ao simples</td></tr>
+</tbody>
+</table>
+<p>Regra: aceitar projeto com payback inferior ao prazo máximo estipulado. Limitação: ignora fluxos após o período de payback.</p>
+<h2>Conflito VPL vs TIR</h2>
+<p>Projetos mutuamente exclusivos podem ter VPL e TIR indicando vencedores diferentes. Ocorre quando há diferença de:</p>
+<ul>
+<li><strong>Escala de investimento</strong> (projetos de tamanhos diferentes)</li>
+<li><strong>Prazo de duração</strong> (projetos com horizontes diferentes)</li>
+<li><strong>Perfil temporal dos fluxos</strong> (concentrados no início vs no final)</li>
+</ul>
+<p><strong>Quando há conflito: o VPL prevalece.</strong> O VPL mede criação de valor em termos absolutos — objetivo de maximização de riqueza do acionista.</p>
+<h2>EBITDA / LAJIDA</h2>
+<p>EBITDA = Earnings Before Interest, Taxes, Depreciation and Amortization (LAJIDA = Lucro Antes de Juros, Impostos, Depreciação e Amortização). Mede a <strong>geração operacional de caixa</strong>.</p>
+<table class="data-table">
+<thead><tr><th>Item</th><th>Operação</th></tr></thead>
+<tbody>
+<tr><td>Receita Líquida</td><td>Base</td></tr>
+<tr><td>(−) Custos e Despesas Operacionais</td><td></td></tr>
+<tr><td>= EBIT (LAJIR)</td><td>Lucro operacional</td></tr>
+<tr><td>(+) Depreciação e Amortização</td><td>Adição (não-caixa)</td></tr>
+<tr><td>= <strong>EBITDA</strong></td><td></td></tr>
+</tbody>
+</table>
+<p><strong>Margem EBITDA</strong> = EBITDA / Receita Líquida. Não é fluxo de caixa real: ignora variações de capital de giro e CAPEX.</p>
+<h2>CMPC / WACC</h2>
+<p>O CMPC (Custo Médio Ponderado de Capital) é a TMA de uma empresa, ponderando o custo de cada fonte de capital pelo seu peso na estrutura de financiamento.</p>
+<p>Fórmula: <strong>CMPC = (PL / (PL+D)) × Rp + (D / (PL+D)) × Rd × (1 − IR)</strong></p>
+<ul>
+<li><strong>PL</strong> = Patrimônio Líquido; <strong>D</strong> = Dívida</li>
+<li><strong>Rp</strong> = custo do capital próprio (ex.: CAPM)</li>
+<li><strong>Rd</strong> = custo da dívida (taxa bruta)</li>
+<li><strong>(1 − IR)</strong> = benefício fiscal — juros são dedutíveis no IR, reduzindo o custo líquido da dívida</li>
+</ul>
+<p><strong>Exemplo:</strong> PL = R$ 600k, D = R$ 400k, Rp = 15%, Rd = 10%, IR = 34%:<br>
+CMPC = 0,6 × 15% + 0,4 × 10% × 0,66 = 9% + 2,64% = <strong>11,64%</strong></p>
+</div>`,
+    mapa: {
+      root: "Análise de Projetos",
+      branches: [
+        { label: "VPL / NPV", color: "#d4a843", icon: "💰", children: [
+          { label: "VPL > 0", detail: "Projeto viável · cria valor" },
+          { label: "VPL = 0", detail: "Remunera exatamente a TMA" },
+          { label: "Projetos excludentes", detail: "Escolhe maior VPL" }
+        ]},
+        { label: "TIR / TIRM", color: "#5b8fee", icon: "📈", children: [
+          { label: "TIR > TMA", detail: "Projeto viável" },
+          { label: "Múltiplas TIRs", detail: "Descartes: nº mudanças de sinal" },
+          { label: "Norstrom", detail: "Saldo acumulado: 1 inversão = TIR única" },
+          { label: "TIRM", detail: "Taxa reinvest. separada · única solução" }
+        ]},
+        { label: "Payback", color: "#4dbdaf", icon: "⏱️", children: [
+          { label: "Simples", detail: "Sem desconto · mais rápido" },
+          { label: "Descontado", detail: "Com TMA · sempre maior ou igual" }
+        ]},
+        { label: "EBITDA / CMPC", color: "#a855f7", icon: "🏢", children: [
+          { label: "EBITDA", detail: "LAJIDA · geração operacional · não é caixa real" },
+          { label: "CMPC", detail: "WACC = PL×Rp + D×Rd×(1−IR)" }
+        ]}
+      ]
+    },
+    tags: ["VPL","NPV","TIR","IRR","TIRM","MIRR","payback","EBITDA","LAJIDA","CMPC","WACC","Descartes","Norstrom","análise de projetos","TMA"],
+    fc: [
+      { q: "O que significa VPL > 0 na análise de projetos?", a: "O projeto é viável: os fluxos de caixa futuros, descontados pela TMA, superam o investimento inicial. O projeto cria valor. VPL = 0 → indiferente; VPL < 0 → inviável." },
+      { q: "Qual a diferença entre TIR e TIRM?", a: "A TIR pressupõe reinvestimento dos fluxos intermediários à própria TIR (irreal). A TIRM usa taxa de reinvestimento separada (geralmente a TMA), tornando o resultado mais realista e eliminando múltiplas TIRs." },
+      { q: "O que diz a Regra de Descartes sobre múltiplas TIRs?", a: "O número MÁXIMO de TIRs reais positivas é igual ao número de mudanças de sinal no fluxo de caixa. Fluxo (−, +, −): 2 inversões → até 2 TIRs positivas. Mas o número real pode ser menor." },
+      { q: "O que é o Critério de Norstrom?", a: "Se a série dos SALDOS ACUMULADOS dos fluxos de caixa tiver apenas UMA mudança de sinal, existe uma única TIR positiva — independentemente do número de inversões nos fluxos brutos." },
+      { q: "Qual a fórmula do CMPC (WACC) e o que significa o fator (1 − IR)?", a: "CMPC = (PL/(PL+D)) × Rp + (D/(PL+D)) × Rd × (1−IR). O fator (1−IR) é o benefício fiscal: juros da dívida são dedutíveis no IR, reduzindo o custo efetivo do capital de terceiros." },
+      { q: "Quando há conflito entre VPL e TIR, qual prevalece?", a: "O VPL prevalece. Mede criação de valor em termos absolutos e alinha com o objetivo de maximização de riqueza. Conflitos ocorrem quando projetos têm escalas, prazos ou perfis temporais de fluxos diferentes." },
+      { q: "Qual a diferença entre Payback Simples e Payback Descontado?", a: "Simples: acumula fluxos nominais (sem ajuste pelo valor do dinheiro no tempo). Descontado: desconta cada fluxo pela TMA antes de acumular. O Descontado é sempre MAIOR ou igual ao Simples quando TMA > 0." },
+      { q: "O que é EBITDA e por que não é considerado fluxo de caixa real?", a: "EBITDA (LAJIDA) = lucro operacional antes de juros, IR, depreciação e amortização. Não é caixa real porque ignora variações de capital de giro, investimentos em ativos (CAPEX) e pagamentos de dívida." }
+    ],
+    q: [
+      { t: "Uma empresa analisa dois projetos excludentes. Projeto A: VPL = R$ 120.000, TIR = 18%. Projeto B: VPL = R$ 95.000, TIR = 22%. TMA = 12% a.a. Qual deve ser escolhido?", o: ["A) Projeto B — maior TIR indica maior rentabilidade.", "B) Projeto A — maior VPL gera mais valor absoluto.", "C) Projeto A — TIR do B muito alta indica risco excessivo.", "D) Ambos equivalentes pois os dois superam a TMA."], c: 1, f: "Quando há conflito entre VPL e TIR em projetos mutuamente exclusivos, o VPL prevalece. O VPL mede criação de valor em termos absolutos. Projeto A (VPL = R$ 120.000) gera mais riqueza para o acionista do que o Projeto B, mesmo com TIR menor." },
+      { t: "Um projeto tem fluxo de caixa: Ano 0: −R$100k; Ano 1: +R$300k; Ano 2: −R$250k. Quantas TIRs positivas pode ter (Regra de Descartes)?", o: ["A) Uma TIR, pois o investimento inicial é sempre negativo.", "B) Até duas TIRs positivas, pois há duas mudanças de sinal.", "C) Nenhuma, pois o fluxo líquido total é negativo.", "D) Três TIRs, pois há três períodos."], c: 1, f: "A Regra de Descartes conta as mudanças de sinal: (−, +, −) tem 2 mudanças. Logo, pode haver até 2 TIRs positivas. O fluxo líquido negativo não impede a existência de TIRs positivas — a TIR é calculada equação, não pelo somatório." },
+      { t: "Empresa com PL = R$700k, Dívida = R$300k, Rp = 16%, Rd = 12% a.a. bruto, IR = 34%. Qual o CMPC?", o: ["A) 14,00% a.a.", "B) 13,18% a.a.", "C) 11,20% a.a.", "D) 13,58% a.a."], c: 3, f: "CMPC = (700/1000)×16% + (300/1000)×12%×(1−0,34) = 0,7×16% + 0,3×7,92% = 11,2% + 2,376% = 13,576% ≈ 13,58%. O fator (1−IR) transforma a taxa bruta de 12% em custo líquido de 7,92%. Esquecer esse ajuste é o erro mais frequente." },
+      { t: "O Payback Descontado de um projeto com TMA positiva sempre será:", o: ["A) Igual ao Payback Simples.", "B) Menor que o Payback Simples.", "C) Maior ou igual ao Payback Simples.", "D) Independente da TMA."], c: 2, f: "Com TMA > 0, descontar os fluxos reduz seus valores presentes — eles acumulam mais devagar do que os nominais. Por isso o Payback Descontado sempre demora mais para recuperar o investimento: é maior ou igual ao Simples (iguais apenas se TMA = 0)." }
+    ],
+    al: [
+      { t: "danger", tag: "TIR vs VPL em projetos excludentes", txt: "A prova frequentemente mostra projetos onde a TIR aponta um vencedor e o VPL aponta outro. <strong>O VPL sempre prevalece</strong> quando há conflito em projetos mutuamente exclusivos. Memorize: VPL mede criação de riqueza em termos absolutos." },
+      { t: "danger", tag: "Múltiplas TIRs — fluxo não convencional", txt: "Quando o enunciado mostrar fluxo com mais de uma inversão de sinal (ex.: −, +, −, +), existe risco de múltiplas TIRs. A Regra de Descartes diz o <strong>máximo possível</strong> — não o número real. Use TIRM ou VPL nesses casos." },
+      { t: "warn", tag: "Benefício fiscal da dívida no CMPC", txt: "No CMPC, o custo da dívida é <strong>multiplicado por (1 − IR)</strong>. As questões sempre fornecem a taxa bruta — você deve aplicar o ajuste. Esquecer o (1−IR) é o erro mais comum neste cálculo." },
+      { t: "tip", tag: "Mnemônico TIRM", txt: "Fluxos <strong>negativos</strong> vêm a valor presente (taxa de financiamento) e fluxos <strong>positivos</strong> vão a valor futuro (taxa de reinvestimento). A TIRM iguala esses dois extremos — e é sempre única." },
+      { t: "info", tag: "EBITDA não é caixa real", txt: "O EBITDA é frequentemente chamado de 'geração de caixa operacional', mas <strong>não é fluxo de caixa real</strong>: não considera variações de capital de giro nem CAPEX. A prova pode explorar essa distinção para testar se o aluno confunde os conceitos." }
+    ],
+    conexoes: `<div class="content-body">
+<h3>VPL/TIR × Juros Compostos (Módulo 3)</h3>
+<p>O VPL usa a mesma lógica de desconto a valor presente vista no Módulo 3 (HP-12C, fluxos de caixa, PMT/PV/FV). A TIR é o "i" que zera o VPL — a mesma taxa de desconto que o HP-12C calcula com <code>f IRR</code>. Dominar o Módulo 3 é pré-requisito direto para esse módulo.</p>
+<h3>CMPC × Estrutura de Capital</h3>
+<p>O CMPC pesa o custo de capital próprio (calculado pelo CAPM, que envolve beta e prêmio de risco) com o custo da dívida (taxa de mercado líquida de IR). O CAPM conecta Análise de Projetos com Gestão de Investimentos — o custo do equity não é arbitrário, vem do modelo de precificação de ativos.</p>
+<h3>EBITDA × Demonstrações Financeiras</h3>
+<p>O EBITDA parte do DRE: começa no Lucro Operacional (EBIT/LAJIR) e adiciona de volta depreciação e amortização. Entender o DRE é necessário para identificar cada linha do cálculo — especialmente a diferença entre EBIT e EBITDA em questões que dão o resultado bruto e pedem o operacional.</p>
+<h3>Análise de Projetos × Planejamento Financeiro</h3>
+<p>O VPL e a TIR são ferramentas que o planejador financeiro usa para avaliar investimentos do cliente — seja expansão de negócio, compra de imóvel para renda, ou troca de financiamento. O CMPC define o custo de oportunidade: se o projeto não bater o CMPC da empresa, destrói valor.</p>
+</div>`
   }
 };
 
@@ -995,7 +1270,9 @@ const MODS = [
   { id: 1, n: "01", name: "Sistema Financeiro Nacional", cfp_mod: 1 },
   { id: 2, n: "02", name: "Fundamentos de Economia", cfp_mod: 1 },
   { id: 3, n: "03", name: "Fundamentos de Finanças", cfp_mod: 1 },
-  { id: 4, n: "04", name: "Planejamento de Aposentadoria I", cfp_mod: 4 }
+  { id: 4, n: "04", name: "Planejamento de Aposentadoria I", cfp_mod: 4 },
+  { id: 5, n: "05", name: "Planejamento de Aposentadoria II", cfp_mod: 4 },
+  { id: 6, n: "06", name: "Análise de Projetos", cfp_mod: 2 }
 ];
 
 const CFP_MOD_NAMES = {
@@ -1010,6 +1287,6 @@ const CFP_MOD_NAMES = {
 };
 
 const META = {
-  total: 4,
-  gerado_em: "21/05/2026"
+  total: 6,
+  gerado_em: "23/05/2026"
 };
