@@ -1059,16 +1059,20 @@ Após a lei: a escolha migrou para o <strong>momento do primeiro resgate ou iní
 <tr><td><strong>Composto</strong></td><td>Pode ter <strong>até 49% em renda variável</strong>; único tipo com RV</td></tr>
 </tbody>
 </table>
-<h2>Limites de RV — CMN 4.993/2022</h2>
-<p>A Resolução CMN 4.993/2022 define os limites máximos de alocação em renda variável pelo <em>perfil do participante</em> (distinto do limite do FIE):</p>
+<h2>Composição da Carteira dos FIEs — CMN 4.993/2022</h2>
+<p>A <strong>CMN 4.444/15</strong> definiu as regras originais de composição das reservas técnicas dos FIEs. Foi revogada pela <strong>CMN 4.993/2022</strong>, que manteve a mesma estrutura de limites por modalidade e perfil do participante. É essa tabela completa que cai na prova:</p>
 <table class="data-table">
-<thead><tr><th>Perfil</th><th>Limite Máximo em RV</th></tr></thead>
+<thead><tr><th>Modalidade</th><th>Investidor Comum</th><th>Investidor Qualificado</th></tr></thead>
 <tbody>
-<tr><td>Investidor Comum</td><td><strong>Até 70%</strong></td></tr>
-<tr><td>Investidor Qualificado</td><td><strong>Até 100%</strong></td></tr>
+<tr><td>Renda Fixa</td><td>Até 100%</td><td>Até 100%</td></tr>
+<tr><td>Renda Variável</td><td><strong>Até 70%</strong></td><td><strong>Até 100%</strong></td></tr>
+<tr><td>Imóveis</td><td>Até 20%</td><td>Até 40%</td></tr>
+<tr><td>Investimentos sujeitos a variação cambial</td><td>Até 20%</td><td>Até 40%</td></tr>
+<tr><td>Outros (Multimercados, COE etc.)</td><td>Até 20%</td><td>Até 40%</td></tr>
+<tr><td colspan="3" style="text-align:center;background:var(--red);color:#fff;font-weight:700;letter-spacing:.5px">NÃO ADMITEM ALAVANCAGEM</td></tr>
 </tbody>
 </table>
-<p>Investidor qualificado: mais de R$ 1 milhão investidos ou certificação reconhecida pelo BC (CFA, CFP, CPA-20).</p>
+<p>Investidor qualificado: mais de R$ 1 milhão em aplicações financeiras, ou certificação reconhecida pelo BC (CFA, CFP®, CPA-20, entre outras).</p>
 </div>`,
     mapa: {
       root: "Previdência Privada",
@@ -1099,7 +1103,7 @@ Após a lei: a escolha migrou para o <strong>momento do primeiro resgate ou iní
       { q: "O que mudou com a Lei 14.803/2024 na previdência privada?", a: "A escolha do regime tributário (progressivo ou regressivo) passou da contratação para o MOMENTO DO PRIMEIRO RESGATE ou início do benefício, dando mais flexibilidade ao participante." },
       { q: "Quais são as alíquotas da tabela regressiva e qual o prazo para atingir 10%?", a: "35% (até 2 anos), 30% (2-4), 25% (4-6), 20% (6-8), 15% (8-10), 10% (acima de 10 anos). Prazo mínimo para 10%: mais de 10 anos de acumulação." },
       { q: "O que é um FIE e quais são os três tipos classificados pela SUSEP?", a: "FIE = Fundo de Investimento Especialmente Constituído (regulado pela SUSEP, não CVM). Tipos: Soberano (100% títulos públicos), Renda Fixa Crédito Privado (mín. 80% RF, sem RV), Composto (até 49% em RV — único com renda variável)." },
-      { q: "Segundo a CMN 4.993/2022, qual o limite de RV para investidor comum vs qualificado?", a: "Investidor Comum: até 70% em RV. Investidor Qualificado: até 100% em RV. Atenção: o limite de 49% é do FIE Composto (produto), não do participante — são limites diferentes." },
+      { q: "Quais são os limites de composição dos FIEs (CMN 4.993/2022) para Investidor Comum e Qualificado?", a: "Renda Fixa: 100% / 100%. Renda Variável: 70% / 100%. Imóveis: 20% / 40%. Variação cambial: 20% / 40%. Outros (multimercados, COE): 20% / 40%. Os FIEs NÃO admitem alavancagem. CMN 4.444/15 definiu as regras originais; CMN 4.993/2022 a revogou mantendo a mesma estrutura." },
       { q: "Como o VGBL deve ser declarado no IR anual?", a: "VGBL é seguro de pessoa (código 97): declarado como bem na ficha de Bens e Direitos — contribuições NÃO são dedutíveis. PGBL: contribuições lançadas como dedução (até 12%) na ficha de pagamentos efetuados." },
       { q: "O que é come-cotas e como ele se aplica à previdência privada?", a: "Come-cotas é a antecipação semestral de IR em fundos convencionais (RF e multimercado). Os FIEs de previdência são ISENTOS do come-cotas — vantagem tributária relevante na fase de acumulação." }
     ],
@@ -1112,7 +1116,7 @@ Após a lei: a escolha migrou para o <strong>momento do primeiro resgate ou iní
     al: [
       { t: "danger", tag: "PGBL tributa o TOTAL", txt: "A pegadinha mais clássica: no PGBL, o IR no resgate incide sobre o valor TOTAL resgatado (capital + rendimentos), não apenas sobre os ganhos. Isso compensa a dedução de 12% na acumulação. No VGBL, IR só sobre rendimentos." },
       { t: "danger", tag: "Lei 14.803/24 — Atenção ao momento", txt: "Antes da lei: escolha do regime na <strong>contratação</strong>. Após a lei: escolha no <strong>momento do 1º resgate</strong>. A prova pode apresentar cenários anteriores e posteriores à lei — atenção ao contexto temporal da questão." },
-      { t: "warn", tag: "49% vs 70% — Não confundir", txt: "O limite de <strong>49% em RV</strong> é do FIE Composto (classificação SUSEP do fundo). O limite de <strong>70% em RV</strong> é do Investidor Comum (CMN 4.993/2022, perfil do participante). Contextos e normas diferentes." },
+      { t: "warn", tag: "49% vs 70% — Não confundir", txt: "O limite de <strong>49% em RV</strong> é do FIE Composto (classificação SUSEP do fundo em si). O limite de <strong>70% em RV</strong> é do Investidor Comum (CMN 4.993/2022, perfil do participante). Além de RV, a CMN limita imóveis, câmbio e outros em 20% (comum) / 40% (qualificado). FIEs não admitem alavancagem." },
       { t: "warn", tag: "VGBL = Seguro, não Plano", txt: "O VGBL é juridicamente um <strong>seguro de pessoa</strong>: (1) não é dedutível no IR; (2) declarado em Bens e Direitos (código 97); (3) na sucessão, não passa pelo inventário — beneficiários indicados recebem diretamente." },
       { t: "tip", tag: "Mnemônico tabela regressiva", txt: "Começa em <strong>35%</strong> e cai <strong>5 p.p. a cada 2 anos</strong>: 35% → 30% → 25% → 20% → 15% → 10%. Seis faixas. Alíquota mínima de 10% após mais de 10 anos." }
     ],
