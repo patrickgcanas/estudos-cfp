@@ -554,10 +554,10 @@ let viewMode = 'welcome';
 
 const PANELS = ['explicacao','mapa','flashcards','perguntas','alertas','notas'];
 
-function saveDone(sk){ localStorage.setItem('cfp_done', JSON.stringify([...done])); if(!sk) sbScheduleSync(); }
-function saveStats(sk){ localStorage.setItem('cfp_stats', JSON.stringify(qstats)); if(!sk) sbScheduleSync(); }
-function saveNotes(sk){ localStorage.setItem('cfp_notes', JSON.stringify(notes)); if(!sk) sbScheduleSync(); }
-function saveSRS(sk){ localStorage.setItem('cfp_srs', JSON.stringify(srsData)); if(!sk) sbScheduleSync(); }
+function saveDone(sk){ localStorage.setItem('cfp_done', JSON.stringify([...done])); if(!sk){ localStorage.setItem('cfp_ts', Date.now().toString()); sbScheduleSync(); } }
+function saveStats(sk){ localStorage.setItem('cfp_stats', JSON.stringify(qstats)); if(!sk){ localStorage.setItem('cfp_ts', Date.now().toString()); sbScheduleSync(); } }
+function saveNotes(sk){ localStorage.setItem('cfp_notes', JSON.stringify(notes)); if(!sk){ localStorage.setItem('cfp_ts', Date.now().toString()); sbScheduleSync(); } }
+function saveSRS(sk){ localStorage.setItem('cfp_srs', JSON.stringify(srsData)); if(!sk){ localStorage.setItem('cfp_ts', Date.now().toString()); sbScheduleSync(); } }
 
 /* ══ DRAWER ═════════════════════════════════════════════════════ */
 function toggleDrawer(){
@@ -1162,11 +1162,15 @@ async function sbLoad(){
   const { data, error } = await sb.from('cfp_data').select('*').eq('user_id', SB_UID).single();
   if(error){ if(error.code !== 'PGRST116') console.error('sbLoad:', error); return false; }
   if(!data) return false;
+  const localTs = parseInt(localStorage.getItem('cfp_ts') || '0');
+  const cloudTs = new Date(data.updated_at).getTime();
+  if(cloudTs <= localTs) return true;
   notes   = data.notes  || {};
   done    = new Set(data.done  || []);
   srsData = data.srs    || {};
   qstats  = data.stats  || { c:0, t:0 };
   saveDone(true); saveStats(true); saveNotes(true); saveSRS(true);
+  localStorage.setItem('cfp_ts', cloudTs.toString());
   return true;
 }
 
