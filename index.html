@@ -262,7 +262,12 @@ body.mod-selected .tabbar{display:flex}
 .sim-preset-dist{display:grid;grid-template-columns:1fr auto;row-gap:3px;border-top:1px solid var(--border);padding-top:8px}
 .sim-dist-row{display:contents}
 .sim-dist-row span:first-child{font-size:11px;color:var(--t2);padding:1px 0}
-.sim-dist-row span:last-child{font-size:10px;color:var(--t3);font-family:'JetBrains Mono',monospace;text-align:right;padding:1px 0}
+.sim-dist-row span:last-child{font-size:10px;font-family:'JetBrains Mono',monospace;text-align:right;padding:1px 0}
+.sim-dist-ok{color:var(--green2)}
+.sim-dist-partial{color:var(--gold)}
+.sim-dist-missing{color:var(--t4)}
+.sim-coverage-bar{height:3px;border-radius:2px;background:var(--border2);overflow:hidden;margin-top:10px}
+.sim-coverage-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--green),var(--green2));transition:width .4s}
 .sim-divider{font-size:10px;color:var(--t4);text-transform:uppercase;letter-spacing:1px;text-align:center;position:relative;display:flex;align-items:center;gap:8px}
 .sim-divider::before,.sim-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
@@ -975,15 +980,26 @@ function renderSimSetup(){
   sim.timeLimit = 900;
   sim.officialMode = false;
   const CFP_DIST = [[1,'Fundamentos de Economia e Finanças',18],[2,'Gestão de Ativos e Investimentos',20],[3,'Previdência',24],[4,'Planejamento de Aposentadoria',17],[5,'Gestão de Riscos e Seguros',17],[6,'Planejamento Fiscal',17],[7,'Planejamento Sucessório',17],[8,'Ética e Legislação',10]];
-  const distRows = CFP_DIST.map(([n,name,q])=>`<div class="sim-dist-row"><span>M${n} — ${name}</span><span>${q}q</span></div>`).join('');
+  const cov = {};
+  sim.allQ.forEach(q=>{ const cm=q.cfpMod||0; cov[cm]=(cov[cm]||0)+1; });
+  const modsReady = CFP_DIST.filter(([n])=>(cov[n]||0)>0).length;
+  const qReady = CFP_DIST.reduce((a,[n,,t])=>a+Math.min(cov[n]||0,t),0);
+  const covPct = Math.round(qReady/140*100);
+  const distRows = CFP_DIST.map(([n,name,target])=>{
+    const avail=cov[n]||0;
+    const cls=avail>=target?'sim-dist-ok':avail>0?'sim-dist-partial':'sim-dist-missing';
+    const icon=avail>=target?'✓':avail>0?'~':'✗';
+    return `<div class="sim-dist-row"><span>M${n} — ${name}</span><span class="${cls}">${icon} ${avail}/${target}</span></div>`;
+  }).join('');
   let html = `<div class="sim-setup">
     <div class="sim-opt-group">
       <div class="sim-opt-label">Formato oficial</div>
       <div class="sim-preset-card" id="simPresetCFP" onclick="selectOfficialPreset()">
         <div class="sim-preset-badge">OFICIAL CFP 2026</div>
         <div class="sim-preset-title">Prova Modelo CFP</div>
-        <div class="sim-preset-meta">140 questões · 7 horas · 8 módulos</div>
+        <div class="sim-preset-meta">140 questões · 7 horas · ${modsReady}/8 módulos · ${qReady} disponíveis</div>
         <div class="sim-preset-dist">${distRows}</div>
+        <div class="sim-coverage-bar"><div class="sim-coverage-fill" style="width:${covPct}%"></div></div>
       </div>
     </div>
     <div class="sim-divider">ou personalize</div>
