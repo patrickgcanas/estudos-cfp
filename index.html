@@ -1140,6 +1140,7 @@ try { sb = (typeof supabase !== 'undefined') ? supabase.createClient(SB_URL, SB_
 catch(e) { console.warn('Supabase init failed:', e); }
 
 let sbTimer = null;
+let sbDirty = false;
 
 async function sbInit(){
   if(!sb){ sbRenderStatus('offline'); return; }
@@ -1171,9 +1172,10 @@ async function sbLoad(){
 
 function sbScheduleSync(){
   if(!sb) return;
+  sbDirty = true;
   clearTimeout(sbTimer);
   sbRenderStatus('saving');
-  sbTimer = setTimeout(sbSync, 2500);
+  sbTimer = setTimeout(() => { sbDirty = false; sbSync(); }, 1000);
 }
 
 async function sbSync(){
@@ -1186,6 +1188,23 @@ async function sbSync(){
 }
 
 window.addEventListener('online', () => sbSync());
+
+window.addEventListener('beforeunload', () => {
+  if(!sbDirty || !sb) return;
+  clearTimeout(sbTimer);
+  fetch(`${SB_URL}/rest/v1/cfp_data`, {
+    method: 'POST', keepalive: true,
+    headers: {
+      'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify({
+      user_id: SB_UID, notes, done:[...done], srs:srsData, stats:qstats,
+      updated_at: new Date().toISOString()
+    })
+  });
+});
 
 function sbRenderStatus(state){
   const el = document.getElementById('sbStatus');
