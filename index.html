@@ -253,6 +253,23 @@ body.mod-selected .tabbar{display:flex}
 .sim-result-row:nth-child(odd){background:var(--s2)}
 .sim-result-correct{color:var(--green)}
 .sim-result-wrong{color:var(--red2)}
+.sim-preset-card{border:1px solid var(--border2);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .2s;background:var(--s2);position:relative}
+.sim-preset-card:hover{border-color:var(--gold);background:var(--s3)}
+.sim-preset-card.sel{border-color:var(--gold);background:linear-gradient(135deg,rgba(212,168,67,.1),rgba(240,200,102,.04));box-shadow:0 0 0 1px rgba(212,168,67,.25)}
+.sim-preset-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#090d18;padding:2px 7px;border-radius:4px;margin-bottom:6px}
+.sim-preset-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--t1);margin-bottom:2px}
+.sim-preset-meta{font-size:11px;color:var(--gold2);font-weight:600;margin-bottom:10px}
+.sim-preset-dist{display:grid;grid-template-columns:1fr auto;row-gap:3px;border-top:1px solid var(--border);padding-top:8px}
+.sim-dist-row{display:contents}
+.sim-dist-row span:first-child{font-size:11px;color:var(--t2);padding:1px 0}
+.sim-dist-row span:last-child{font-size:10px;font-family:'JetBrains Mono',monospace;text-align:right;padding:1px 0}
+.sim-dist-ok{color:var(--green2)}
+.sim-dist-partial{color:var(--gold)}
+.sim-dist-missing{color:var(--t4)}
+.sim-coverage-bar{height:3px;border-radius:2px;background:var(--border2);overflow:hidden;margin-top:10px}
+.sim-coverage-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--green),var(--green2));transition:width .4s}
+.sim-divider{font-size:10px;color:var(--t4);text-transform:uppercase;letter-spacing:1px;text-align:center;position:relative;display:flex;align-items:center;gap:8px}
+.sim-divider::before,.sim-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
 /* ── Bottom nav ── */
 .bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--s1);border-top:1px solid var(--border);z-index:90;padding-bottom:var(--safe-b)}
@@ -554,10 +571,10 @@ let viewMode = 'welcome';
 
 const PANELS = ['explicacao','mapa','flashcards','perguntas','alertas','notas'];
 
-function saveDone(sk){ localStorage.setItem('cfp_done', JSON.stringify([...done])); if(!sk) sbScheduleSync(); }
-function saveStats(sk){ localStorage.setItem('cfp_stats', JSON.stringify(qstats)); if(!sk) sbScheduleSync(); }
-function saveNotes(sk){ localStorage.setItem('cfp_notes', JSON.stringify(notes)); if(!sk) sbScheduleSync(); }
-function saveSRS(sk){ localStorage.setItem('cfp_srs', JSON.stringify(srsData)); if(!sk) sbScheduleSync(); }
+function saveDone(sk){ localStorage.setItem('cfp_done', JSON.stringify([...done])); if(!sk){ localStorage.setItem('cfp_ts', Date.now().toString()); sbScheduleSync(); } }
+function saveStats(sk){ localStorage.setItem('cfp_stats', JSON.stringify(qstats)); if(!sk){ localStorage.setItem('cfp_ts', Date.now().toString()); sbScheduleSync(); } }
+function saveNotes(sk){ localStorage.setItem('cfp_notes', JSON.stringify(notes)); if(!sk){ localStorage.setItem('cfp_ts', Date.now().toString()); sbScheduleSync(); } }
+function saveSRS(sk){ localStorage.setItem('cfp_srs', JSON.stringify(srsData)); if(!sk){ localStorage.setItem('cfp_ts', Date.now().toString()); sbScheduleSync(); } }
 
 /* ══ DRAWER ═════════════════════════════════════════════════════ */
 function toggleDrawer(){
@@ -938,12 +955,12 @@ function closeReview(){
 }
 
 /* ══ SIMULADO ═══════════════════════════════════════════════════ */
-let sim = { active:false, questions:[], cur:0, answers:{}, timeLimit:30*60, timeLeft:0, timer:null, numQ:10 };
+let sim = { active:false, questions:[], cur:0, answers:{}, timeLimit:30*60, timeLeft:0, timer:null, numQ:10, officialMode:false };
 
 function openSimulado(){
   closeDrawer();
   const allQ = [];
-  MODS.forEach(m=>{ (D[m.id]?.q||[]).forEach((q,i)=>allQ.push({...q, modId:m.id, modN:m.n, modName:m.name})); });
+  MODS.forEach(m=>{ (D[m.id]?.q||[]).forEach((q,i)=>allQ.push({...q, modId:m.id, modN:m.n, modName:m.name, cfpMod:m.cfp_mod})); });
   if(!allQ.length){ alert('Nenhuma questão disponível ainda. Adicione mais módulos.'); return; }
   sim.allQ = allQ;
   sim.active = false;
@@ -959,9 +976,33 @@ function renderSimSetup(){
   const available = sim.allQ.length;
   const opts10 = Math.min(10,available);
   const opts20 = Math.min(20,available);
+  sim.numQ = opts10||available;
+  sim.timeLimit = 900;
+  sim.officialMode = false;
+  const CFP_DIST = [[1,'Fundamentos de Economia e Finanças',18],[2,'Gestão de Ativos e Investimentos',20],[3,'Previdência',24],[4,'Planejamento de Aposentadoria',17],[5,'Gestão de Riscos e Seguros',17],[6,'Planejamento Fiscal',17],[7,'Planejamento Sucessório',17],[8,'Ética e Legislação',10]];
+  const cov = {};
+  sim.allQ.forEach(q=>{ const cm=q.cfpMod||0; cov[cm]=(cov[cm]||0)+1; });
+  const modsReady = CFP_DIST.filter(([n])=>(cov[n]||0)>0).length;
+  const qReady = CFP_DIST.reduce((a,[n,,t])=>a+Math.min(cov[n]||0,t),0);
+  const covPct = Math.round(qReady/140*100);
+  const distRows = CFP_DIST.map(([n,name,target])=>{
+    const avail=cov[n]||0;
+    const cls=avail>=target?'sim-dist-ok':avail>0?'sim-dist-partial':'sim-dist-missing';
+    const icon=avail>=target?'✓':avail>0?'~':'✗';
+    return `<div class="sim-dist-row"><span>M${n} — ${name}</span><span class="${cls}">${icon} ${avail}/${target}</span></div>`;
+  }).join('');
   let html = `<div class="sim-setup">
-    <div class="sim-setup-title">🎯 Simulado CFP</div>
-    <div class="sim-setup-sub">Configure seu simulado abaixo. As questões serão selecionadas aleatoriamente de todos os módulos disponíveis.</div>
+    <div class="sim-opt-group">
+      <div class="sim-opt-label">Formato oficial</div>
+      <div class="sim-preset-card" id="simPresetCFP" onclick="selectOfficialPreset()">
+        <div class="sim-preset-badge">OFICIAL CFP 2026</div>
+        <div class="sim-preset-title">Prova Modelo CFP</div>
+        <div class="sim-preset-meta">140 questões · 7 horas · ${modsReady}/8 módulos · ${qReady} disponíveis</div>
+        <div class="sim-preset-dist">${distRows}</div>
+        <div class="sim-coverage-bar"><div class="sim-coverage-fill" style="width:${covPct}%"></div></div>
+      </div>
+    </div>
+    <div class="sim-divider">ou personalize</div>
     <div class="sim-opt-group">
       <div class="sim-opt-label">Número de questões</div>
       <div class="sim-opts" id="simNumOpts">
@@ -981,12 +1022,21 @@ function renderSimSetup(){
     </div>
     <button class="btn btn-gold" style="padding:11px;font-size:13px;justify-content:center" onclick="startSimulado()">Iniciar Simulado →</button>
   </div>`;
-  sim.numQ = opts10||available;
-  sim.timeLimit = 900;
   document.getElementById('simBody').innerHTML = html;
 }
 
+function selectOfficialPreset(){
+  sim.officialMode = true;
+  sim.numQ = Math.min(sim.allQ.length, 140);
+  sim.timeLimit = 25200;
+  document.getElementById('simPresetCFP').classList.add('sel');
+  document.querySelectorAll('#simNumOpts .sim-opt, #simTimeOpts .sim-opt').forEach(o=>o.classList.remove('sel'));
+}
+
 function setSimOpt(type, val, el){
+  sim.officialMode = false;
+  const preset = document.getElementById('simPresetCFP');
+  if(preset) preset.classList.remove('sel');
   const group = type==='num' ? 'simNumOpts' : 'simTimeOpts';
   document.querySelectorAll(`#${group} .sim-opt`).forEach(o=>o.classList.remove('sel'));
   el.classList.add('sel');
@@ -995,7 +1045,20 @@ function setSimOpt(type, val, el){
 }
 
 function startSimulado(){
-  const shuffled = [...sim.allQ].sort(()=>Math.random()-.5).slice(0, sim.numQ);
+  let shuffled;
+  if(sim.officialMode){
+    const CFP_DIST = {1:18,2:20,3:24,4:17,5:17,6:17,7:17,8:10};
+    const byMod = {};
+    sim.allQ.forEach(q=>{ const cm=q.cfpMod||0; if(!byMod[cm]) byMod[cm]=[]; byMod[cm].push(q); });
+    shuffled = [];
+    for(const [cm, target] of Object.entries(CFP_DIST)){
+      const pool = (byMod[Number(cm)]||[]).sort(()=>Math.random()-.5);
+      shuffled.push(...pool.slice(0, target));
+    }
+    shuffled = shuffled.sort(()=>Math.random()-.5);
+  } else {
+    shuffled = [...sim.allQ].sort(()=>Math.random()-.5).slice(0, sim.numQ);
+  }
   sim.questions = shuffled;
   sim.cur = 0;
   sim.answers = {};
@@ -1012,8 +1075,8 @@ function startSimulado(){
 function simTick(){
   sim.timeLeft--;
   const t = document.getElementById('simTimer');
-  const m = Math.floor(sim.timeLeft/60), s = sim.timeLeft%60;
-  t.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const h = Math.floor(sim.timeLeft/3600), m = Math.floor((sim.timeLeft%3600)/60), s = sim.timeLeft%60;
+  t.textContent = h>0 ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}` : `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
   t.className = 'sim-timer' + (sim.timeLeft<60?' warning':'');
   if(sim.timeLeft<=0){ clearInterval(sim.timer); submitSimulado(); }
 }
@@ -1140,6 +1203,7 @@ try { sb = (typeof supabase !== 'undefined') ? supabase.createClient(SB_URL, SB_
 catch(e) { console.warn('Supabase init failed:', e); }
 
 let sbTimer = null;
+let sbDirty = false;
 
 async function sbInit(){
   if(!sb){ sbRenderStatus('offline'); return; }
@@ -1161,19 +1225,24 @@ async function sbLoad(){
   const { data, error } = await sb.from('cfp_data').select('*').eq('user_id', SB_UID).single();
   if(error){ if(error.code !== 'PGRST116') console.error('sbLoad:', error); return false; }
   if(!data) return false;
+  const localTs = parseInt(localStorage.getItem('cfp_ts') || '0');
+  const cloudTs = new Date(data.updated_at).getTime();
+  if(cloudTs <= localTs) return true;
   notes   = data.notes  || {};
   done    = new Set(data.done  || []);
   srsData = data.srs    || {};
   qstats  = data.stats  || { c:0, t:0 };
   saveDone(true); saveStats(true); saveNotes(true); saveSRS(true);
+  localStorage.setItem('cfp_ts', cloudTs.toString());
   return true;
 }
 
 function sbScheduleSync(){
   if(!sb) return;
+  sbDirty = true;
   clearTimeout(sbTimer);
   sbRenderStatus('saving');
-  sbTimer = setTimeout(sbSync, 2500);
+  sbTimer = setTimeout(() => { sbDirty = false; sbSync(); }, 1000);
 }
 
 async function sbSync(){
@@ -1186,6 +1255,23 @@ async function sbSync(){
 }
 
 window.addEventListener('online', () => sbSync());
+
+window.addEventListener('beforeunload', () => {
+  if(!sbDirty || !sb) return;
+  clearTimeout(sbTimer);
+  fetch(`${SB_URL}/rest/v1/cfp_data`, {
+    method: 'POST', keepalive: true,
+    headers: {
+      'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify({
+      user_id: SB_UID, notes, done:[...done], srs:srsData, stats:qstats,
+      updated_at: new Date().toISOString()
+    })
+  });
+});
 
 function sbRenderStatus(state){
   const el = document.getElementById('sbStatus');
