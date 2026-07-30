@@ -1228,7 +1228,7 @@ function renderSimSetup(){
   sim.numQ = opts10||available;
   sim.timeLimit = 900;
   sim.officialMode = false;
-  const CFP_DIST = [[1,'Fundamentos de Economia e Finanças',18],[2,'Gestão de Ativos e Investimentos',20],[3,'Previdência',24],[4,'Planejamento de Aposentadoria',17],[5,'Gestão de Riscos e Seguros',17],[6,'Planejamento Fiscal',17],[7,'Planejamento Sucessório',17],[8,'Ética e Legislação',10]];
+  const CFP_DIST = [[1,'Planejamento Financeiro e Ética',20],[2,'Gestão Financeira',8],[3,'Planejamento de Investimentos e Gestão de Ativos',20],[4,'Planejamento de Aposentadoria',33],[5,'Planejamento de Seguros e Gestão de Riscos',17],[6,'Planejamento Tributário',17],[7,'Planejamento Patrimonial e Sucessório',17],[8,'Psicologia no Planejamento Financeiro',8]];
   const cov = {};
   sim.allQ.forEach(q=>{ const cm=q.cfpMod||0; cov[cm]=(cov[cm]||0)+1; });
   const modsReady = CFP_DIST.filter(([n])=>(cov[n]||0)>0).length;
@@ -1296,7 +1296,7 @@ function setSimOpt(type, val, el){
 function startSimulado(){
   let shuffled;
   if(sim.officialMode){
-    const CFP_DIST = {1:18,2:20,3:24,4:17,5:17,6:17,7:17,8:10};
+    const CFP_DIST = {1:20,2:8,3:20,4:33,5:17,6:17,7:17,8:8};
     const byMod = {};
     sim.allQ.forEach(q=>{ const cm=q.cfpMod||0; if(!byMod[cm]) byMod[cm]=[]; byMod[cm].push(q); });
     shuffled = [];
