@@ -615,7 +615,18 @@ function renderMods(list){
     });
   });
 }
-function filterMods(q){ renderMods(q ? MODS.filter(m=>m.name.toLowerCase().includes(q.toLowerCase())) : MODS); }
+function filterMods(q){
+  if(!q){ renderMods(MODS); return; }
+  const needle = q.toLowerCase();
+  renderMods(MODS.filter(m=>{
+    if(m.name.toLowerCase().includes(needle)) return true;
+    const d = D[m.id];
+    if(!d) return false;
+    if((d.tags||[]).some(t=>t.toLowerCase().includes(needle))) return true;
+    if(!d._searchText) d._searchText = (d.exp||'').replace(/<[^>]+>/g,' ').toLowerCase();
+    return d._searchText.includes(needle);
+  }));
+}
 
 function updateProgress(){
   const n = done.size, tot = MODS.length;
